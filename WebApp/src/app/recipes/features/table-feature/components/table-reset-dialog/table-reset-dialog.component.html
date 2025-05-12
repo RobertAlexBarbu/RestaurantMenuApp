@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Reset Data</h2>
+<mat-dialog-content>
+    <div>Are you sure you want to reset all data? This action will delete all your current information and cannot be
+        undone.
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button>Cancel</button>
+    <button (click)="resetData()" [class.spinner]="resetDataSpinner()" [disabled]="resetDataSpinner()" mat-button>
+        Reset
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,107 @@
+<app-toolbar class="w-full-minus-drawer-sm" featureName="Debug"></app-toolbar>
+<div [@pageLoad] class="pt-toolbar sidebar-content">
+
+    <div class="p-page max-w-page responsive-page">
+        <app-card appearance="flat" title="User Data">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <strong class="block  font-medium mb-1">ID:</strong>
+                    <span>{{ user().id }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">Firebase ID:</strong>
+                    <span>{{ user().firebaseId }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">Created At:</strong>
+                    <span>{{ user().createdAt | date:'medium' }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">Role:</strong>
+                    <span class="capitalize ">{{ user().role }}</span>
+                </div>
+                <div>
+                    <strong class="block font-medium mb-1">Email:</strong>
+                    <span>{{ user().email || 'N/A' }}</span>
+                </div>
+                <div>
+                    <strong class="block font-medium mb-1">Google Email:</strong>
+                    <span>{{ user().googleEmail || 'N/A' }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">Email Notifications:</strong>
+                    <span>{{ user().emailNotifications ? 'Enabled' : 'Disabled' }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">Username:</strong>
+                    <span>{{ user().username }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">First Name:</strong>
+                    <span>{{ user().firstName || 'N/A' }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">Last Name:</strong>
+                    <span>{{ user().lastName || 'N/A' }}</span>
+                </div>
+                <div>
+                    <strong class="block font-medium mb-1">Image URL:</strong>
+                    <span>{{ user().imageUrl || 'N/A' }}</span>
+                </div>
+                <div>
+                    <strong class="block  font-medium mb-1">Setup Complete:</strong>
+                    <span>{{ user().setupComplete ? 'Yes' : 'No' }}</span>
+                </div>
+            </div>
+        </app-card>
+        <app-card appearance="flat" class="h-full" title="Test Requests">
+            <div class="flex flex-col gap-4">
+
+                <div class="flex gap-2 flex-col">
+                    <button (click)="makeProtectedRequest()" mat-stroked-button>Make Request to Protected
+                        Endpoint
+                    </button>
+                    <div>Result: {{ protectedResult$ | async }}</div>
+                </div>
+                <div class="flex gap-2 flex-col">
+                    <button (click)="makeUnprotectedRequest()" mat-stroked-button>Make Request to
+                        Unprotected
+                        Endpoint
+                    </button>
+                    <div>Result: {{ unprotectedResult$ | async }}</div>
+                </div>
+
+
+                <div class="flex gap-2 flex-col">
+                    <button (click)="makeAdminProtectedRequest()" mat-stroked-button>Make Request to Admin
+                        Protected
+                        Endpoint
+                    </button>
+                    <div>Result: {{ adminProtectedResult$ | async }}</div>
+                </div>
+                <div class="flex gap-2 flex-col">
+                    <button (click)="makeLongRequest()" mat-stroked-button>Make Long Request
+                    </button>
+                    <div>Result: {{ longRequestResult$ | async }}</div>
+                </div>
+
+
+            </div>
+
+        </app-card>
+
+        <app-card [titleBorder]="true" appearance="flat" title="Access Token">
+            <button (click)="copyToClipboard()" [cdkCopyToClipboard]="(accessToken$ | async)!" card-button
+                    class="ml-auto"
+                    mat-icon-button
+                    matTooltip="Copy to Clipboard">
+                <mat-icon>content_copy</mat-icon>
+            </button>
+            <div class="whitespace-pre-line break-all">
+                {{ accessToken$ | async }}
+            </div>
+        </app-card>
+
+
+    </div>
+</div>

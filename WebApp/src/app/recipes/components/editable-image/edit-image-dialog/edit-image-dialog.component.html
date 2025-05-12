@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Edit Image</h2>
+<mat-dialog-content>
+
+    <app-single-image-upload (uploadChange)="uploadChange($event)" [file]="file" [hasCaption]="false"
+                             [loading]="loadingFileUpload$ | async"></app-single-image-upload>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button>Cancel</button>
+    <button (click)="saveChanges()" [class.spinner]="saveLoading$ | async" [disabled]="saveLoading$ | async" mat-button>
+        Save
+    </button>
+</mat-dialog-actions>
+

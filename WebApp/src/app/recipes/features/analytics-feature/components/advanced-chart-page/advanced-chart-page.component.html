@@ -1,0 +1,54 @@
+<div [@pageLoad] class="p-page flex flex-col gap-6">
+    <app-card appearance="raised" class="max-w-rectangle-chart-card" title="Bar Chart">
+        <app-advanced-chart-container>
+                            <mat-form-field>
+                                <mat-label>Dataset</mat-label>
+                                <mat-select>
+                                    <mat-option value="Dataset 1">Dataset 1</mat-option>
+                                    <mat-option value="Dataset 2">Dataset 2</mat-option>
+                                    <mat-option value="Dataset 3">Dataset 3</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Date Range</mat-label>
+                                <mat-date-range-input [rangePicker]="picker">
+                                    <input matStartDate placeholder="Start date">
+                                    <input matEndDate placeholder="End date">
+                                </mat-date-range-input>
+                                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                            
+                            <button  mat-stroked-button><mat-icon>lightbulb_2</mat-icon>AI Insights</button>
+                                <app-bar-chart chart></app-bar-chart>
+        </app-advanced-chart-container>
+    </app-card>
+    <app-card appearance="raised" class="max-w-square-chart-card"   title="Bar Chart">
+        <app-advanced-chart-container [rectangle]="false">
+                <mat-form-field>
+                    <mat-label>Dataset</mat-label>
+                    <mat-select>
+                        <mat-option value="Dataset 1">Dataset 1</mat-option>
+                        <mat-option value="Dataset 2">Dataset 2</mat-option>
+                        <mat-option value="Dataset 3">Dataset 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field >
+                    <mat-label>Date Range</mat-label>
+                    <mat-select>
+                        <mat-option value="Today">Today</mat-option>
+                        <mat-option value="Last Week">Last Week</mat-option>
+                        <mat-option value="Last Month">Last Month</mat-option>
+                        <mat-option value="Last Year">Last Year</mat-option>
+                        <mat-option value="All Time">All Time</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-stroked-button><mat-icon>lightbulb_2</mat-icon>AI Insights</button>
+
+                <app-pie-chart chart></app-pie-chart>
+        </app-advanced-chart-container>
+    </app-card>
+</div>

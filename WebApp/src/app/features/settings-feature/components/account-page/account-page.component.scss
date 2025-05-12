@@ -1,0 +1,22 @@
+.google {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.google2 {
+  width: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.disabled-card {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent) !important;
+  color: color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent) !important;
+}
+
+.fake-border {
+  border: 1px solid transparent;
+}
+

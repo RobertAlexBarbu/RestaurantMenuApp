@@ -1,0 +1,66 @@
+<app-toolbar class="visible-desktop w-full-minus-drawer-sm-drawer" featureName="Preferences">
+
+</app-toolbar>
+@if (user(); as user) {
+    <div [@pageLoad] class="p-page max-w-page responsive-page">
+        <div class="flex flex-col gap-6">
+            <app-card appearance="raised" title="Profile">
+                <div class="flex flex-col  gap-x-4" [formGroup]="form">
+                    <div class="flex flex-wrap gap-x-4">
+                        <mat-form-field class="min-w-64  flex-grow">
+                            <mat-label>First Name</mat-label>
+                            <input (input)="enableUpdateProfileSave()" formControlName="firstName" inputmode="text"
+                                   matInput
+                                   type="text">
+                        </mat-form-field>
+                        <mat-form-field class="min-w-64  flex-grow">
+                            <mat-label>Last Name</mat-label>
+                            <input (input)="enableUpdateProfileSave()" formControlName="lastName" inputmode="text"
+                                   matInput
+                                   type="text">
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field class="max-w-64">
+                        <mat-label>Username</mat-label>
+                        <input (input)="enableUpdateProfileSave()" formControlName="username" inputmode="text" matInput
+                               type="text">
+                    </mat-form-field>
+                    <button [disabled]="disabledSave() || updateProfileLoading()"
+                            [class.spinner]="updateProfileLoading()"
+                            class="ml-auto" mat-button (click)="updateProfile()">Save
+                    </button>
+                </div>
+
+            </app-card>
+            <app-card appearance="raised" title="Notifications">
+                <div class="flex justify-start gap-4 items-center">
+                    <p>
+                        <mat-slide-toggle (change)="setEmailNotifications($event)" [checked]="user.emailNotifications"
+                                          [disabled]="loadingSlider$ | async" labelPosition="before"><span
+                            class="pr-1 font-normal text-lg">Email Notifications</span></mat-slide-toggle>
+                    </p>
+                    @if (loadingSlider$ | async) {
+                        <mat-spinner [diameter]="18"></mat-spinner>
+                    }
+                </div>
+            </app-card>
+        </div>
+
+        <app-card appearance="raised" title="Theme">
+            <mat-selection-list (selectionChange)="changeTheme($event)" [multiple]="false">
+                <mat-list-option [selected]="(theme$ | async) === 'light'" value="light">
+                    <div class="flex items-center">
+                        <mat-icon class="mr-2">light_mode</mat-icon>
+                        Light Theme
+                    </div>
+                </mat-list-option>
+                <mat-list-option [selected]="(theme$ | async) === 'dark'" value="dark">
+                    <div class="flex items-center">
+                        <mat-icon class="mr-2">mode_night</mat-icon>
+                        Dark Theme
+                    </div>
+                </mat-list-option>
+            </mat-selection-list>
+        </app-card>
+    </div>
+}

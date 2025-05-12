@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Import Preview</h2>
+<mat-dialog-content no-padding responsive-dialog-content >
+    <div class="h-10 sticky left-0 top-0 z-10 bg-surface" >
+        <mat-tab-group  (selectedTabChange)="tabClicked($event)" class="sticky left-0 top-0 z-10 bg-surface"   sticky-header  preserveContent>
+            <mat-tab label="Elements" >
+
+            </mat-tab>
+            <mat-tab label="Categories">
+
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+    @if (tabIndex() === 0 ) {
+        @if (data.elements.length === 0) {
+            <div [@pageLoad] class="p-4 text-2xl">No Categories Imported</div>
+        } @else {
+            <app-table-import-preview-elements [@pageLoad] [elements]="data.elements"></app-table-import-preview-elements>
+        }
+        
+
+    } @else {
+        @if (data.categories.length === 0) {
+            <div [@pageLoad] class="p-4 text-2xl">No Categories Imported</div>
+        } @else {
+            <app-table-import-preview-categories
+                [@pageLoad]
+                [elements]="data.elements"
+                                                 [categories]="data.categories"></app-table-import-preview-categories>
+        }
+    }
+
+   
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="closeDialog()" mat-button>Ok</button>
+</mat-dialog-actions>

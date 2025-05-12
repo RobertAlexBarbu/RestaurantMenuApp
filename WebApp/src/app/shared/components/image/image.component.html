@@ -1,0 +1,18 @@
+<div [style.width]="widthPx" class="h-full w-full  rounded-2xl  ">
+    @if (loading) {
+        <div [style.height]="heightPx" [style.width]="widthPx"
+             class="w-full h-full border border-color-variant rounded-2xl flex items-center justify-center">
+            <mat-spinner [diameter]="24"></mat-spinner>
+        </div>
+    }
+    @if (fileUrl()) {
+        <img (click)="openImageDialog(fileUrl())" (load)="stopLoading()" [class.hidden]="loading"
+             [src]="fileUrl()" [style.height]="heightPx" [style.width]="widthPx" alt="Uploaded Image"
+             class="h-full w-full object-cover rounded-2xl cursor-pointer border border-color-variant " />
+    }
+    @if (visibleCaption() && caption()) {
+        <div [style.width]="widthPx">
+            <div class="text-center p-1 text-xs">{{ caption() }}</div>
+        </div>
+    }
+</div>

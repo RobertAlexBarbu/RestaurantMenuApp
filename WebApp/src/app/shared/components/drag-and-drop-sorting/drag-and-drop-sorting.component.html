@@ -1,0 +1,66 @@
+@if (elementsSorted(); as elements) {
+    @if (elements.length > 0) {
+        @if (!isMobile && basicInfoMessages()) {
+            <div class="mb-4">
+                <app-info-text>
+                    <div>
+                        Drag and drop items to rearrange them or use the arrow buttons to move them up or down.
+                    </div>
+                </app-info-text>
+            </div>
+        }
+        @if (isMobile && basicInfoMessages()) {
+            <div class="mb-4">
+                <app-info-text>
+                    <div>
+                        Tap and hold the
+                        drag
+                        icon to drag and reorder items.
+                    </div>
+                </app-info-text>
+            </div>
+        }
+        <div (cdkDropListDropped)="drop($event)" cdkDropList class="example-list" [class]="bgClass()">
+            @for (movie of elements; track movie; let i = $index) {
+                <div class="example-box" cdkDrag [class]="bgClass()">
+                    <div class="flex items-center pl-3 pt-4 pb-4">
+                        <div class="font-medium  mr-4">{{ movie.position }}.</div>
+                        <div class="break-all">
+                            {{ movie.text }}
+                        </div>
+                    </div>
+                    @if (!isMobile) {
+                        <div class="min-w-40 mr-4">
+                            <button (click)="moveBottom(movie.id)" matTooltip="Move Bottom" mat-icon-button>
+                                <mat-icon>keyboard_double_arrow_down</mat-icon>
+                            </button>
+                            <button (click)="moveDown(movie.id)" matTooltip="Move Down" mat-icon-button>
+                                <mat-icon>keyboard_arrow_down</mat-icon>
+                            </button>
+                            <button (click)="moveUp(movie.id)" matTooltip="Move Up" mat-icon-button>
+                                <mat-icon>keyboard_arrow_up</mat-icon>
+                            </button>
+                            <button (click)="moveTop(movie.id)" matTooltip="Move Top" mat-icon-button>
+                                <mat-icon>keyboard_double_arrow_up</mat-icon>
+                            </button>
+                        </div>
+                    }
+                    @if (isMobile) {
+                        <div class="cursor-move mr-4 p-3" cdkDragHandle>
+                            <mat-icon>drag_handle</mat-icon>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    @if (elements.length == 0 && basicInfoMessages()) {
+        <div>
+            <app-info-text>
+                <div>
+                    No Items Available! Once you add items, you’ll be able to rearrange them.
+                </div>
+            </app-info-text>
+        </div>
+    }
+}

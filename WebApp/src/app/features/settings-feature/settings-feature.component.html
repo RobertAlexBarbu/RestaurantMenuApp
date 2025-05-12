@@ -1,0 +1,67 @@
+<app-toolbar class="visible-mobile w-full" featureName="Settings">
+    <ng-container *ngTemplateOutlet="tabs" toolbar-mobile-navigation>
+    </ng-container>
+    <button [matMenuTriggerFor]="logoutMenu" class="visible-mobile" mat-icon-button>
+        <mat-icon>logout</mat-icon>
+    </button>
+    <mat-menu #logoutMenu class="top-overlay">
+        <button (click)="logout()" mat-menu-item>Log out</button>
+    </mat-menu>
+</app-toolbar>
+
+
+<ng-template #tabs>
+    <nav [@fadeIn] [tabPanel]="tabPanel" fitInkBarToContent mat-align-tabs="start"
+         mat-stretch-tabs="true"
+         mat-tab-nav-bar>
+        <a (click)="goTo('/settings/account')"
+           [active]="'account' | activeFeature"
+           mat-tab-link
+        >Account</a>
+        <a (click)="goTo('/settings/preferences')"
+           [active]="'preferences' | activeFeature"
+           mat-tab-link
+        >Preferences</a>
+        <a (click)="goTo('/settings/billing')"
+           [active]="'billing' | activeFeature"
+           mat-tab-link
+        >Billing</a>
+    </nav>
+</ng-template>
+
+
+<app-navigation-sidebar name="Settings">
+    <mat-nav-list>
+        <a (click)="goTo('/settings/account')" [class.bg-secondary-container]="'account' | activeFeature"
+           mat-list-item>
+
+            <span [class.font-medium]="'account' | activeFeature" class="text-sm" mat-line>Account</span>
+        </a>
+        <a (click)="goTo('/settings/preferences')"
+           [class.bg-secondary-container]="'preferences' | activeFeature" mat-list-item>
+
+            <span [class.font-medium]="'preferences' | activeFeature" class="text-sm" mat-line>Preferences</span>
+        </a>
+        <a (click)="goTo('/settings/billing')" [class.bg-secondary-container]="'billing' | activeFeature"
+           mat-list-item>
+            <span [class.font-medium]="'billing' | activeFeature" class="text-sm" mat-line>Billing</span>
+
+        </a>
+    </mat-nav-list>
+    <button (click)="logout()" class="visible-desktop-flex" mat-stroked-button>
+        <mat-icon>logout</mat-icon>
+        Log out
+    </button>
+</app-navigation-sidebar>
+
+<div class="pl-drawer sidebar-content">
+    <div class="pt-toolbar">
+        <mat-tab-nav-panel #tabPanel>
+            <div class="pt-tabs-mobile">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-tab-nav-panel>
+    </div>
+</div>
+
+

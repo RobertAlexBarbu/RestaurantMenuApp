@@ -1,0 +1,6 @@
+@if (!loading()) {
+    <router-outlet></router-outlet>
+}
+@if (loading()) {
+    <app-loading-page></app-loading-page>
+}

@@ -1,0 +1,36 @@
+<div [style.max-width]="widthPx" class="h-full w-full rounded-2xl flex">
+    @if (!file && !loading()) {
+        <label [for]="'dropzone-file' + randomId" [style.height]="heightPx"
+               [style.width]="widthPx"
+               class="h-full w-full flex-grow flex flex-col border-dashed border-2 border-color-variant  items-center justify-center  rounded-2xl cursor-pointer">
+            <div [style.max-width]="widthPx"
+                 class="flex flex-grow flex-col items-center  justify-center pt-5 pb-6 pl-4 pr-4">
+                <mat-icon class="zone-text-color scale-150 mb-4 text-primary ">image</mat-icon>
+                <p class="zone-text-color mb-2 text-sm text-primary"><span class="font-medium">Click to upload</span> or
+                    drag and drop</p>
+            </div>
+            <input #fileInput (change)="onFileInputChange($event)" [id]="'dropzone-file' + randomId" accept="image/*"
+                   class="hidden"
+                   type="file" />
+        </label>
+    }
+    @if (loading()) {
+        <div [style.height]="heightPx" [style.width]="widthPx"
+             class=" flex items-center justify-center border border-color-variant rounded-2xl">
+            <mat-spinner [diameter]="24"></mat-spinner>
+        </div>
+    }
+    @if (fileUrl) {
+        <div [style.width]="widthPx" class="relative h-full w-full">
+            <div (click)="openImageDialog(fileUrl)" class="rounded-2xl h-full w-full cursor-pointer ">
+                <img [src]="fileUrl" [style.height]="heightPx" [style.max-width]="widthPx" alt="Uploaded Image"
+                     class="h-full w-full object-cover rounded-2xl" />
+            </div>
+            <div class="border-color-variant  border absolute top-1 right-1 bg-surface rounded-full">
+                <button class="small-button" (click)="deleteFile()" mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+    }
+</div>

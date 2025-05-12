@@ -1,0 +1,16 @@
+<div class="image-dialog bg-surface p-4">
+    <div class="flex pb-4">
+        <button (click)="closeDialog()"
+                class="ml-auto"
+                mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <img
+        [src]="data.imageUrl"
+        alt="Uploaded Image"
+        class="object-cover image-max-height z-10 w-full h-full rounded-2xl" />
+    @if (data.caption) {
+        <div class="text-center p-1 text-xs">{{ data.caption }}</div>
+    }
+</div>

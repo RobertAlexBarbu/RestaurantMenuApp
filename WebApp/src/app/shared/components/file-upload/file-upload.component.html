@@ -1,0 +1,44 @@
+<div [ngClass]=" appearance() === 'button' ? 'flex-wrap items-center': 'flex-col'" class="flex gap-4">
+    <div [ngClass]="appearance() === 'button' ? 'flex items-center h-10' : ''">
+        <label [for]="'dropzone-file' + randomId" [ngClass]=" appearance() === 'dropzone' ?
+    'flex flex-col items-center justify-center w-full h-52 border-2 border-color-variant border-dashed rounded-2xl cursor-pointer' : 'inline-flex items-center text-sm justify-center pl-6 pr-6 h-9 bg-primary text-on-primary font-medium rounded-full cursor-pointer '"
+               id="zone"
+               matRipple>
+            @if (appearance() === 'dropzone') {
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <mat-icon class="zone-text-color scale-150 mb-4 text-primary ">upload</mat-icon>
+                    <p class="zone-text-color mb-2 text-sm text-primary"><span
+                        class="font-medium">Click to upload</span> or
+                        drag and drop</p>
+                    <p class="text-xs">{{ detail() }}</p>
+                </div>
+            } @else {
+                <mat-icon class="mr-2">upload</mat-icon>
+                <span>Upload File</span>
+            }
+
+            <input #fileInput (change)="onFileInputChange($event)" [accept]="accept()" [id]="'dropzone-file' + randomId"
+                   class="hidden"
+                   type="file" />
+        </label>
+    </div>
+
+    @for (file of files; track file; let i = $index) {
+        <div class="pl-2 border-1  flex items-center flex-grow "
+             [ngClass]=" appearance() === 'button' ? 'min-h-10 pl-2 rounded-full': 'p-2 rounded-2xl'">
+            <div class="flex items-center justify-center mr-3 min-w-5">
+                <mat-icon class="text-primary">description</mat-icon>
+            </div>
+            <div class="mr-4 break-all">{{ file.name }}</div>
+            <div class="ml-auto min-w-24">
+                <button (click)="deleteFile(fileInput, i)" mat-button>
+                    <mat-icon>delete</mat-icon>
+                    Delete
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+
+

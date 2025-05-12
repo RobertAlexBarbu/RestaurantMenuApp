@@ -1,0 +1,25 @@
+.raised {
+  border-color: var(--mat-sys-surface-container-lowest);
+  background-color: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level1);
+}
+
+.dark-theme .raised {
+  border-color: var(--mat-sys-outline-variant);
+}
+
+.stroked {
+  border-color: var(--mat-sys-outline-variant);
+}
+
+.flat {
+  border-color: var(--mat-sys-surface-container-low);
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.card-title {
+  border-top-width: 4px !important;
+  border-top-color: var(--mat-sys-primary);
+}
+
+

@@ -1,0 +1,9 @@
+@use "app/shared/styles/variables";
+@use "app/shared/styles/material-overrides/material-overrides";
+@use "app/shared/styles/utility/utility";
+@use "app/shared/styles/components/components";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

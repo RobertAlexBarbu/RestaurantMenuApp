@@ -1,0 +1,22 @@
+:root {
+  --h-toolbar: 60px;
+  --h-tabs: 48px;
+  --h-dropdown-nav: 57px;
+  --w-drawer: 250px;
+  --w-drawer-sm: 100px;
+}
+
+// Mobile
+@media (max-width: 900px) {
+  :root {
+    --w-drawer: 0px;
+    --w-drawer-sm: 0px;
+  }
+}
+
+// Mat Toolbar Adjustment
+@media (max-width: 599px) {
+  :root {
+    --h-toolbar: 52px;
+  }
+}

@@ -1,0 +1,8 @@
+<div class=" w-full flex   gap-6 " [class.flex-col-chart]="rectangle()" [class.flex-col-chart-square]="!rectangle()">
+    <div [class.flex-row-chart]="rectangle()" [class.flex-row-chart-square]="!rectangle()"  class="flex max-w-chart-options w-full flex-col flex-wrap gap-4 mt-2">
+        <ng-content></ng-content>
+    </div>
+    <div class="w-full">
+        <ng-content select="[chart]"></ng-content>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="w-full flex flex-col gap-4 p-4">
+    @for (message of messages(); track message; let last = $last; let first = $first) {
+        @if (!message.isAI) {
+            @if (last && newMessage()) {
+                <div [@messageAppear] [class.mt-32]="first && isMobile"
+                     class="break-words max-w-85 self-end bg-secondary-container p-4 rounded-t-2xl rounded-bl-2xl">
+                    {{ message.text }}
+                </div>
+            } @else {
+                <div [class.mt-32]="first && isMobile"
+                     class="break-words max-w-85 self-end  bg-secondary-container p-4 rounded-t-2xl rounded-bl-2xl">
+                    {{ message.text }}
+                </div>
+            }
+
+        } @else {
+            @if (last && newMessage()) {
+                <div class="self-start w-full">
+                    <div [class.pb-16]="!loadingMessage()" class="w-full" (typingComplete)="emitTypingDone()"
+                         [appTypewriter]="(message.text | formatLlmResponse)" (typingInterrupted)="emitTypingDone()">
+                    </div>
+                </div>
+            } @else {
+                <div class="self-start w-full">
+                    <div class="w-full" [innerHTML]="message.text | formatLlmResponse"
+                    >
+                    </div>
+                </div>
+            }
+        }
+    } @empty {
+        <ng-content select="[empty-messages]"></ng-content>
+    }
+    @if (loadingMessage()) {
+        <mat-spinner [style.width]="'24px'" [style.height]="'24px'"></mat-spinner>
+    }
+</div>

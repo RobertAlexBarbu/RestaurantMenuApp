@@ -1,0 +1,40 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users {
+  id int [pk, increment]
+  firebase_id varchar
+  created_at datetime
+  role varchar
+  email varchar
+  google_email varchar
+  email_notifications boolean
+  username varchar
+  first_name varchar
+  last_name varchar
+  image_url varchar
+  setup_complete boolean
+}
+
+Table element_categories {
+  id int [pk, increment]
+  created_at datetime
+  name varchar
+  user_id int [ref: > users.id]
+}
+
+Table elements {
+  id int [pk, increment]
+  created_at datetime
+  position int
+  weight float
+  name varchar
+  description varchar
+  symbol varchar
+  density float
+  melting_point float
+  boiling_point float
+  atomic_radius int
+  is_visible boolean
+  category_id int [ref: > element_categories.id]
+  user_id int [ref: > users.id]

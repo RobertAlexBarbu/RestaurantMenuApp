@@ -1,0 +1,14 @@
+<!--It needs to be cdkScrollable otherwise Overlay Scroll Strategies wont work properly-->
+<div cdkScrollable class="h-full overflow-y-scroll bg-surface" id="main">
+    <!-- DRAWER -->
+    <div class="h-full fixed top-0 z-50 drawer-sm visible-desktop">
+        <div class="flex-col flex h-full items-center gap-4 pt-2">
+            <app-logo [size]="44"></app-logo>
+            <app-navigation-bar class="h-full"></app-navigation-bar>
+        </div>
+    </div>
+    <!-- CONTENT -->
+    <div class="min-h-full w-full pl-drawer-sm">
+        <router-outlet></router-outlet>
+    </div>
+</div>

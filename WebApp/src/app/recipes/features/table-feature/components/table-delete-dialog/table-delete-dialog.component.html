@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Delete "{{ data.name }}"?</h2>
+<mat-dialog-content>
+    <div>Are you sure you want to delete <span class="font-medium">{{ data.name }}</span>?</div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button>No Thanks</button>
+    <button (click)="onDelete(data.id)" [class.spinner]="spinner()" [disabled]="spinner()" mat-button>
+        Delete
+    </button>
+</mat-dialog-actions>

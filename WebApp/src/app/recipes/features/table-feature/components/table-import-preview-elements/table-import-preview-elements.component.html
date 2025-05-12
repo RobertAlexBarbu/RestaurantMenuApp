@@ -1,0 +1,135 @@
+
+    <div class="inline-block sticky left-0">
+        <div class="flex flex-wrap items-center p-4 gap-4 ">
+            <mat-form-field subscriptSizing="dynamic">
+                <mat-label>Search</mat-label>
+                <input (keyup)="applySearchFilter($event)"
+                       [formControl]="searchFilterFormControl"
+                       [matAutocomplete]="auto"
+                       aria-label="Number"
+                       matInput
+                       type="text">
+                @if (searchFilterFormControl.value) {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchFilter($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                } @else {
+                    <button matSuffix class="invisible" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                }
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="applySearchFilterSelect($event)"
+                                  autoActiveFirstOption>
+                    @for (option of visibleSearchFilterOptions(); track option) {
+                        <mat-option [value]="option">{{ option }}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+            <div class="inline-block ">
+                <mat-paginator [pageSizeOptions]="[25, 10, 5]" aria-label="Select page of users"></mat-paginator>
+            </div>
+        </div>
+    </div>
+<div class="sticky-table-header-tabs z-10">
+    <table [dataSource]="dataSource" id="tablePreview" matSort mat-table multiTemplateDataRows>
+        <!-- Columns -->
+        <ng-container matColumnDef="position">
+            <th *matHeaderCellDef mat-sort-header mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{ element.position }}</td>
+        </ng-container>
+        <!-- Sticky Column -->
+        <ng-container sticky matColumnDef="name">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Name</th>
+            <td *matCellDef="let element" mat-cell> {{ element.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="weight">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Weight</th>
+            <td *matCellDef="let element" mat-cell>{{ element.weight }}</td>
+
+        </ng-container>
+        <ng-container matColumnDef="symbol">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Symbol</th>
+            <td *matCellDef="let element" mat-cell> {{ element.symbol }}</td>
+        </ng-container>
+        <ng-container matColumnDef="density">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Density</th>
+            <td *matCellDef="let element" mat-cell> {{ element.density }}</td>
+        </ng-container>
+        <ng-container matColumnDef="meltingPoint">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Melting Point</th>
+            <td *matCellDef="let element" mat-cell> {{ element.meltingPoint }}</td>
+        </ng-container>
+        <ng-container matColumnDef="boilingPoint">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Boiling Point</th>
+            <td *matCellDef="let element" mat-cell> {{ element.boilingPoint }}</td>
+        </ng-container>
+        <ng-container matColumnDef="atomicRadius">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Atomic Radius</th>
+            <td *matCellDef="let element" mat-cell> {{ element.atomicRadius }}</td>
+        </ng-container>
+        <ng-container matColumnDef="categoryName">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Category</th>
+            <td *matCellDef="let element" mat-cell> {{ element.categoryName }}</td>
+        </ng-container>
+        <!-- Actions Column -->
+
+        <!-- Expand Content Column -->
+        <ng-container matColumnDef="expand">
+            <th *matHeaderCellDef aria-label="row actions" mat-header-cell>&nbsp;</th>
+            <td *matCellDef="let element" mat-cell>
+                <button (click)="toggleExpandRow(element)" aria-label="expand row"
+                        mat-icon-button>
+                    @if (expandedTableItemId === element.name) {
+                        <mat-icon>keyboard_arrow_up</mat-icon>
+                    }
+                    @if (expandedTableItemId !== element.name) {
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                    }
+                </button>
+            </td>
+        </ng-container>
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+            <td *matCellDef="let element" [attr.colspan]="displayedColumns.length" mat-cell>
+                <div>
+                    <div [@detailExpand]="expandedTableItemId === element.name ? 'expanded' : 'collapsed'"
+                         class="example-element-detail"
+                         id="div2">
+                        <div class="p-4 ">
+                            <div class="example-element-diagram">
+                                <div class="example-element-position"> {{ element.position }}</div>
+                                <div class="example-element-symbol"> {{ element.symbol }}</div>
+                                <div class="example-element-name"> {{ element.name }}</div>
+                                <div class="example-element-weight"> {{ element.weight }}</div>
+                            </div>
+                        </div>
+                        <div class="example-element-description whitespace-pre-line">
+                            {{ element.description }}
+                            <span class="example-element-description-attribution"> -- Lorem Ipsum </span>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+        </ng-container>
+        <!-- Columns -->
+        <tr *matHeaderRowDef="displayedColumns;" mat-header-row></tr>
+        <!-- Rows -->
+        <!-- Normal Rows -->
+        <tr *matRowDef="let element; columns: displayedColumns;"
+            [class.example-expanded-row]="expandedTableItemId === element.name"
+            class="example-element-row"
+            mat-row
+
+        >
+        </tr>
+        <!-- Expanded Detail Row, that's why it's hidden (example-detail-row) most of the time -->
+        <tr *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" mat-row></tr>
+    </table>
+</div>
+
+
+
+
+
+

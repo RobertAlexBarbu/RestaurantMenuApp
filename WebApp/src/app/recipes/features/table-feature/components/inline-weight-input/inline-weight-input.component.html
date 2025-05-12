@@ -1,0 +1,12 @@
+<div class="flex gap-2">
+    <mat-form-field [subscriptSizing]="'dynamic'" class="w-32">
+        <input [formControl]="form" matInput type="number">
+    </mat-form-field>
+    @if (loading()) {
+        <!--        <mat-spinner  class="self-center" [style.width]="'12px'" [style.height]="'12px'"></mat-spinner>  -->
+
+    } @else {
+        <div [style.width]="'12px'" [style.height]="'12px'">
+        </div>
+    }
+</div>

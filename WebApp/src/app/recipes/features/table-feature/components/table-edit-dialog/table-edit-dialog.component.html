@@ -1,0 +1,108 @@
+<h2 mat-dialog-title>Edit Element</h2>
+<mat-dialog-content responsive-dialog-content>
+    <form #formAutoFocus="appModalFormAutoFocus" (keydown.enter)="$event.preventDefault()" [formGroup]="form"
+          appModalFormAutoFocus class="flex flex-col gap-4">
+        <app-form-section title="Overview">
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-wrap gap-4">
+                    <!-- Text Input -->
+                    <mat-form-field class="w-full max-w-lg">
+                        <mat-label>Name</mat-label>
+                        <input formControlName="name" inputmode="text" matInput type="text">
+                        @if (form.controls.name.hasError('required')) {
+                            <mat-error>
+                                Name is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                    <!-- Symbol Input -->
+                    <mat-form-field class="max-w-40">
+                        <mat-label>Symbol</mat-label>
+                        <input formControlName="symbol" inputmode="text" matInput type="text">
+                        @if (form.controls.symbol.hasError('required')) {
+                            <mat-error>
+                                Symbol is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <!-- Category Select -->
+                <div>
+                    <mat-form-field>
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="categoryId">
+                            @for (category of selectOptions(); track category) {
+                                <mat-option [value]="category.id">
+                                    {{ category.name }}
+                                </mat-option>
+                            } @empty {
+                                <mat-option disabled>No Categories</mat-option>
+                            }
+                        </mat-select>
+                        @if (form.controls.categoryId.hasError('required')) {
+                            <mat-error>
+                                Category is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                    <button (click)="openDialog()" class="relative  ml-2" mat-button type="button">Add
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </app-form-section>
+        <app-form-section title="Physical Properties">
+            <div class="flex flex-wrap gap-4">
+                <!-- Number Input -->
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>Weight</mat-label>
+                    <input formControlName="weight" inputmode="numeric" matInput type="number">
+                </mat-form-field>
+
+                <!-- Density -->
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>Density</mat-label>
+                    <input formControlName="density" inputmode="numeric" matInput type="number">
+                </mat-form-field>
+
+                <!-- Melting Point -->
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>Melting Point</mat-label>
+                    <input formControlName="meltingPoint" inputmode="numeric" matInput type="number">
+                </mat-form-field>
+
+                <!-- Boiling Point -->
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>Boiling Point</mat-label>
+                    <input formControlName="boilingPoint" inputmode="numeric" matInput type="number">
+                </mat-form-field>
+
+                <!-- Atomic Radius -->
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>Atomic Radius</mat-label>
+                    <input formControlName="atomicRadius" inputmode="numeric" matInput type="number">
+                </mat-form-field>
+            </div>
+        </app-form-section>
+        <app-form-section title="Other">
+            <!-- Text Area -->
+            <mat-form-field class="w-full">
+                <mat-label>Description</mat-label>
+                <textarea [cdkTextareaAutosize] formControlName="description" matInput rows="5"></textarea>
+            </mat-form-field>
+        </app-form-section>
+        <app-form-buttons>
+
+        </app-form-buttons>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="closeDialog()" class="mr-2" mat-button type="button">Cancel</button>
+    <button (click)="submit(); formAutoFocus.focus()" [class.shake]="shake()"
+            [class.spinner]="loading()"
+            [disabled]="loading()" mat-flat-button type="button">Save
+    </button>
+</mat-dialog-actions>
+
+
+

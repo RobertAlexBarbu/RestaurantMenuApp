@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Delete Account</h2>
+<mat-dialog-content>
+    <p>
+        Deleting your account is a permanent action and cannot be undone. All your data will be erased.
+    </p>
+    <p class="mt-2 font-medium">
+        Are you sure you want to proceed?
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button>Cancel</button>
+    <button (click)="delete()" [class.spinner]="loading$ | async" [disabled]="loading$ | async" mat-button>Delete
+    </button>
+</mat-dialog-actions>
+

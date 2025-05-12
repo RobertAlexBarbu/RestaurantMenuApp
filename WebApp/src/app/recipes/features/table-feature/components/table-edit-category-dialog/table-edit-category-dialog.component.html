@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Edit Category</h2>
+<mat-dialog-content>
+    <mat-form-field class="w-full">
+        <mat-label>Category Name</mat-label>
+        <input [formControl]="form" inputmode="text" matInput type="text">
+        @if (form.hasError('required')) {
+            <mat-error>Category Name is required</mat-error>
+        }
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button>Cancel</button>
+    <button (click)="onSubmit()" [class.spinner]="loading()" [disabled]="loading()" mat-button>Edit</button>
+</mat-dialog-actions>

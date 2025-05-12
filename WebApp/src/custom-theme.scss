@@ -1,0 +1,53 @@
+@use '@angular/material' as mat;
+@use '@angular/cdk' as cdk;
+@use 'sass:map';
+
+
+
+@include mat.elevation-classes();
+@include mat.app-background();
+:root {
+  //--mat-sys-surface: var(--mat-sys-surface-container-lowest) !important;
+  @include mat.tabs-overrides((
+          container-height: 40px,
+  ));
+}
+
+:root .dark-theme {
+  color-scheme: dark;
+}
+
+:root .light-theme {
+  color-scheme: light;
+}
+
+html {
+  @include mat.theme((
+          color: (
+                  primary: mat.$chartreuse-palette,
+                  tertiary: mat.$magenta-palette,
+          ),
+          typography: Roboto,
+          density: -1,
+  ));
+}
+
+html, body {
+  height: 100%;
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.dark-theme body {
+  color-scheme: dark;
+}
+
+.dark-theme html {
+  color-scheme: dark;
+}
