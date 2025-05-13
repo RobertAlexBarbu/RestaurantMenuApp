@@ -1,3 +1,5 @@
+import {MenuDto} from "../menu/menu.dto";
+
 export interface UserDto {
     id: number
     firebaseId: string
@@ -12,6 +14,7 @@ export interface UserDto {
     lastName: string
     emailNotifications: boolean
     imageUrl: string | null
+    menu: MenuDto
 
 
 }

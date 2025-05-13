@@ -1,28 +1,27 @@
 <div [class.pl-4]="!isMobile" [class.pr-4]="!isMobile" class="max-w-6xl m-auto pt-4 pb-4">
     <mat-stepper #stepper [orientation]="isMobile ? 'vertical' : 'horizontal'" linear>
         <mat-step [editable]="true">
-            <ng-template matStepLabel>Set up your profile</ng-template>
-            <div class="pt-4 max-w-2xl m-auto">
+            <ng-template matStepLabel>Set up your restaurant menu</ng-template>
+            <div class="pt-4 max-w-xl m-auto">
                 <div class="flex flex-col gap-4">
-                    <div class="text-2xl">Set up your profile</div>
+                    <div class="text-2xl">Set up your restaurant menu</div>
                     <div [formGroup]="form" class="flex flex-col  gap-x-4">
-                        <div class="flex flex-wrap gap-x-4">
-                            <mat-form-field class="min-w-64  flex-grow">
-                                <mat-label>First Name</mat-label>
-                                <input formControlName="firstName" inputmode="text" matInput type="text">
-                            </mat-form-field>
-                            <mat-form-field class="min-w-64 flex-grow">
-                                <mat-label>Last Name</mat-label>
-                                <input formControlName="lastName" inputmode="text" matInput type="text">
-                            </mat-form-field>
-                        </div>
-                        <mat-form-field class="max-w-64">
-                            <mat-label>Username</mat-label>
-                            <input formControlName="username" inputmode="text" matInput type="text">
-                        </mat-form-field>
+                      <mat-form-field class="min-w-64  flex-grow">
+                        <mat-label>Restaurant Name</mat-label>
+                        <input formControlName="name" inputmode="text" matInput type="text">
+                      </mat-form-field>
+                      <mat-form-field class="min-w-64 flex-grow">
+                        <mat-label>Menu Url</mat-label>
+                        <input formControlName="url" inputmode="text" matInput type="text">
+                        @if (urlUnavailable()) {
+                          <mat-error>Url unavailable</mat-error>
+                        }
+                      </mat-form-field>
+
+
                     </div>
                     <div class="ml-auto gap-4 flex">
-                        <button mat-button matStepperNext>Next</button>
+                        <button mat-button [disabled]="setUpMenuNextLoading()" [class.spinner]="setUpMenuNextLoading()" (click)="setUpMenuNext(stepper)">Next</button>
                     </div>
                 </div>
             </div>

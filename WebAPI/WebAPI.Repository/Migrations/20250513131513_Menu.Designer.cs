@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI.Repository.Data;
@@ -11,9 +12,11 @@ using WebAPI.Repository.Data;
 namespace WebAPI.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513131513_Menu")]
+    partial class Menu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +109,7 @@ namespace WebAPI.Repository.Migrations
                     b.ToTable("ElementCategories");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.Menu", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,7 +145,7 @@ namespace WebAPI.Repository.Migrations
                     b.ToTable("Menus");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuAccess", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.MenuAccess", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -172,7 +175,7 @@ namespace WebAPI.Repository.Migrations
                     b.ToTable("MenuAccesses");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuCategory", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.MenuCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -186,9 +189,6 @@ namespace WebAPI.Repository.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("MenuType")
                         .IsRequired()
@@ -206,14 +206,12 @@ namespace WebAPI.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MenuId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("MenuCategories");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuItem", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.MenuItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -245,9 +243,6 @@ namespace WebAPI.Repository.Migrations
                     b.Property<int>("MenuCategoryId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("MenuId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("MenuType")
                         .IsRequired()
                         .HasColumnType("text");
@@ -276,8 +271,6 @@ namespace WebAPI.Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MenuCategoryId");
-
-                    b.HasIndex("MenuId");
 
                     b.HasIndex("UserId");
 
@@ -365,20 +358,20 @@ namespace WebAPI.Repository.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.Menu", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu", b =>
                 {
                     b.HasOne("WebAPI.Domain.Entities.User", "User")
                         .WithOne("Menu")
-                        .HasForeignKey("WebAPI.Domain.Entities.Menu.Menu", "UserId")
+                        .HasForeignKey("WebAPI.Domain.Entities.Menu", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuAccess", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.MenuAccess", b =>
                 {
-                    b.HasOne("WebAPI.Domain.Entities.Menu.Menu", "Menu")
+                    b.HasOne("WebAPI.Domain.Entities.Menu", "Menu")
                         .WithMany()
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -395,53 +388,37 @@ namespace WebAPI.Repository.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuCategory", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.MenuCategory", b =>
                 {
-                    b.HasOne("WebAPI.Domain.Entities.Menu.Menu", "Menu")
-                        .WithMany()
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebAPI.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Menu");
-
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuItem", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.MenuItem", b =>
                 {
-                    b.HasOne("WebAPI.Domain.Entities.Menu.MenuCategory", "MenuCategory")
+                    b.HasOne("WebAPI.Domain.Entities.MenuCategory", "MenuCategory")
                         .WithMany("MenuItems")
                         .HasForeignKey("MenuCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebAPI.Domain.Entities.Menu.Menu", "Menu")
-                        .WithMany()
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebAPI.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Menu");
 
                     b.Navigation("MenuCategory");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuCategory", b =>
+            modelBuilder.Entity("WebAPI.Domain.Entities.MenuCategory", b =>
                 {
                     b.Navigation("MenuItems");
                 });

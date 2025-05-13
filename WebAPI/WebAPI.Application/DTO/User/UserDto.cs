@@ -1,10 +1,11 @@
+using WebAPI.Application.DTO.Menu;
+
 namespace WebAPI.Application.DTO.User;
 
 public class UserDto
 {
     public int Id { get; set; }
     public string FirebaseId { get; set; }
-
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public string Role { get; set; }
     public string? Email { get; set; } = null;
@@ -15,5 +16,6 @@ public class UserDto
     public string LastName { get; set; } = string.Empty;
     public string? ImageUrl { get; set; } = null;
     public bool SetupComplete { get; set; }
+    public MenuDto Menu { get; set; }
 
 }

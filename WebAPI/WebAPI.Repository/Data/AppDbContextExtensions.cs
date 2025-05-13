@@ -76,4 +76,20 @@ public static class AppDbContextExtensions
         await context.SaveChangesAsync();
         return entity;
     }
+    
+    public static async Task<TEntity> UpdateFromDtoWithUserIdAsync<TEntity, TDto>(
+        this AppDbContext context,
+        int id,
+        int userId,
+        TDto dto,
+        IMapper mapper)
+        where TEntity : class, new()
+        where TDto : class
+    {
+        await context.EnsureExistsByIdAsync<TEntity>(id, userId);
+        var entity = context.AttachAndMap<TEntity, TDto>(id, dto, mapper);
+        context.MarkPropertiesModifiedFromDto(entity, dto);
+        await context.SaveChangesAsync();
+        return entity;
+    }
 }

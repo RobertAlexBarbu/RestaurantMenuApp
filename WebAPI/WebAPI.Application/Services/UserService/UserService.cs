@@ -1,6 +1,8 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Application.DTO.Menu;
 using WebAPI.Application.DTO.User;
+using WebAPI.Application.Services.MenuService;
 using WebAPI.Domain.Entities;
 using WebAPI.Domain.Enums;
 using WebAPI.Domain.Exceptions;
@@ -10,13 +12,16 @@ using WebAPI.Repository.Data;
 
 namespace WebAPI.Application.Services.UserService;
 
-public class UserService(AppDbContext context, IMapper mapper, IAuthService authService) : IUserService
+public class UserService(AppDbContext context, IMapper mapper, IAuthService authService, IMenuService menuService) : IUserService
 {
     public async Task<UserDto> CreateAsync(FirebaseClaimsDto firebaseClaimsDto)
     {
-        var user = await context.Users.FirstOrDefaultAsync(u => u.FirebaseId == firebaseClaimsDto.FirebaseId);
+        var user = await context.Users
+            .Include(u => u.Menu)
+            .FirstOrDefaultAsync(u => u.FirebaseId == firebaseClaimsDto.FirebaseId);
         if (user == null)
-        {
+        {   
+            Console.WriteLine("User doesn't exist - Creating");
             user = mapper.Map<User>(firebaseClaimsDto);
             if (user.Email != null) user.Username = user.Email.Split('@')[0];
             if (user.GoogleEmail != null) user.Username = user.GoogleEmail.Split('@')[0];
@@ -24,7 +29,18 @@ public class UserService(AppDbContext context, IMapper mapper, IAuthService auth
             context.Users.Add(user);
             await context.SaveChangesAsync();
             await authService.AddUserIdAndRoleClaimsAsync(user.FirebaseId, user.Id, user.Role);
-            return mapper.Map<UserDto>(user);
+            Console.WriteLine("Creating Menu");
+            var menuUrl = await menuService.GenerateUniqueUrlAsync();
+            var menuDto = await menuService.CreateAsync(user.Id, new CreateMenuDto
+            {
+                Name = "My Restaurant Name",
+                Url = menuUrl
+            });
+            Console.WriteLine($"New Menu Id {menuDto.Id}");
+            
+            var userDto = mapper.Map<UserDto>(user);
+            userDto.Menu = menuDto;
+            return userDto;
         }
 
         return mapper.Map<UserDto>(user);
@@ -33,6 +49,7 @@ public class UserService(AppDbContext context, IMapper mapper, IAuthService auth
     public async Task<UserDto> GetByFirebaseIdAsync(string id)
     {
         var user = await context.Users
+            .Include(u => u.Menu)
             .FirstOrDefaultAsync(u => u.FirebaseId == id);
         if (user == null) throw new NotFoundException("User");
         return mapper.Map<UserDto>(user);
@@ -41,6 +58,7 @@ public class UserService(AppDbContext context, IMapper mapper, IAuthService auth
     public async Task<UserDto> GetByIdAsync(int id)
     {
         var user = await context.Users
+            .Include(u => u.Menu)
             .FirstOrDefaultAsync(u => u.Id == id);
         if (user == null) throw new NotFoundException("User");
         return mapper.Map<UserDto>(user);

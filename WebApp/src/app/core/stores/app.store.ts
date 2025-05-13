@@ -6,10 +6,21 @@ import { UpdateImageUrlDto } from '../http/dto/user/update-image-url.dto'
 import { UpdateEmailDto } from '../http/dto/user/update-email.dto'
 import { UpdateEmailNotificationsDto } from '../http/dto/user/update-email-notifications.dto'
 import { UpdateGoogleEmailDto } from '../http/dto/user/update-google-email.dto'
+import {MenuDto} from "../http/dto/menu/menu.dto";
+import {UpdateMenuDto} from "../http/dto/menu/update-menu-dto";
 
 export interface AppState {
     user: UserDto
     loggedIn: boolean | null
+}
+
+const initialMenuData: MenuDto = {
+  id: -1,
+  name: '',
+  url: '',
+  userId: -1,
+  imageUrl: null,
+  createdAt: new Date(),
 }
 
 const initialUserData: UserDto = {
@@ -20,13 +31,15 @@ const initialUserData: UserDto = {
     username: '',
     role: '',
     createdAt: new Date(),
-
     imageUrl: null,
     emailNotifications: true,
     firstName: '',
     lastName: '',
     setupComplete: false,
+  menu: initialMenuData,
 }
+
+
 
 const initialState: AppState = {
     user: initialUserData,
@@ -42,6 +55,14 @@ export const AppStore = signalStore(
                 user: userDto,
                 loggedIn: store.loggedIn(),
             }))
+        },
+        updateMenu(updateMenuDto: UpdateMenuDto) {
+          patchState(store, (state) => ({
+            user: { ...state.user,
+              menu: { ...state.user.menu, ...updateMenuDto },
+
+            },
+          }))
         },
         updateImageUrl(updateImageUrlDto: UpdateImageUrlDto) {
             patchState(store, (state) => ({
@@ -83,6 +104,7 @@ export const AppStore = signalStore(
         logOut() {
             patchState(store, () => ({
                 user: initialUserData,
+              menu: initialMenuData,
                 loggedIn: false,
             }))
         },

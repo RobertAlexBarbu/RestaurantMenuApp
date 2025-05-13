@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI.Repository.Data;
@@ -11,9 +12,11 @@ using WebAPI.Repository.Data;
 namespace WebAPI.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513144619_T")]
+    partial class T
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,8 +139,7 @@ namespace WebAPI.Repository.Migrations
                     b.HasIndex("Url")
                         .IsUnique();
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Menus");
                 });
@@ -368,8 +370,8 @@ namespace WebAPI.Repository.Migrations
             modelBuilder.Entity("WebAPI.Domain.Entities.Menu.Menu", b =>
                 {
                     b.HasOne("WebAPI.Domain.Entities.User", "User")
-                        .WithOne("Menu")
-                        .HasForeignKey("WebAPI.Domain.Entities.Menu.Menu", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -444,12 +446,6 @@ namespace WebAPI.Repository.Migrations
             modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuCategory", b =>
                 {
                     b.Navigation("MenuItems");
-                });
-
-            modelBuilder.Entity("WebAPI.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Menu")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
