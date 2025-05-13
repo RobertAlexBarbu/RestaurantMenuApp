@@ -9,6 +9,10 @@ export class EnvironmentService {
         return environment.baseUrl
     }
 
+  getSsrUrl() {
+    return environment.ssrUrl
+  }
+
     getRedirectAuth() {
         return environment.redirectAuth
     }

@@ -1,7 +1,77 @@
 <app-toolbar class="w-full-minus-drawer-sm" featureName="Home"></app-toolbar>
-<div [@pageLoad] class="pt-toolbar sidebar-content">
-    <p class="p-page">home-page works!</p>
-  <div>
-    {{menu | json}}
+<app-right-sidebar class="visible-desktop bg-green-300">
+  <div class="flex flex-col justify-center items-center mt-8 p-4">
+    <div class="text-4xl">Your <span class="font-medium">QR</span>  Code</div>
+    <div class="p-4 corner-l bg-surface-container-lowest flex-col gap-4 ">
+
+      <app-qr-generator [url]="qrUrl()">
+
+      </app-qr-generator>
+    </div>
+
+  </div>
+
+</app-right-sidebar>
+<div [@pageLoad] class="pt-toolbar pr-sidebar sidebar-content">
+  <div class="p-page flex flex-col gap-6">
+
+    <div>
+      <app-card class="block max-w-2xl" title="Your Restaurant Menu" appearance="raised">
+        <div [formGroup]="form" class="flex flex-col  gap-x-4">
+          <mat-form-field class="min-w-64  flex-grow">
+            <mat-label>Restaurant Name</mat-label>
+            <input (input)="enableSave()" formControlName="name" inputmode="text" matInput type="text">
+          </mat-form-field>
+          <mat-form-field class="min-w-64 flex-grow">
+            <mat-label>Menu Url</mat-label>
+            <input (input)="enableSave()" formControlName="url" inputmode="text" matInput type="text">
+            @if (urlUnavailable()) {
+              <mat-error>Url unavailable</mat-error>
+            }
+          </mat-form-field>
+          <div class="ml-auto gap-4 flex">
+            <button mat-button [disabled]="updateMenuLoading() || disabledSave()" [class.spinner]="updateMenuLoading()" (click)="updateMenu()">Save</button>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="bg-secondary-container text-on-secondary-container corner-l p-3 flex flex-wrap items-center gap-4 ">
+      <div class="flex gap-1 flex-wrap">
+        <span>      Your menu is available at:</span>
+        <a [href]="completeUrl()"  target="_blank" class="font-medium link">{{ssrUrl}}/{{menu.url()}}</a>
+
+      </div>
+
+      <a class=" ml-auto" [href]="completeUrl()"  target="_blank">
+        <button  mat-flat-button><mat-icon>link</mat-icon> Go to</button>
+      </a>
+
+
+    </div>
+    <app-card appearance="raised" class="max-w-rectangle-chart-card" title="Access Origin Chart (QR or URL)">
+      <div class=" w-full flex flex-col-chart  gap-6 " >
+        <div   class="flex max-w-chart-options w-full flex-row-chart flex-col flex-wrap gap-4 mt-2">
+          <mat-form-field>
+            <mat-label>Time Period</mat-label>
+            <mat-select>
+              <mat-option  value="Dataset 1">All Time</mat-option>
+              <mat-option value="Dataset 2">Last Month</mat-option>
+              <mat-option value="Dataset 3">Last Year</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <button  mat-stroked-button><mat-icon>lightbulb_2</mat-icon>AI Insights</button>
+        </div>
+        <div class="w-full">
+          <app-bar-chart chart></app-bar-chart>
+        </div>
+      </div>
+
+    </app-card>
+
   </div>
 </div>
+
+
+

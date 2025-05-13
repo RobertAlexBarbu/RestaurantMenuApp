@@ -1,0 +1,17 @@
+.max-w-chart-options {
+  max-width: 300px
+}
+
+
+
+@media (max-width: 1800px) {
+  .flex-col-chart {
+    flex-direction: column;
+  }
+  .flex-row-chart {
+    flex-direction: row !important;
+  }
+  .max-w-chart-options {
+    max-width: 100%
+  }
+}

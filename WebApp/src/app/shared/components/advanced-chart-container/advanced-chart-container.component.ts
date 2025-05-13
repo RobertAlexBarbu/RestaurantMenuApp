@@ -10,5 +10,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core'
 })
 export class AdvancedChartContainerComponent {
     rectangle = input(true);
+    rightSidebar = input(false);
     protected readonly input = input
 }

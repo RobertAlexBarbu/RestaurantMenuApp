@@ -45,8 +45,8 @@ mat-toolbar {
 }
 
 // Overlay Overrides
-.cdk-overlay-container:has(.mat-mdc-dialog-container, 
-.mat-datepicker-dialog, .mat-datepicker-popup, .image-dialog, .top-overlay, .mdc-tooltip__surface) {
+.cdk-overlay-container:has(.mat-mdc-dialog-container,
+.mat-datepicker-dialog, .mat-datepicker-popup, .image-dialog, .top-overlay, .mdc-tooltip__surface, mat-snack-bar-container) {
   z-index: 3000 !important;
 }
 
