@@ -38,13 +38,15 @@ import {LoadingPageComponent} from "../../../../shared/components/loading-page/l
 import {
   FeatureLoadingPageComponent
 } from "../../../../shared/components/feature-loading-page/feature-loading-page.component";
+import {MenuAccessChartComponent} from "../menu-access-chart/menu-access-chart.component";
+import {MenuAccessDto} from "../../../../core/http/dto/menu-analytics/menu-access.dto";
 
 @Component({
     selector: 'app-home-page',
     standalone: true,
   imports: [
     MatIcon,
-    ToolbarComponent, JsonPipe, RightSidebarComponent, CardComponent, FormsModule, MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton, QrGeneratorComponent, AdvancedChartContainerComponent, BarChartComponent, MatDateRangeInput, MatDateRangePicker, MatDatepickerToggle, MatEndDate, MatHint, MatOption, MatSelect, MatStartDate, MatSuffix, PieChartComponent, LoadingPageComponent, FeatureLoadingPageComponent],
+    ToolbarComponent, JsonPipe, RightSidebarComponent, CardComponent, FormsModule, MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton, QrGeneratorComponent, AdvancedChartContainerComponent, BarChartComponent, MatDateRangeInput, MatDateRangePicker, MatDatepickerToggle, MatEndDate, MatHint, MatOption, MatSelect, MatStartDate, MatSuffix, PieChartComponent, LoadingPageComponent, FeatureLoadingPageComponent, MenuAccessChartComponent],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -74,7 +76,9 @@ export class HomePageComponent {
 
   })
   loadingPage = signal(true);
-
+  menuAccesses = signal<MenuAccessDto[]>([]);
+  menuUrlAccesses = computed(() => this.menuAccesses().filter(ma => ma.menuAccessType == "url"))
+  menuQrAccesses = computed(() => this.menuAccesses().filter(ma => ma.menuAccessType == "qr"))
   constructor() {
 
     this.form.controls.name.setValue(this.menu.name())
@@ -93,7 +97,7 @@ export class HomePageComponent {
     this.menuAnalyticsService.getMenuAccessesByMenuId(this.menu.id()).subscribe({
       next: value => {
         this.loadingPage.set(false);
-        console.log(value);
+        this.menuAccesses.set(value);
       }
     })
   }

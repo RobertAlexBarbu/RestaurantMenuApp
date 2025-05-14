@@ -41,7 +41,7 @@
           </div>
         </app-card>
       </div>
-      <div class="bg-secondary-container text-on-secondary-container corner-l p-3 flex flex-wrap items-center gap-4 ">
+      <div class="bg-tertiary-container text-on-tertiary-container corner-l p-3 flex flex-wrap items-center gap-4 ">
         <div class="flex gap-1 flex-wrap">
           <span>      Your menu is available at:</span>
           <a [href]="completeUrl()"  target="_blank" class="font-medium link">{{ssrUrl}}/{{menu.url()}}</a>
@@ -49,7 +49,7 @@
         </div>
 
         <a class=" ml-auto" [href]="completeUrl()"  target="_blank">
-          <button  mat-flat-button><mat-icon>link</mat-icon> Go to</button>
+          <button class="bg-tertiary"  mat-flat-button><mat-icon>link</mat-icon> Go to</button>
         </a>
 
 
@@ -70,7 +70,8 @@
             <button  mat-stroked-button><mat-icon>lightbulb_2</mat-icon>AI Insights</button>
           </div>
           <div class="w-full">
-            <app-bar-chart ></app-bar-chart>
+
+            <app-menu-access-chart [urlAccessData]="menuUrlAccesses()" [qrAccessData]="menuQrAccesses()"></app-menu-access-chart>
           </div>
         </div>
 
