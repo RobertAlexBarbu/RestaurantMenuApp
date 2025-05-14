@@ -160,14 +160,9 @@ namespace WebAPI.Repository.Migrations
                     b.Property<int>("MenuId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MenuId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("MenuAccesses");
                 });
@@ -384,15 +379,7 @@ namespace WebAPI.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebAPI.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Menu");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuCategory", b =>

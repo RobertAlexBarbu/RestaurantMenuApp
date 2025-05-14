@@ -47,7 +47,17 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
         }
         return mapper.Map<MenuDto>(menu);
     }
-    
+
+    public async Task<MenuDto> GetByUrlAsync(string menuUrl)
+    {
+        var menu = await context.Menus.FirstOrDefaultAsync(m => m.Url == menuUrl);
+        if (menu == null)
+        {
+            throw new NotFoundException("Menu");
+        }
+        return mapper.Map<MenuDto>(menu);
+    }
+
     public async Task<string> GenerateUniqueUrlAsync()
     {
         string url;

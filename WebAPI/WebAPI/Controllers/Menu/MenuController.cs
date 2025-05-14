@@ -33,11 +33,18 @@ public class MenuController(IMapper mapper, IMenuService menuService, IClaimServ
     }
     
     [HttpGet]
-    [AllowAuthenticated]
     [Route("{menuId}")]
     public async Task<ActionResult<MenuDto>> GetByIdAsync(int menuId)
     {
         var menu = await menuService.GetByIdAsync(menuId);
+        return Ok(menu);
+    }
+    
+    [HttpGet]
+    [Route("{menuUrl}")]
+    public async Task<ActionResult<MenuDto>> GetByUrlAsync(string menuUrl)
+    {
+        var menu = await menuService.GetByUrlAsync(menuUrl);
         return Ok(menu);
     }
     

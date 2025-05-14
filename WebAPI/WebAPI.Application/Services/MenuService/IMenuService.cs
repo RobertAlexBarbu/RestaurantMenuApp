@@ -8,6 +8,8 @@ public interface IMenuService
     Task UpdateByIdAsync(int menuId, int userId, UpdateMenuDto updateMenuDto);
     Task<bool> CheckUrlAvailabilityAsync(string url);
     Task<MenuDto> GetByIdAsync(int menuId);
+    
+    Task<MenuDto> GetByUrlAsync(string menuUrl);
 
     Task<string> GenerateUniqueUrlAsync();
 

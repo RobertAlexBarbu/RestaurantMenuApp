@@ -1,0 +1,11 @@
+using WebAPI.Application.DTO.Menu;
+using WebAPI.Application.DTO.MenuAccess;
+
+namespace WebAPI.Application.Services.MenuAnalyticsService;
+
+public interface IMenuAnalyticsService
+{
+    Task CreateMenuAccessAsync(CreateMenuAccessDto createMenuAccessDto);
+
+    Task<List<MenuAccessDto>> GetMenuAccessesByMenuIdAsync(int menuId);
+}

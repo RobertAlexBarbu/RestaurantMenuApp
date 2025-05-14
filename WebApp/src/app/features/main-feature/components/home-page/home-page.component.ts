@@ -33,13 +33,18 @@ import {MatOption, provideNativeDateAdapter} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {ChartJsService} from "../../../../core/services/chart-js/chart-js.service";
 import {PieChartComponent} from "../../../../recipes/components/charts/pie-chart/pie-chart.component";
+import {MenuAnalyticsService} from "../../../../core/http/services/menu-analytics/menu-analytics.service";
+import {LoadingPageComponent} from "../../../../shared/components/loading-page/loading-page.component";
+import {
+  FeatureLoadingPageComponent
+} from "../../../../shared/components/feature-loading-page/feature-loading-page.component";
 
 @Component({
     selector: 'app-home-page',
     standalone: true,
   imports: [
     MatIcon,
-    ToolbarComponent, JsonPipe, RightSidebarComponent, CardComponent, FormsModule, MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton, QrGeneratorComponent, AdvancedChartContainerComponent, BarChartComponent, MatDateRangeInput, MatDateRangePicker, MatDatepickerToggle, MatEndDate, MatHint, MatOption, MatSelect, MatStartDate, MatSuffix, PieChartComponent],
+    ToolbarComponent, JsonPipe, RightSidebarComponent, CardComponent, FormsModule, MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton, QrGeneratorComponent, AdvancedChartContainerComponent, BarChartComponent, MatDateRangeInput, MatDateRangePicker, MatDatepickerToggle, MatEndDate, MatHint, MatOption, MatSelect, MatStartDate, MatSuffix, PieChartComponent, LoadingPageComponent, FeatureLoadingPageComponent],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,6 +57,7 @@ export class HomePageComponent {
   private readonly menuService = inject(MenuService)
   private readonly destroyRef = inject(DestroyRef);
   private readonly notificationService = inject(NotificationService)
+  private readonly menuAnalyticsService = inject(MenuAnalyticsService)
   menu = this.appStore.user.menu;
   ssrUrl = this.environmentService.getSsrUrl();
   completeUrl = computed(() => this.ssrUrl + '/' + this.menu.url())
@@ -67,6 +73,7 @@ export class HomePageComponent {
     ),
 
   })
+  loadingPage = signal(true);
 
   constructor() {
 
@@ -83,6 +90,12 @@ export class HomePageComponent {
         }
       }
     )
+    this.menuAnalyticsService.getMenuAccessesByMenuId(this.menu.id()).subscribe({
+      next: value => {
+        this.loadingPage.set(false);
+        console.log(value);
+      }
+    })
   }
   updateMenuLoading = signal(false)
   urlUnavailable = signal(false);
@@ -114,16 +127,20 @@ export class HomePageComponent {
               this.form.controls.url.setErrors({
                 name: "Invalid URL",
               })
-              return of(true);
+              return of("invalid-url");
             }
           }),
           takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (val) => {
-            this.disabledSave = signal(true);
+            if (val !== "invalid-url") {
+              this.disabledSave = signal(true);
+
+              this.notificationService.notify('Menu Updated Successfully.')
+              this.appStore.updateMenu(this.form.getRawValue())
+            }
             this.updateMenuLoading.set(false);
-            this.notificationService.notify('Menu Updated Successfully.')
-            this.appStore.updateMenu(this.form.getRawValue())
+
           }
         })
     }

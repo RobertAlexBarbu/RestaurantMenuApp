@@ -2,6 +2,7 @@ using AutoMapper;
 using WebAPI.Application.DTO.Element;
 using WebAPI.Application.DTO.ElementCategory;
 using WebAPI.Application.DTO.Menu;
+using WebAPI.Application.DTO.MenuAccess;
 using WebAPI.Application.DTO.Other;
 using WebAPI.Application.DTO.User;
 using WebAPI.Domain.Entities;
@@ -44,5 +45,7 @@ public class MappingProfile : Profile
         CreateMap<Menu, MenuDto>();
         CreateMap<CreateMenuDto, Menu>();
         CreateMap<UpdateMenuDto, Menu>();
+        CreateMap<MenuAccess, MenuAccessDto>();
+        CreateMap<CreateMenuAccessDto, MenuAccess>();
     }
 }

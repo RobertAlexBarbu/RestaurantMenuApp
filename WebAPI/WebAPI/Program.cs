@@ -6,6 +6,7 @@ using WebAPI.Application.Services.ClaimService;
 using WebAPI.Application.Services.ElementCategoryService;
 using WebAPI.Application.Services.ElementOverviewService;
 using WebAPI.Application.Services.ElementService;
+using WebAPI.Application.Services.MenuAnalyticsService;
 using WebAPI.Application.Services.MenuService;
 using WebAPI.Application.Services.UserService;
 using WebAPI.Application.Services.UtilityService;
@@ -83,6 +84,7 @@ builder.Services.AddScoped<IElementService, ElementService>();
 builder.Services.AddScoped<IElementCategoryService, ElementCategoryService>();
 builder.Services.AddScoped<IElementOverviewService, ElementOverviewService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IMenuAnalyticsService, MenuAnalyticsService>();
 builder.Services.AddScoped<IUtilityService, UtilityService>();
 
 var app = builder.Build();
