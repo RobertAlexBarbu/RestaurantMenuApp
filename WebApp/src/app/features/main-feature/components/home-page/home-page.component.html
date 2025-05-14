@@ -59,10 +59,10 @@
           <div   class="flex max-w-chart-options w-full flex-row-chart flex-col flex-wrap gap-4 mt-2">
             <mat-form-field>
               <mat-label>Time Period</mat-label>
-              <mat-select>
-                <mat-option  value="Dataset 1">All Time</mat-option>
-                <mat-option value="Dataset 2">Last Month</mat-option>
-                <mat-option value="Dataset 3">Last Year</mat-option>
+              <mat-select (valueChange)="timePeriodChange($event)" [value]="'all-time'">
+                <mat-option value="all-time">All Time</mat-option>
+                <mat-option value="today">Today</mat-option>
+                <mat-option value="last-week">Last Week</mat-option>
               </mat-select>
             </mat-form-field>
 

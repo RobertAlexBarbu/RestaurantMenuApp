@@ -30,7 +30,7 @@ import {
   MatStartDate
 } from "@angular/material/datepicker";
 import {MatOption, provideNativeDateAdapter} from "@angular/material/core";
-import {MatSelect} from "@angular/material/select";
+import {MatSelect, MatSelectChange} from "@angular/material/select";
 import {ChartJsService} from "../../../../core/services/chart-js/chart-js.service";
 import {PieChartComponent} from "../../../../recipes/components/charts/pie-chart/pie-chart.component";
 import {MenuAnalyticsService} from "../../../../core/http/services/menu-analytics/menu-analytics.service";
@@ -77,9 +77,36 @@ export class HomePageComponent {
   })
   loadingPage = signal(true);
   menuAccesses = signal<MenuAccessDto[]>([]);
-  menuUrlAccesses = computed(() => this.menuAccesses().filter(ma => ma.menuAccessType == "url"))
-  menuQrAccesses = computed(() => this.menuAccesses().filter(ma => ma.menuAccessType == "qr"))
-  constructor() {
+  menuUrlAccesses = computed(() => {
+    const accesses = this.menuAccesses().filter(ma => ma.menuAccessType === "url");
+    return this.filterByTimePeriod(accesses);
+  });
+
+  menuQrAccesses = computed(() => {
+    const accesses = this.menuAccesses().filter(ma => ma.menuAccessType === "qr");
+    return this.filterByTimePeriod(accesses);
+  });
+  timePeriod = signal("all-time");
+
+  private filterByTimePeriod(accesses: MenuAccessDto[]): MenuAccessDto[] {
+    const now = new Date();
+    const period = this.timePeriod();
+
+    switch (period) {
+      case "today":
+        { const todayStart = new Date(now.setHours(0, 0, 0, 0));
+        return accesses.filter(ma => new Date(ma.createdAd) >= todayStart); }
+
+      case "last-week":
+        { const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        return accesses.filter(ma => new Date(ma.createdAd) >= oneWeekAgo); }
+
+      case "all-time":
+      default:
+        return accesses;
+    }
+  }
+    constructor() {
 
     this.form.controls.name.setValue(this.menu.name())
     this.form.controls.url.setValue(this.menu.url())
@@ -106,6 +133,10 @@ export class HomePageComponent {
   disabledSave = signal(true);
   enableSave() {
     this.disabledSave = signal(false);
+  }
+
+  timePeriodChange(event: string) {
+    this.timePeriod.set(event);
   }
   updateMenu(): void {
     this.updateMenuLoading.set(true);
