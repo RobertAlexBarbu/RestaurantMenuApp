@@ -1,0 +1,50 @@
+<app-toolbar class="w-full-minus-drawer-sm-drawer" featureName="Drinks">
+  <ng-container *ngTemplateOutlet="tabs" toolbar-navigation>
+  </ng-container>
+  <ng-container *ngTemplateOutlet="tabs" toolbar-mobile-navigation>
+  </ng-container>
+  <div class="visible-over-1200px">
+    <button class="mr-4" mat-stroked-button>
+      Order Items
+    </button>
+    <button mat-stroked-button>
+      Order Categories
+    </button>
+  </div>
+  <div class="visible-under-1200px">
+    <button [matMenuTriggerFor]="menu" mat-icon-button>
+      <mat-icon>format_list_numbered</mat-icon>
+    </button>
+  </div>
+  <mat-menu #menu class="top-overlay">
+    <button mat-menu-item>
+      Order Items
+    </button>
+    <button mat-menu-item>
+      Order Categories
+    </button>
+  </mat-menu>
+</app-toolbar>
+
+<ng-template #tabs>
+  <nav  [tabPanel]="tabPanel" fitInkBarToContent mat-align-tabs="start"
+        mat-stretch-tabs="true"
+        mat-tab-nav-bar>
+    <a (click)="goTo('/menu/drinks/items')" [active]="'drinks-items' | activeFeature"
+       mat-tab-link
+    >Items</a>
+    <a (click)="goTo('/menu/drinks/categories')"
+       [active]="'drinks-categories' | activeFeature"
+       mat-tab-link
+    >Categories</a>
+
+  </nav>
+</ng-template>
+
+<mat-tab-nav-panel #tabPanel>
+  <div class="pt-toolbar sidebar-content">
+    <div class="pt-tabs-mobile">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</mat-tab-nav-panel>

@@ -8,6 +8,14 @@
         label="Home"
     ></app-icon-button>
 
+  <app-icon-button
+    (click)="goTo('/menu/food/items')"
+    [class.bg-secondary-container]="'menu' | activeFeature"
+    class="w-full"
+    icon="menu_book"
+    label="Menu"
+  ></app-icon-button>
+
     <app-icon-button
         (click)="goTo('/basic/form')"
         [class.bg-secondary-container]="'basic' | activeFeature"

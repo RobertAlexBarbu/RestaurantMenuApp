@@ -21,6 +21,13 @@
   <div [@pageLoad] class="pt-toolbar pr-sidebar sidebar-content">
     <div class="p-page flex flex-col gap-6">
 
+      <div class="visible-mobile w-fit">
+        <app-card appearance="raised" class="w-fit" cardTitle="Your QR Code">
+          <app-qr-generator [url]="qrUrl()">
+
+          </app-qr-generator>
+        </app-card>
+      </div>
       <div>
         <app-card class="block max-w-2xl" cardTitle="Your Restaurant Menu" appearance="raised">
           <div [formGroup]="form" class="flex flex-col  gap-x-4">
@@ -54,6 +61,8 @@
 
 
       </div>
+
+
       <app-card appearance="raised" class="max-w-rectangle-chart-card" cardTitle="Menu Access by URL vs QR Code">
         <div class=" w-full flex flex-col-chart  gap-6 " >
           <div   class="flex max-w-chart-options w-full flex-row-chart flex-col flex-wrap gap-4 mt-2">

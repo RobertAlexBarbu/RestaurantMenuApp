@@ -1,0 +1,16 @@
+.visible-over-1200px {
+  display: block;
+}
+
+.visible-under-1200px {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .visible-over-1200px {
+    display: none;
+  }
+  .visible-under-1200px {
+    display: block;
+  }
+}

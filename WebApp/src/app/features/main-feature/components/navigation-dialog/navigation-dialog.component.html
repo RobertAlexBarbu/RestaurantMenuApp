@@ -6,7 +6,7 @@
 <!--            </div>-->
     <mat-nav-list>
 
-        @if(!layoutView()) {
+        @if(!layoutView() && !menuView()) {
             <div >
                 <a [@fadeIn]       (click)="goTo('')"
                          [class.bg-secondary-container]="'home' | activeFeature"
@@ -16,6 +16,17 @@
                     <mat-icon matListItemIcon>home</mat-icon>
 
                 </a>
+
+              <a    [@fadeIn]     (click)="goToMenu()"
+                    [class.bg-secondary-container]="'menu' | activeFeature"
+                    mat-list-item>
+
+                <span [class.font-medium]="'menu' | activeFeature" >            Menu     </span>
+                <mat-icon matListItemIcon>menu_book</mat-icon>
+                <div matListItemMeta>
+                  <mat-icon >arrow_forward</mat-icon>
+                </div>
+              </a>
                 <a [@fadeIn]         (click)="goTo('/basic/form')"
                            [class.bg-secondary-container]="'basic' | activeFeature"
                            mat-list-item>
@@ -79,7 +90,7 @@
                 </a>
             </div>
 
-        } @else {
+        } @else if(layoutView()){
             <div >
                 <a [@fadeIn]       (click)="goToMainMenu()"
                          mat-list-item>
@@ -93,7 +104,7 @@
                              [class.bg-secondary-container]="'tabs' | activeFeature"
                              mat-list-item>
 
-                    <span [class.font-medium]="'tabs' | activeFeature" >            
+                    <span [class.font-medium]="'tabs' | activeFeature" >
                     Tabs Navigation</span>
 
                     </a>
@@ -101,7 +112,7 @@
                              [class.bg-secondary-container]="'scroll' | activeFeature"
                              mat-list-item>
 
-                    <span [class.font-medium]="'scroll' | activeFeature" >            
+                    <span [class.font-medium]="'scroll' | activeFeature" >
                     Scroll Navigation</span>
 
                     </a>
@@ -109,7 +120,7 @@
                              [class.bg-secondary-container]="'mobile' | activeFeature"
                              mat-list-item>
 
-                    <span [class.font-medium]="'mobile' | activeFeature" >            
+                    <span [class.font-medium]="'mobile' | activeFeature" >
                     Mobile Preview</span>
 
                     </a>
@@ -117,7 +128,43 @@
             </div>
 
 
-        } 
+        } @else if (menuView()) {
+          <div >
+            <a [@fadeIn]       (click)="goToMainMenu()"
+               mat-list-item>
+
+              <span >            Main Menu        </span>
+              <mat-icon matListItemIcon>arrow_backwards</mat-icon>
+
+            </a>
+            <div [@fadeIn] class="pl-8">
+              <a       (click)="goTo('/menu/food/items')"
+                       [class.bg-secondary-container]="'food' | activeFeature"
+                       mat-list-item>
+
+                    <span [class.font-medium]="'food' | activeFeature" >
+                    Food</span>
+
+              </a>
+              <a       (click)="goTo('/menu/drinks/items')"
+                       [class.bg-secondary-container]="'drinks' | activeFeature"
+                       mat-list-item>
+
+                    <span [class.font-medium]="'drinks' | activeFeature" >
+                    Drinks</span>
+
+              </a>
+              <a       (click)="goTo('/menu/details')"
+                       [class.bg-secondary-container]="'details' | activeFeature"
+                       mat-list-item>
+
+                    <span [class.font-medium]="'details' | activeFeature" >
+                    Details</span>
+
+              </a>
+            </div>
+          </div>
+        }
 
     </mat-nav-list>
 </app-fullscreen-dialog-content>

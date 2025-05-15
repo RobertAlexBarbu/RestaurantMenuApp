@@ -1,1 +1,53 @@
-<p>menu-feature works!</p>
+<app-navigation-sidebar name="Menu">
+  <mat-nav-list>
+    <a
+      (click)="goTo('/menu/food/items')"
+      [class.bg-secondary-container]="'food' | activeFeature"
+      mat-list-item
+    >
+                        <span [class.font-medium]="'food' | activeFeature" class="text-sm"
+                              mat-line>Food</span>
+      <div matListItemMeta>
+        <mat-icon >lunch_dining</mat-icon>
+      </div>
+
+    </a>
+    <a
+      (click)="goTo('menu/drinks/items')"
+      [class.bg-secondary-container]="'drinks' | activeFeature"
+      mat-list-item
+    >
+
+                        <span [class.font-medium]="'drinks' | activeFeature" class="text-sm"
+                              mat-line>Drinks</span>
+      <div matListItemMeta>
+        <mat-icon >local_bar</mat-icon>
+      </div>
+    </a>
+    <a
+      (click)="goTo('menu/details')"
+      [class.bg-secondary-container]="'details' | activeFeature"
+      mat-list-item
+    >
+                        <span [class.font-medium]="'details' | activeFeature" class="text-sm"
+                              mat-line>Details</span>
+      <div matListItemMeta>
+        <mat-icon >info</mat-icon>
+      </div>
+    </a>
+  </mat-nav-list>
+  <button mat-stroked-button>
+    <mat-icon>publish</mat-icon>
+    Import Menu
+  </button>
+  <button mat-stroked-button>
+    <mat-icon>download</mat-icon>
+    Export Menu
+  </button>
+</app-navigation-sidebar>
+<div class="pl-drawer">
+  <router-outlet>
+  </router-outlet>
+</div>
+
+<!--<app-feature-loading-page></app-feature-loading-page>-->

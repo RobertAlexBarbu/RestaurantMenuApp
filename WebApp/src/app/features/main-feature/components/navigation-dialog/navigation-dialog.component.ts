@@ -61,10 +61,12 @@ export class NavigationDialogComponent {
     private readonly activeFeatureStore = inject(ActiveFeatureStore)
     user = this.appStore.user
     layoutView = signal(false)
-    
+  menuView = signal(false)
+
     constructor() {
         effect(() => {
             this.layoutView.set(this.activeFeatureStore.features().includes('layout'))
+          this.menuView.set(this.activeFeatureStore.features().includes('menu'))
         })
         // Disable the default close behavior
         this.dialogRef.disableClose = true;
@@ -76,11 +78,15 @@ export class NavigationDialogComponent {
     }
     goToMainMenu() {
         this.layoutView.set(false)
+      this.menuView.set(false)
     }
     goToLayout() {
         this.layoutView.set(true)
     }
-    
+    goToMenu() {
+      this.menuView.set(true)
+    }
+
     closeDialog() {
         document.querySelectorAll('.sidebar-content').forEach(el => el.classList.remove('sidebar-open'));
         document.querySelectorAll('.sidebar-content').forEach(el => el.classList.add('sidebar-close'));

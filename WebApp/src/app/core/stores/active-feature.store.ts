@@ -52,5 +52,10 @@ const featuresMap: Record<string, string[]> = {
     '/settings/account': ['settings', 'account'],
     '/settings/preferences': ['settings', 'preferences'],
     '/settings/billing': ['settings', 'billing'],
+  '/menu/food/items': ['menu', 'food', 'food-items'],
+  '/menu/food/categories': ['menu', 'food', 'food-categories'],
+  '/menu/drinks/items': ['menu', 'drinks', 'drinks-items'],
+  '/menu/drinks/categories': ['menu', 'drinks', 'drinks-categories'],
+  '/menu/details': ['menu', 'details']
 
 }

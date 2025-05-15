@@ -25,6 +25,10 @@ export const mainRoutes: Routes = [
                         '../../recipes/features/basic-feature/basic-feature.routes'
                         ).then((m) => m.basicFeatureRoutes),
             },
+          {
+            path: 'menu',
+            loadChildren: () => import("../menu-feature/menu-feature.routes").then(m => m.routes)
+          },
             {
                 path: 'debug',
                 loadComponent: () =>
@@ -74,5 +78,5 @@ export const mainRoutes: Routes = [
     },
 
 ]
-    
+
 
