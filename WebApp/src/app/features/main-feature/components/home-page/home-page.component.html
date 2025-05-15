@@ -1,8 +1,8 @@
 <app-toolbar class="w-full-minus-drawer-sm" featureName="Home"></app-toolbar>
 <app-right-sidebar class="visible-desktop bg-green-300">
-  <div class="flex flex-col justify-center items-center mt-8 p-4">
+  <div class="flex flex-col gap-6 justify-center items-center mt-8 p-4">
     <div class="text-4xl">Your <span class="font-medium">QR</span>  Code</div>
-    <div class="p-4 corner-l bg-surface-container-lowest flex-col gap-4 ">
+    <div class="p-4 corner-l  flex-col gap-4 ">
 
       <app-qr-generator [url]="qrUrl()">
 
@@ -22,7 +22,7 @@
     <div class="p-page flex flex-col gap-6">
 
       <div>
-        <app-card class="block max-w-2xl" title="Your Restaurant Menu" appearance="raised">
+        <app-card class="block max-w-2xl" cardTitle="Your Restaurant Menu" appearance="raised">
           <div [formGroup]="form" class="flex flex-col  gap-x-4">
             <mat-form-field class="min-w-64  flex-grow">
               <mat-label>Restaurant Name</mat-label>
@@ -54,23 +54,20 @@
 
 
       </div>
-      <app-card appearance="raised" class="max-w-rectangle-chart-card" title="Menu Access by URL vs QR Code">
+      <app-card appearance="raised" class="max-w-rectangle-chart-card" cardTitle="Menu Access by URL vs QR Code">
         <div class=" w-full flex flex-col-chart  gap-6 " >
           <div   class="flex max-w-chart-options w-full flex-row-chart flex-col flex-wrap gap-4 mt-2">
-            <mat-form-field>
+            <mat-form-field subscriptSizing="dynamic">
               <mat-label>Time Period</mat-label>
-              <mat-select (valueChange)="timePeriodChange($event)" [value]="'all-time'">
-                <mat-option value="all-time">All Time</mat-option>
-                <mat-option value="today">Today</mat-option>
-                <mat-option value="last-week">Last Week</mat-option>
+              <mat-select (valueChange)="timePeriodChange($event)" [value]="'All Time'">
+                <mat-option value="All Time">All Time</mat-option>
+                <mat-option value="Today">Today</mat-option>
               </mat-select>
             </mat-form-field>
 
-
-            <button  mat-stroked-button><mat-icon>lightbulb_2</mat-icon>AI Insights</button>
+            <button (click)="openInsightsDialog()" mat-stroked-button><mat-icon>lightbulb_2</mat-icon>AI Insights</button>
           </div>
           <div class="w-full">
-
             <app-menu-access-chart [urlAccessData]="menuUrlAccesses()" [qrAccessData]="menuQrAccesses()"></app-menu-access-chart>
           </div>
         </div>

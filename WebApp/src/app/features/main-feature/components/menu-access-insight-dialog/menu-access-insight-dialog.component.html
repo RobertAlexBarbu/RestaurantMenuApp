@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>AI Insights</h2>
+<mat-dialog-content responsive-dialog-content class="h-80vh w-full overflow-y-scroll">
+  @if (loading()) {
+    <div class=" flex items-center h-full  justify-center">
+      <mat-spinner [diameter]="24" class="m-auto" ></mat-spinner>
+    </div>
+  } @else {
+    <div class="self-start w-full">
+      <div  class="w-full"
+           [appTypewriter]="(insight() | formatLlmResponse)" >
+      </div>
+    </div>
+  }
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button (click)="onNoClick()" mat-button>Ok</button>
+</mat-dialog-actions>

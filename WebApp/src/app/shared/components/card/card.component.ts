@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@a
     standalone: true,
 })
 export class CardComponent {
-    title = input.required<string>()
+    cardTitle = input<string>('')
     titleCard = input<boolean>(false)
     mobile = input<boolean>(true)
     desktop = input<boolean>(true)

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.DTO.MenuAccess;
+using WebAPI.Application.Services.ChatService;
 using WebAPI.Application.Services.MenuAnalyticsService;
 
 namespace WebAPI.Controllers.Menu;
@@ -23,4 +24,13 @@ public class MenuAnalyticsController(IMenuAnalyticsService menuAnalyticsService)
         var menuAccesses = await menuAnalyticsService.GetMenuAccessesByMenuIdAsync(menuId);
         return menuAccesses;
     }
+
+    [HttpGet]
+    public async Task<ActionResult<MenuAccessInsightDto>> GetMenuAccessInsights(int qrAccesses, int urlAccesses, string timePeriod)
+    {
+        var response = await menuAnalyticsService.GetMenuAccessInsights(qrAccesses, urlAccesses, timePeriod);
+        return Ok(response);
+    }
+    
+    
 }

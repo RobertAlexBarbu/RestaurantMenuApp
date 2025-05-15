@@ -1,6 +1,6 @@
 export interface MenuAccessDto {
   id: number,
-  createdAd: Date,
+  createdAt: Date,
   menuAccessType: string,
   menuId: number,
 

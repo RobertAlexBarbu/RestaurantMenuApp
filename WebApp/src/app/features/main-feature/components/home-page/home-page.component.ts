@@ -40,6 +40,8 @@ import {
 } from "../../../../shared/components/feature-loading-page/feature-loading-page.component";
 import {MenuAccessChartComponent} from "../menu-access-chart/menu-access-chart.component";
 import {MenuAccessDto} from "../../../../core/http/dto/menu-analytics/menu-access.dto";
+import {MatDialog} from "@angular/material/dialog";
+import {MenuAccessInsightDialogComponent} from "../menu-access-insight-dialog/menu-access-insight-dialog.component";
 
 @Component({
     selector: 'app-home-page',
@@ -60,6 +62,7 @@ export class HomePageComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly notificationService = inject(NotificationService)
   private readonly menuAnalyticsService = inject(MenuAnalyticsService)
+  private readonly matDialog = inject(MatDialog)
   menu = this.appStore.user.menu;
   ssrUrl = this.environmentService.getSsrUrl();
   completeUrl = computed(() => this.ssrUrl + '/' + this.menu.url())
@@ -86,22 +89,18 @@ export class HomePageComponent {
     const accesses = this.menuAccesses().filter(ma => ma.menuAccessType === "qr");
     return this.filterByTimePeriod(accesses);
   });
-  timePeriod = signal("all-time");
+  timePeriod = signal("All Time");
 
   private filterByTimePeriod(accesses: MenuAccessDto[]): MenuAccessDto[] {
     const now = new Date();
     const period = this.timePeriod();
 
     switch (period) {
-      case "today":
+      case "Today":
         { const todayStart = new Date(now.setHours(0, 0, 0, 0));
-        return accesses.filter(ma => new Date(ma.createdAd) >= todayStart); }
+        return accesses.filter(ma => new Date(ma.createdAt) >= todayStart); }
 
-      case "last-week":
-        { const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-        return accesses.filter(ma => new Date(ma.createdAd) >= oneWeekAgo); }
-
-      case "all-time":
+      case "All Time":
       default:
         return accesses;
     }
@@ -179,5 +178,16 @@ export class HomePageComponent {
           }
         })
     }
+  }
+
+  openInsightsDialog() {
+    this.matDialog.open(MenuAccessInsightDialogComponent, {
+      width: "700px",
+      data: {
+        qrAccesses: this.menuQrAccesses().length,
+        urlAccesses: this.menuUrlAccesses().length,
+        timePeriod: this.timePeriod(),
+      }
+    })
   }
 }

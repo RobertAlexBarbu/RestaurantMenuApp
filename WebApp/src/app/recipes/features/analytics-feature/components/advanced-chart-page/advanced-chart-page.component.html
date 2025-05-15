@@ -1,5 +1,5 @@
 <div [@pageLoad] class="p-page flex flex-col gap-6">
-    <app-card appearance="raised" class="max-w-rectangle-chart-card" title="Bar Chart">
+    <app-card appearance="raised" class="max-w-rectangle-chart-card" cardTitle="Bar Chart">
         <app-advanced-chart-container>
                             <mat-form-field>
                                 <mat-label>Dataset</mat-label>
@@ -20,12 +20,12 @@
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
                             </mat-form-field>
-                            
+
                             <button  mat-stroked-button><mat-icon>lightbulb_2</mat-icon>AI Insights</button>
                                 <app-bar-chart chart></app-bar-chart>
         </app-advanced-chart-container>
     </app-card>
-    <app-card appearance="raised" class="max-w-square-chart-card"   title="Bar Chart">
+    <app-card appearance="raised" class="max-w-square-chart-card"   cardTitle="Bar Chart">
         <app-advanced-chart-container [rectangle]="false">
                 <mat-form-field>
                     <mat-label>Dataset</mat-label>

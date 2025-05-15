@@ -1,6 +1,6 @@
 <div [@pageLoad] class="p-page responsive-page max-w-page">
     <div class="flex flex-col gap-6">
-        <app-card appearance="raised" class="w-fit order-1" title="Buttons">
+        <app-card appearance="raised" class="w-fit order-1" cardTitle="Buttons">
             <div class="flex flex flex-wrap gap-4">
                 <!-- Overlays -->
 
@@ -32,7 +32,7 @@
 
             </div>
         </app-card>
-        <app-card appearance="raised" class="w-fit order-2 flex-grow-0" title="Images">
+        <app-card appearance="raised" class="w-fit order-2 flex-grow-0" cardTitle="Images">
             <!-- Images -->
             <div class="flex flex-wrap gap-4 justify-start">
                 <app-image [style.max-width]="'250px'" caption="Image from public/images" class="flex-grow"
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </app-card>
-        <app-card appearance="raised" class="order-1" title="Files">
+        <app-card appearance="raised" class="order-1" cardTitle="Files">
             <!-- File Download -->
             <button (click)="downloadFile()" [class.spinner]="loadingDownloadButton()"
                     [disabled]="loadingDownloadButton()"
@@ -67,16 +67,16 @@
         </app-card>
     </div>
     <div class="flex flex-col gap-6">
-        <app-card appearance="raised" class="w-fit" title="Drag-and-Drop Sorting">
+        <app-card appearance="raised" class="w-fit" cardTitle="Drag-and-Drop Sorting">
             <!-- Drag-and-Drop Sorting -->
             <app-drag-and-drop-sorting (elementsOrdered)="elementsOrdered($event)" [elements]="dragAndDropElements"
                                        bgClass="bg-surface-container-lowest"></app-drag-and-drop-sorting>
         </app-card>
-        <app-card appearance="raised" class="w-fit order-3" title="QR Code Generator">
+        <app-card appearance="raised" class="w-fit order-3" cardTitle="QR Code Generator">
             <app-qr-generator
                 url="https://stackoverflow.com/questions/49989070/mattooltipclass-not-applying-css"></app-qr-generator>
         </app-card>
-        <app-card appearance="raised" class="order-2" title="Copy to Clipboard">
+        <app-card appearance="raised" class="order-2" cardTitle="Copy to Clipboard">
             <button (click)="copyToClipboard()" [cdkCopyToClipboard]="copyToClipboardText" card-button class="ml-auto"
                     mat-icon-button
                     matTooltip="Copy to Clipboard">
