@@ -1,6 +1,9 @@
-@if (!loading()) {
+@if (!loading() && online()) {
     <router-outlet></router-outlet>
 }
-@if (loading()) {
+@if (loading() && online()) {
     <app-loading-page></app-loading-page>
+}
+@if(!online()) {
+  No Internet Connection
 }

@@ -25,7 +25,7 @@ html {
   @include mat.theme((
           color: (
                   primary: mat.$chartreuse-palette,
-                  tertiary: mat.$orange-palette,
+                  tertiary: mat.$rose-palette,
           ),
           typography: Roboto,
           density: -1,

@@ -15,7 +15,7 @@
 }
 
 .pr-sidebar {
-  padding-right: max(40vw, 300px);
+  padding-right: calc( max(40vw, 300px) - 1rem);
 }
 
 .pt-tabs {

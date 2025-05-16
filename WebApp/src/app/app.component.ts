@@ -34,8 +34,10 @@ export class AppComponent {
     private readonly drawerContentService = inject(ScrollService)
     private readonly activeFeatureStore = inject(ActiveFeatureStore)
     loading = signal(true)
+    online = signal(false);
 
     constructor() {
+      this.online.set(window.navigator.onLine)
         const startTime = Date.now()
         this.authService
             .isLoggedIn()

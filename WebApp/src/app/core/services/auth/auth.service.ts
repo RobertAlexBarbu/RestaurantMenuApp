@@ -4,6 +4,7 @@ import { UserDto } from '../../http/dto/user/user.dto'
 import { FirebaseService } from '../firebase/firebase.service'
 import { UserService } from '../../http/services/user/user.service'
 import {
+  browserLocalPersistence,
     createUserWithEmailAndPassword,
     EmailAuthProvider,
     getAuth,
@@ -14,6 +15,7 @@ import {
     linkWithRedirect,
     reauthenticateWithCredential,
     sendPasswordResetEmail,
+  setPersistence,
     signInWithEmailAndPassword,
     signInWithPopup,
     signInWithRedirect,
@@ -21,21 +23,34 @@ import {
     updateEmail,
     updatePassword,
     User,
+  Auth
 } from 'firebase/auth'
 import { AppStore } from '../../stores/app.store'
+
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
     private readonly firebase = inject(FirebaseService)
-    private readonly firebaseAuth
+    private readonly firebaseAuth!: Auth
     private readonly userService = inject(UserService)
     private readonly appStore = inject(AppStore)
 
     constructor() {
-        console.log('Initialized Firebase Auth')
-        this.firebaseAuth = getAuth(this.firebase.getApp())
+
+        if(window.navigator.onLine) {
+          this.firebaseAuth = getAuth(this.firebase.getApp())
+          console.log('Initialized Firebase Auth')
+        }
+
+      // setPersistence(this.firebaseAuth, browserLocalPersistence)
+      //   .then(() => {
+      //     console.log('Firebase persistence set to LOCAL');
+      //   })
+      //   .catch((error) => {
+      //     console.error('Error setting persistence:', error);
+      //   });
     }
 
     // Email Login
@@ -290,8 +305,12 @@ export class AuthService {
                     return of(null)
                 }
             }),
-            catchError((error) => {
+            catchError((error: Error) => {
                 console.error('[Auth] Error retrieving Id Token', error)
+              console.log(error.message);
+                if(error.message.includes('auth/network-request-failed')) {
+                  return of(null);
+                }
                 return of(null)
             }),
         )

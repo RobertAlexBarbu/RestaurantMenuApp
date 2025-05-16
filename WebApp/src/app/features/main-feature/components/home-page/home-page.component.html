@@ -1,6 +1,6 @@
 <app-toolbar class="w-full-minus-drawer-sm" featureName="Home"></app-toolbar>
 <app-right-sidebar class="visible-desktop bg-green-300">
-  <div class="flex flex-col gap-6 justify-center items-center mt-8 p-4">
+  <div class="flex flex-col gap-6 justify-center items-center pt-8 p-4">
     <div class="text-4xl">Your <span class="font-medium">QR</span>  Code</div>
     <div class="p-4 corner-l  flex-col gap-4 ">
 
@@ -50,7 +50,7 @@
       </div>
       <div class="bg-tertiary-container text-on-tertiary-container corner-l p-3 flex flex-wrap items-center gap-4 ">
         <div class="flex gap-1 flex-wrap">
-          <span>      Your menu is available at:</span>
+          <span>      Your menu is live at:</span>
           <a [href]="completeUrl()"  target="_blank" class="font-medium link">{{ssrUrl}}/{{menu.url()}}</a>
 
         </div>

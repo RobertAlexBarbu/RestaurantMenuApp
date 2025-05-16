@@ -55,7 +55,8 @@
 }
 
 .border-elevated {
-  box-shadow: var(--mat-sys-level1) !important;
+  border: 0 !important;
+  //box-shadow: var(--mat-sys-level1) !important;
 }
 
 .dark-theme .border-elevated {
