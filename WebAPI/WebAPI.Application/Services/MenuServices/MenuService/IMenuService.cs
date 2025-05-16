@@ -1,4 +1,5 @@
 using WebAPI.Application.DTO.Menu;
+using WebAPI.Application.DTO.MenuDTO.Menu;
 
 namespace WebAPI.Application.Services.MenuService;
 
@@ -10,6 +11,8 @@ public interface IMenuService
     Task<MenuDto> GetByIdAsync(int menuId);
     
     Task<MenuDto> GetByUrlAsync(string menuUrl);
+
+    Task<MenuDataDto> GetDataByIdAsync(int id);
 
     Task<string> GenerateUniqueUrlAsync();
 

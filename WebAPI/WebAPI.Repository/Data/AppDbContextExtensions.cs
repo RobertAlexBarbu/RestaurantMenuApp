@@ -23,7 +23,7 @@ public static class AppDbContextExtensions
             throw new NotFoundException(typeof(TEntity).Name);
     }
 
-    public static async Task EnsureExistsByIdAsync<TEntity>(this AppDbContext context, int id, int userId)
+    public static async Task EnsureExistsByIdAndUserIdAsync<TEntity>(this AppDbContext context, int id, int userId)
         where TEntity : class
     {
         var exists = await context.Set<TEntity>()
@@ -70,7 +70,7 @@ public static class AppDbContextExtensions
         where TEntity : class, new()
         where TDto : class
     {
-        await context.EnsureExistsByIdAsync<TEntity>(id, userId);
+        await context.EnsureExistsByIdAndUserIdAsync<TEntity>(id, userId);
         var entity = context.AttachAndMap<TEntity, TDto>(id, dto, mapper);
         context.MarkPropertiesModifiedFromDto(entity, dto);
         await context.SaveChangesAsync();
@@ -86,10 +86,43 @@ public static class AppDbContextExtensions
         where TEntity : class, new()
         where TDto : class
     {
-        await context.EnsureExistsByIdAsync<TEntity>(id, userId);
+        await context.EnsureExistsByIdAndUserIdAsync<TEntity>(id, userId);
         var entity = context.AttachAndMap<TEntity, TDto>(id, dto, mapper);
         context.MarkPropertiesModifiedFromDto(entity, dto);
         await context.SaveChangesAsync();
         return entity;
+    }
+
+    public static async Task<TEntity> CreateFromDtoWithUserIdAsync<TEntity, TDto>(
+        this AppDbContext context,
+        int userId,
+        TDto dto,
+        IMapper mapper
+    )        
+        where TEntity : class, new()
+        where TDto : class
+    {
+        var entity = new TEntity();
+        mapper.Map(dto, entity);
+        typeof(TEntity).GetProperty("UserId")?.SetValue(entity, userId);
+        context.Set<TEntity>().Add(entity);
+        await context.SaveChangesAsync();
+        return entity;
+    }
+    
+    public static async Task DeleteByIdWithUserIdAsync<TEntity>(
+        this AppDbContext context,
+        int id,
+        int userId
+    )        
+        where TEntity : class, new()
+    {
+        await context.EnsureExistsByIdAndUserIdAsync<TEntity>(id, userId);
+        var entity = await context.Set<TEntity>().FindAsync(id);
+        if (entity != null)
+        {
+            context.Set<TEntity>().Remove(entity);
+        }
+        await context.SaveChangesAsync();
     }
 }

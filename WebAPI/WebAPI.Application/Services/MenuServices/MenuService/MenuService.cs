@@ -1,15 +1,21 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Application.DTO.Menu;
+using WebAPI.Application.DTO.MenuDTO.Menu;
+using WebAPI.Application.DTO.MenuDTO.MenuCategory;
+using WebAPI.Application.DTO.MenuDTO.MenuDetails;
+using WebAPI.Application.DTO.MenuDTO.MenuItem;
+using WebAPI.Application.Services.MenuServices.MenuDetailsService;
 using WebAPI.Application.Services.UtilityService;
 using WebAPI.Domain.Entities;
 using WebAPI.Domain.Entities.Menu;
+using WebAPI.Domain.Enums;
 using WebAPI.Domain.Exceptions;
 using WebAPI.Repository.Data;
 
 namespace WebAPI.Application.Services.MenuService;
 
-public class MenuService(AppDbContext context, IMapper mapper, IUtilityService utilityService): IMenuService
+public class MenuService(AppDbContext context, IMapper mapper, IUtilityService utilityService, IMenuDetailsService menuDetailsService): IMenuService
 {
     public async Task<MenuDto> CreateAsync(int userId, CreateMenuDto createMenuDto)
     {
@@ -17,6 +23,10 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
         menu.UserId = userId;
         context.Menus.Add(menu);
         await context.SaveChangesAsync();
+        await menuDetailsService.CreateMenuDetailsAsync(userId, new CreateMenuDetailsDto
+        {
+            MenuId = menu.Id
+        });
         return mapper.Map<MenuDto>(menu);
     }
 
@@ -56,6 +66,22 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
             throw new NotFoundException("Menu");
         }
         return mapper.Map<MenuDto>(menu);
+    }
+
+    public async Task<MenuDataDto> GetDataByIdAsync(int id)
+    {
+        var menuItems = await context.MenuItems.Where(i => i.MenuId == id).ToListAsync();
+        var menuCategories = await context.MenuCategories.Where(c => c.MenuId == id).ToListAsync();
+        var menuDetails = await context.MenuDetails.FirstOrDefaultAsync(d => d.MenuId == id);
+        var menuDetailsDto = mapper.Map<MenuDetailsDto>(menuDetails);
+        return new MenuDataDto
+        {
+            DrinksMenuItems = menuItems.Select(mapper.Map<MenuItemDto>).Where(i => i.MenuType == MenuTypes.Drinks).ToList(),
+            FoodMenuItems = menuItems.Select(mapper.Map<MenuItemDto>).Where(i => i.MenuType == MenuTypes.Food).ToList(),
+            DrinksMenuCategories = menuCategories.Select(mapper.Map<MenuCategoryDto>).Where(i => i.MenuType == MenuTypes.Drinks).ToList(),
+            FoodMenuCategories = menuCategories.Select(mapper.Map<MenuCategoryDto>).Where(i => i.MenuType == MenuTypes.Food).ToList(),
+            MenuDetails = menuDetailsDto
+        };
     }
 
     public async Task<string> GenerateUniqueUrlAsync()

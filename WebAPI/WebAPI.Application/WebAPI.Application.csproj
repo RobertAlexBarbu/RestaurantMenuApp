@@ -16,4 +16,9 @@
         <PackageReference Include="AutoMapper" Version="13.0.1"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DTO\ElementDTO\" />
+      <Folder Include="Services\ElementServices\" />
+    </ItemGroup>
+
 </Project>

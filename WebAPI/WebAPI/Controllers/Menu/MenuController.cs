@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.DTO.Menu;
+using WebAPI.Application.DTO.MenuDTO.Menu;
 using WebAPI.Application.Services.ClaimService;
 using WebAPI.Application.Services.MenuService;
 using WebAPI.Filters;
@@ -46,6 +47,14 @@ public class MenuController(IMapper mapper, IMenuService menuService, IClaimServ
     {
         var menu = await menuService.GetByUrlAsync(menuUrl);
         return Ok(menu);
+    }
+    
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult<MenuDataDto>> GetDataByIdAsync(int id)
+    {
+        var menuData = await menuService.GetDataByIdAsync(id);
+        return Ok(menuData);
     }
     
     [HttpGet]

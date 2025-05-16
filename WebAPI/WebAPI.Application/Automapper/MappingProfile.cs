@@ -3,6 +3,9 @@ using WebAPI.Application.DTO.Element;
 using WebAPI.Application.DTO.ElementCategory;
 using WebAPI.Application.DTO.Menu;
 using WebAPI.Application.DTO.MenuAccess;
+using WebAPI.Application.DTO.MenuDTO.MenuCategory;
+using WebAPI.Application.DTO.MenuDTO.MenuDetails;
+using WebAPI.Application.DTO.MenuDTO.MenuItem;
 using WebAPI.Application.DTO.Other;
 using WebAPI.Application.DTO.User;
 using WebAPI.Domain.Entities;
@@ -34,11 +37,9 @@ public class MappingProfile : Profile
         CreateMap<UpdateElementDto, Element>();
         CreateMap<UpdateVisibilityDto, Element>();
         CreateMap<UpdateWeightDto, Element>();
-        
         CreateMap<ElementCategory, ElementCategoryDto>();
         CreateMap<UpdateElementCategoryDto, ElementCategory>();
         CreateMap<CreateElementCategoryDto, ElementCategory>();
-        
         CreateMap<PositionDto, Element>();
         
         // Menu
@@ -47,5 +48,19 @@ public class MappingProfile : Profile
         CreateMap<UpdateMenuDto, Menu>();
         CreateMap<MenuAccess, MenuAccessDto>();
         CreateMap<CreateMenuAccessDto, MenuAccess>();
+        CreateMap<CreateMenuDetailsDto, MenuDetails>();
+        CreateMap<MenuDetails, MenuDetailsDto>();
+        CreateMap<CreateMenuCategoryDto, MenuCategory>();
+        CreateMap<UpdateMenuCategoryDto, MenuCategory>();
+        CreateMap<UpdateMenuCategoryVisibilityDto, MenuCategory>();
+        CreateMap<MenuCategory, MenuCategoryDto>();
+        CreateMap<CreateMenuItemDto, MenuItem>();
+        CreateMap<MenuItem, MenuItemDto>();
+        CreateMap<UpdateMenuItemDto, MenuItem>();
+        CreateMap<UpdateMenuItemPriceDto, MenuItem>();
+        CreateMap<UpdateMenuItemVisibilityDto, MenuItem>();
+        CreateMap<UpdateMenuItemImageUrlDto, MenuItem>();
+        CreateMap<PositionDto, MenuItem>();
+        CreateMap<PositionDto, MenuCategory>();
     }
 }

@@ -41,7 +41,7 @@ public class ElementCategoryService(AppDbContext context, IMapper mapper) : IEle
 
     public async Task DeleteByIdAsync(int categoryId, int userId)
     {
-        await context.EnsureExistsByIdAsync<ElementCategory>(categoryId, userId);
+        await context.EnsureExistsByIdAndUserIdAsync<ElementCategory>(categoryId, userId);
         var category = new ElementCategory
         {
             Id = categoryId

@@ -38,7 +38,7 @@ public class ElementService(AppDbContext context, IMapper mapper) : IElementServ
 
     public async Task DeleteByIdAsync(int elementId, int userId)
     {
-        await context.EnsureExistsByIdAsync<Element>(elementId, userId);
+        await context.EnsureExistsByIdAndUserIdAsync<Element>(elementId, userId);
         var element = new Element
         {
             Id = elementId
