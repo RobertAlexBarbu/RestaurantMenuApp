@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 
-import { UpdateElementCategoryDto } from '../../dto/element-category/update-element-category.dto'
-import { ElementCategoryDto } from '../../dto/element-category/element-category.dto'
-import { CreateElementCategoryDto } from '../../dto/element-category/create-element-category.dto'
-import { EnvironmentService } from '../../../services/environment/environment.service'
+import { UpdateElementCategoryDto } from '../../../dto/element-dto/element-category/update-element-category.dto'
+import { ElementCategoryDto } from '../../../dto/element-dto/element-category/element-category.dto'
+import { CreateElementCategoryDto } from '../../../dto/element-dto/element-category/create-element-category.dto'
+import { EnvironmentService } from '../../../../services/environment/environment.service'
 
 @Injectable({
     providedIn: 'root',

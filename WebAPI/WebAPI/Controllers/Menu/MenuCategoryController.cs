@@ -44,6 +44,7 @@ public class MenuCategoryController(IMenuCategoryService menuCategoryService, IC
 
     [HttpPatch]
     [AllowAuthenticated]
+    [Route("{menuId}")]
     public async Task<ActionResult> UpdatePositionsByMenuIdAsync(int menuId, List<PositionDto> categoryPositions)
     {
         var userClaims = claimService.GetUserClaims(User);
@@ -53,6 +54,7 @@ public class MenuCategoryController(IMenuCategoryService menuCategoryService, IC
 
     [HttpPut]
     [AllowAuthenticated]
+    [Route("{menuId}")]
     public async Task<ActionResult> ReplaceAllByMenuIdAsync(int menuId, List<CreateMenuCategoryDto> createMenuCategoryDtos)
     {
         var userClaims = claimService.GetUserClaims(User);

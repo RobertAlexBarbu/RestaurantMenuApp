@@ -6,8 +6,8 @@ import { UpdateImageUrlDto } from '../http/dto/user/update-image-url.dto'
 import { UpdateEmailDto } from '../http/dto/user/update-email.dto'
 import { UpdateEmailNotificationsDto } from '../http/dto/user/update-email-notifications.dto'
 import { UpdateGoogleEmailDto } from '../http/dto/user/update-google-email.dto'
-import {MenuDto} from "../http/dto/menu/menu.dto";
-import {UpdateMenuDto} from "../http/dto/menu/update-menu-dto";
+import {MenuDto} from "../http/dto/menu-dto/menu/menu.dto";
+import {UpdateMenuDto} from "../http/dto/menu-dto/menu/update-menu-dto";
 
 export interface AppState {
     user: UserDto

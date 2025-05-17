@@ -1,4 +1,5 @@
 import {Routes} from "@angular/router";
+import {MenuFeatureStore} from "../../core/stores/menu-feature.store";
 
 export const routes: Routes = [
   {

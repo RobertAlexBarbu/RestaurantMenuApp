@@ -14,8 +14,8 @@ import { MatButton } from '@angular/material/button'
 import { ErrorService } from '../../../../../core/services/error/error.service'
 import { NotificationService } from '../../../../../core/services/notification/notification.service'
 
-import { ElementCategoryDto } from '../../../../../core/http/dto/element-category/element-category.dto'
-import { ElementCategoryService } from '../../../../../core/http/services/element-category/element-category.service'
+import { ElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/element-category.dto'
+import { ElementCategoryService } from '../../../../../core/http/services/element-services/element-category/element-category.service'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 
 

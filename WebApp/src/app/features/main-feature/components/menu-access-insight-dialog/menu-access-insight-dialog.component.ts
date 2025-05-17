@@ -8,7 +8,7 @@ import {
   MatDialogTitle
 } from "@angular/material/dialog";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {MenuAnalyticsService} from "../../../../core/http/services/menu-analytics/menu-analytics.service";
+import {MenuAnalyticsService} from "../../../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 import {FormatLlmResponsePipe} from "../../../../shared/pipes/format-llm-response/format-llm-response.pipe";
 import {TypewriterDirective} from "../../../../shared/directives/typewriter/typewriter.directive";
 

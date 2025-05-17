@@ -48,16 +48,16 @@ import {
     TableDeleteCategoryDialogComponent,
 } from '../table-delete-category-dialog/table-delete-category-dialog.component'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { ElementCategoryDto } from '../../../../../core/http/dto/element-category/element-category.dto'
+import { ElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/element-category.dto'
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator'
 import { pageLoadAnimation } from '../../../../../app.animations'
 
 import { AppStore } from '../../../../../core/stores/app.store'
-import { ElementService } from '../../../../../core/http/services/element/element.service'
+import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
 import { MatDialog } from '@angular/material/dialog'
 import { NotificationService } from '../../../../../core/services/notification/notification.service'
 
-import { ElementDetailDto } from '../../../../../core/http/dto/element/element-detail.dto'
+import { ElementDetailDto } from '../../../../../core/http/dto/element-dto/element/element-detail.dto'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 import { TableUtilityService } from '../../../../../core/services/table-utility/table-utility.service'
 
@@ -141,7 +141,7 @@ export class CategoriesTablePageComponent  implements AfterViewInit {
     searchFilterFormControl = new FormControl()
 
 
-    
+
     constructor() {
         effect(() => {
             // Set up table
@@ -196,7 +196,7 @@ export class CategoriesTablePageComponent  implements AfterViewInit {
                 this.visibleSearchFilterOptions.set(value)
             })
     }
-    
+
     ngAfterViewInit() {
         this.setTableWidth();
     }
@@ -279,7 +279,7 @@ export class CategoriesTablePageComponent  implements AfterViewInit {
         this.dataSource.filter = this.searchFilterValue.trim().toLowerCase()
         this.paginator().length = this.dataSource.filteredData.length
     }
-    
+
     // private readonly basicFeatureStore = inject(TableFeatureStore)
     // private readonly appStore = inject(AppStore)
     // private readonly elementService = inject(ElementService)
@@ -420,7 +420,7 @@ export class CategoriesTablePageComponent  implements AfterViewInit {
     //         option.toLowerCase().includes(filterValue),
     //     )
     // }
-    
+
     // Other methods
     openAddModal(): void {
         this.dialog.open(TableAddCategoryDialogComponent, {
@@ -446,5 +446,5 @@ export class CategoriesTablePageComponent  implements AfterViewInit {
             },
         })
     }
-    
+
 }
