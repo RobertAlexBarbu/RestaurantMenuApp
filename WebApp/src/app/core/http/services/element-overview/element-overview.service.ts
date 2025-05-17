@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { ElementsAndCategoriesDto } from '../../../dto/element-dto/element-overview/elements-and-categories.dto'
+import { ElementsAndCategoriesDto } from '../../dto/element-overview/elements-and-categories.dto'
 import { HttpClient } from '@angular/common/http'
-import { EnvironmentService } from '../../../../services/environment/environment.service'
+import { EnvironmentService } from '../../../services/environment/environment.service'
 
 
 @Injectable({

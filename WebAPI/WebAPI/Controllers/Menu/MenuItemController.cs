@@ -16,7 +16,7 @@ public class MenuItemController(IMapper mapper, IMenuItemService menuItemService
 {
     [HttpPost]
     [AllowAuthenticated]
-    public async Task<ActionResult<MenuItemDto>> CreateAsync(CreateMenuItemDto createMenuItemDto)
+    public async Task<ActionResult<MenuCategoryDto>> CreateAsync(CreateMenuItemDto createMenuItemDto)
     {
         var userClaims = claimService.GetUserClaims(User);
         var menuItemDto = await menuItemService.CreateAsync(userClaims.Id, createMenuItemDto);
@@ -65,7 +65,6 @@ public class MenuItemController(IMapper mapper, IMenuItemService menuItemService
 
     [HttpPatch]
     [AllowAuthenticated]
-    [Route("{categoryId}")]
     public async Task<ActionResult> UpdatePositionsByCategoryIdAsync(int categoryId, List<PositionDto> itemPositions)
     {
         var userClaims = claimService.GetUserClaims(User);
@@ -75,7 +74,6 @@ public class MenuItemController(IMapper mapper, IMenuItemService menuItemService
 
     [HttpPut]
     [AllowAuthenticated]
-    [Route("{menuId}")]
     public async Task<ActionResult> ReplaceAllByMenuIdAsync(int menuId, List<CreateMenuItemDto> createMenuItemDtos)
     {
         var userClaims = claimService.GetUserClaims(User);

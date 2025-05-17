@@ -6,8 +6,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { MatButton } from '@angular/material/button'
 import { NotificationService } from '../../../../../core/services/notification/notification.service'
 import { AppStore } from '../../../../../core/stores/app.store'
-import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
-import { ElementOverviewService } from '../../../../../core/http/services/element-services/element-overview/element-overview.service'
+import { ElementService } from '../../../../../core/http/services/element/element.service'
+import { ElementOverviewService } from '../../../../../core/http/services/element-overview/element-overview.service'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 
 @Component({

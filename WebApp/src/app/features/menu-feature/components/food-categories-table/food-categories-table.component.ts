@@ -1,5 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {MenuFeatureStore} from "../../../../core/stores/menu-feature.store";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-food-categories-table',
@@ -10,8 +9,5 @@ import {MenuFeatureStore} from "../../../../core/stores/menu-feature.store";
   standalone: true
 })
 export class FoodCategoriesTableComponent {
-  private readonly menuFeatureStore = inject(MenuFeatureStore);
-  constructor() {
-    // console.log(this.menuFeatureStore.foodMenuItemsWithFoodMenuCategory());
-  }
+
 }

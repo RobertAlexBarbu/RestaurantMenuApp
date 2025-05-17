@@ -23,7 +23,7 @@ import { DragAndDropSortingItemWithText } from '../../../../../core/stores/drag-
 import { PositionDto } from '../../../../../core/http/dto/other/position.dto'
 import { BehaviorSubject } from 'rxjs'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
+import { ElementService } from '../../../../../core/http/services/element/element.service'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 
 

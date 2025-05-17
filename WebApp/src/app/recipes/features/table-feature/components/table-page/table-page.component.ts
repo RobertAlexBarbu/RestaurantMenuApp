@@ -50,10 +50,10 @@ import { InlineWeightInputComponent } from '../inline-weight-input/inline-weight
 import { detailExpandAnimation, pageLoadAnimation } from '../../../../../app.animations'
 
 
-import { ElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/element-category.dto'
+import { ElementCategoryDto } from '../../../../../core/http/dto/element-category/element-category.dto'
 import { responsiveDialogConfig } from '../../../../../shared/configs/dialogs.config'
 import { InfoDialogComponent } from '../../../../../shared/components/info-dialog/info-dialog.component'
-import { ElementDetailDto } from '../../../../../core/http/dto/element-dto/element/element-detail.dto'
+import { ElementDetailDto } from '../../../../../core/http/dto/element/element-detail.dto'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 import { TableUtilityService } from '../../../../../core/services/table-utility/table-utility.service'
 
@@ -121,7 +121,7 @@ export class TablePageComponent implements AfterViewInit {
     private readonly tableUtilityService = inject(TableUtilityService)
     readonly sorter = viewChild.required(MatSort)
     readonly paginator = viewChild.required(MatPaginator)
-
+    
     // General Table Fields
     tableWidth = 'auto'
     tableSelector='#table'
@@ -142,7 +142,7 @@ export class TablePageComponent implements AfterViewInit {
         'categoryName',
         'actions',
     ]
-
+    
     // Select Filter Fields
     selectFilterValue: string[] = []
     selectFilterOptions: ElementCategoryDto[] = []
@@ -165,7 +165,7 @@ export class TablePageComponent implements AfterViewInit {
             this.dataSource = new MatTableDataSource(this.tableItems)
             this.selectFilterOptions = this.tableFeatureStore.categories()
             this.searchFilterOptions.set(this.tableItems.map((t) => t.name))
-
+            
             // Apply Select Filter
             if (this.selectFilterValue.length > 0) {
                 this.dataSource = new MatTableDataSource(
@@ -174,7 +174,7 @@ export class TablePageComponent implements AfterViewInit {
                     ),
                 )
             }
-
+            
             // Apply Search Filter
             this.dataSource.filter = this.searchFilterValue.trim().toLowerCase()
             const searchValue = this.searchFilterFormControl.value
@@ -205,11 +205,11 @@ export class TablePageComponent implements AfterViewInit {
                 this.visibleSearchFilterOptions.set(value)
             })
     }
-
+    
     ngAfterViewInit(): void {
         this.setTableWidth();
     }
-
+    
     // Helper Functions
     trackByFn: TrackByFunction<TableItem> = (a) => {
         return a
@@ -224,8 +224,8 @@ export class TablePageComponent implements AfterViewInit {
             this.tableWidth = table.scrollWidth + 'px'
         }
     }
-
-
+    
+    
     // Search Filter Methods
     applySearchFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value
@@ -289,7 +289,7 @@ export class TablePageComponent implements AfterViewInit {
         this.paginator().length = this.dataSource.filteredData.length
     }
 
-
+    
     // OTHER METHODS
     openAddModal() {
         this.dialog.open(TableAddDialogComponent, {

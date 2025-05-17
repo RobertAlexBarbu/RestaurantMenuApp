@@ -28,11 +28,11 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { TableAddCategoryDialogComponent } from '../table-add-category-dialog/table-add-category-dialog.component'
 import { NotificationService } from '../../../../../core/services/notification/notification.service'
-import { ElementDetailDto } from '../../../../../core/http/dto/element-dto/element/element-detail.dto'
-import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
+import { ElementDetailDto } from '../../../../../core/http/dto/element/element-detail.dto'
+import { ElementService } from '../../../../../core/http/services/element/element.service'
 
 import { ErrorService } from '../../../../../core/services/error/error.service'
-import { UpdateElementDto } from '../../../../../core/http/dto/element-dto/element/update-element.dto'
+import { UpdateElementDto } from '../../../../../core/http/dto/element/update-element.dto'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 import { FormSectionComponent } from '../../../../../shared/components/form-section/form-section.component'
 

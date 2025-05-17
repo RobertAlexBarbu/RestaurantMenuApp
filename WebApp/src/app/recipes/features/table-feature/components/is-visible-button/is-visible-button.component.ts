@@ -6,8 +6,8 @@ import { BehaviorSubject } from 'rxjs'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { AsyncPipe } from '@angular/common'
 
-import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
-import { ElementDetailDto } from '../../../../../core/http/dto/element-dto/element/element-detail.dto'
+import { ElementService } from '../../../../../core/http/services/element/element.service'
+import { ElementDetailDto } from '../../../../../core/http/dto/element/element-detail.dto'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 
 @Component({

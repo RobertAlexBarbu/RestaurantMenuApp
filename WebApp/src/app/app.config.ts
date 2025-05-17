@@ -17,11 +17,9 @@ import { errorInterceptor } from './core/http/interceptors/error/error.intercept
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'
 import { Overlay, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay'
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog'
-import {MenuFeatureStore} from "./core/stores/menu-feature.store";
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        MenuFeatureStore,
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideAnimationsAsync(),
         provideHttpClient(withInterceptors([jwtInterceptor, errorInterceptor])),

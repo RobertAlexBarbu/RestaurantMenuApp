@@ -17,8 +17,8 @@ import {
     FullscreenDialogContentComponent,
 } from '../../../../../shared/components/fullscreen-dialog-content/fullscreen-dialog-content.component'
 
-import { ImportElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/import-element-category.dto'
-import { ImportElementDto } from '../../../../../core/http/dto/element-dto/element/import-element.dto'
+import { ImportElementCategoryDto } from '../../../../../core/http/dto/element-category/import-element-category.dto'
+import { ImportElementDto } from '../../../../../core/http/dto/element/import-element.dto'
 import { MatButton } from '@angular/material/button'
 import { TablePageComponent } from '../table-page/table-page.component'
 import { pageLoadAnimation } from '../../../../../app.animations'
@@ -55,7 +55,7 @@ export class TableImportPreviewDialogComponent {
     closeDialog() {
         this.dialogRef.close()
     }
-
+    
     tabClicked(event: MatTabChangeEvent) {
         this.scrollService.scrollDialogContentTop(false, 1);
         this.tabIndex.set(event.index);

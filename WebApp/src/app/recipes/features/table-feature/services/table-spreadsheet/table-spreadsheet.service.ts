@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core'
 import { SpreadsheetService } from '../../../../../core/services/spreadsheet/spreadsheet.service'
-import { ElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/element-category.dto'
-import { ElementDetailDto } from '../../../../../core/http/dto/element-dto/element/element-detail.dto'
+import { ElementCategoryDto } from '../../../../../core/http/dto/element-category/element-category.dto'
+import { ElementDetailDto } from '../../../../../core/http/dto/element/element-detail.dto'
 import { Observable } from 'rxjs'
 import * as ExcelJS from 'exceljs'
-import { CreateElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/create-element-category.dto'
-import { ImportElementDto } from '../../../../../core/http/dto/element-dto/element/import-element.dto'
+import { CreateElementCategoryDto } from '../../../../../core/http/dto/element-category/create-element-category.dto'
+import { ImportElementDto } from '../../../../../core/http/dto/element/import-element.dto'
 import { map } from 'rxjs/operators'
 
 @Injectable({

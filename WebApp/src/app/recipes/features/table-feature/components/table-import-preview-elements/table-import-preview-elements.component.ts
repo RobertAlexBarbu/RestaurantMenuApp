@@ -33,7 +33,7 @@ import { MatInput } from '@angular/material/input'
 import { MatSort, MatSortHeader } from '@angular/material/sort'
 import { detailExpandAnimation, fadeInAnimation, pageLoadAnimation } from '../../../../../app.animations'
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { ImportElementDto } from '../../../../../core/http/dto/element-dto/element/import-element.dto'
+import { ImportElementDto } from '../../../../../core/http/dto/element/import-element.dto'
 import { TableUtilityService } from '../../../../../core/services/table-utility/table-utility.service'
 import { map, startWith } from 'rxjs'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
@@ -45,7 +45,7 @@ import {
 } from '@angular/material/autocomplete'
 
 interface TableItem extends ImportElementDto {
-
+    
 }
 @Component({
     selector: 'app-table-import-preview-elements',
@@ -124,7 +124,7 @@ export class TableImportPreviewElementsComponent {
             this.tableItems = this.elements();
             this.dataSource = new MatTableDataSource(this.tableItems)
             this.searchFilterOptions.set(this.tableItems.map((t) => t.name))
-
+            
             // Apply Search Filter
             this.dataSource.filter = this.searchFilterValue.trim().toLowerCase()
             const searchValue = this.searchFilterFormControl.value

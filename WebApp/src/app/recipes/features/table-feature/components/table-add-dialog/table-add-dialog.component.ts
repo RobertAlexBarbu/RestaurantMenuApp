@@ -20,10 +20,10 @@ import {
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { TableAddCategoryDialogComponent } from '../table-add-category-dialog/table-add-category-dialog.component'
-import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
+import { ElementService } from '../../../../../core/http/services/element/element.service'
 import { NotificationService } from '../../../../../core/services/notification/notification.service'
 import { ErrorService } from '../../../../../core/services/error/error.service'
-import { CreateElementDto } from '../../../../../core/http/dto/element-dto/element/create-element.dto'
+import { CreateElementDto } from '../../../../../core/http/dto/element/create-element.dto'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 import { FormSectionComponent } from '../../../../../shared/components/form-section/form-section.component'
 

@@ -13,9 +13,9 @@ import { MatInput } from '@angular/material/input'
 import { ErrorService } from '../../../../../core/services/error/error.service'
 import { NotificationService } from '../../../../../core/services/notification/notification.service'
 
-import { ElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/element-category.dto'
+import { ElementCategoryDto } from '../../../../../core/http/dto/element-category/element-category.dto'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { ElementCategoryService } from '../../../../../core/http/services/element-services/element-category/element-category.service'
+import { ElementCategoryService } from '../../../../../core/http/services/element-category/element-category.service'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 
 

@@ -1,10 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {EnvironmentService} from "../../../../services/environment/environment.service";
-import {UpdateMenuDto} from "../../../dto/menu-dto/menu/update-menu-dto";
-import {CreateMenuDto} from "../../../dto/menu-dto/menu/create-menu.dto";
-import {MenuDto} from "../../../dto/menu-dto/menu/menu.dto";
-import {MenuDataDto} from "../../../dto/menu-dto/menu/menu-data.dto";
+import {EnvironmentService} from "../../../services/environment/environment.service";
+import {UpdateMenuDto} from "../../dto/menu/update-menu-dto";
+import {CreateMenuDto} from "../../dto/menu/create-menu.dto";
+import {MenuDto} from "../../dto/menu/menu.dto";
 
 
 @Injectable({
@@ -44,11 +43,4 @@ export class MenuService {
       `${this.baseUrl}/CheckUrlAvailability?url=${encodeURIComponent(url)}`
     )
   }
-
-  public getDataById(id: number) {
-    return this.http.get<MenuDataDto>(
-      `${this.baseUrl}/GetDataById/${id}`
-    )
-  }
-
 }

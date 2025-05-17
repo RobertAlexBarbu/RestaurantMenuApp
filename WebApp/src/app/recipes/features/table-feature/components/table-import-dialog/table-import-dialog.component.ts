@@ -18,14 +18,14 @@ import {
 import { MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious } from '@angular/material/stepper'
 
 import { UtilityService } from '../../../../../core/services/utility/utility.service'
-import { ImportElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/import-element-category.dto'
+import { ImportElementCategoryDto } from '../../../../../core/http/dto/element-category/import-element-category.dto'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { switchMap } from 'rxjs'
 import { TableImportPreviewDialogComponent } from '../table-import-preview-dialog/table-import-preview-dialog.component'
 
-import { ImportElementDto } from '../../../../../core/http/dto/element-dto/element/import-element.dto'
-import { ElementCategoryService } from '../../../../../core/http/services/element-services/element-category/element-category.service'
-import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
+import { ImportElementDto } from '../../../../../core/http/dto/element/import-element.dto'
+import { ElementCategoryService } from '../../../../../core/http/services/element-category/element-category.service'
+import { ElementService } from '../../../../../core/http/services/element/element.service'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 import { TableSpreadsheetService } from '../../services/table-spreadsheet/table-spreadsheet.service'
 import { fullscreenDialogConfig, responsiveDialogConfig } from '../../../../../shared/configs/dialogs.config'

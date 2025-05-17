@@ -25,9 +25,9 @@ import { ToolbarComponent } from '../../../shared/components/toolbar/toolbar.com
 import {
     FeatureLoadingPageComponent,
 } from '../../../shared/components/feature-loading-page/feature-loading-page.component'
-import { ElementOverviewService } from '../../../core/http/services/element-services/element-overview/element-overview.service'
-import { ElementDetailDto } from '../../../core/http/dto/element-dto/element/element-detail.dto'
-import { ElementCategoryDto } from '../../../core/http/dto/element-dto/element-category/element-category.dto'
+import { ElementOverviewService } from '../../../core/http/services/element-overview/element-overview.service'
+import { ElementDetailDto } from '../../../core/http/dto/element/element-detail.dto'
+import { ElementCategoryDto } from '../../../core/http/dto/element-category/element-category.dto'
 import { TableFeatureStore } from '../../stores/table-feature.store'
 import { TableSpreadsheetService } from './services/table-spreadsheet/table-spreadsheet.service'
 import { fullscreenDialogConfig } from '../../../shared/configs/dialogs.config'

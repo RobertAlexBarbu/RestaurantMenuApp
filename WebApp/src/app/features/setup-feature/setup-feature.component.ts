@@ -18,7 +18,7 @@ import { ThemeService } from '../../core/services/theme/theme.service'
 import { zip } from 'rxjs'
 import { Router } from '@angular/router'
 import { ErrorService } from '../../core/services/error/error.service'
-import {MenuService} from "../../core/http/services/menu-services/menu/menu.service";
+import {MenuService} from "../../core/http/services/menu/menu.service";
 import {AuthService} from "../../core/services/auth/auth.service";
 
 @Component({

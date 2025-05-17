@@ -1,14 +1,14 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
-import { ElementDto } from '../../core/http/dto/element-dto/element/element.dto'
-import { ElementCategoryDto } from '../../core/http/dto/element-dto/element-category/element-category.dto'
+import { ElementDto } from '../../core/http/dto/element/element.dto'
+import { ElementCategoryDto } from '../../core/http/dto/element-category/element-category.dto'
 import { computed } from '@angular/core'
-import { ElementsAndCategoriesDto } from '../../core/http/dto/element-dto/element-overview/elements-and-categories.dto'
-import { ElementDetailDto } from '../../core/http/dto/element-dto/element/element-detail.dto'
+import { ElementsAndCategoriesDto } from '../../core/http/dto/element-overview/elements-and-categories.dto'
+import { ElementDetailDto } from '../../core/http/dto/element/element-detail.dto'
 import { PositionDto } from '../../core/http/dto/other/position.dto'
-import { UpdateVisibilityDto } from '../../core/http/dto/element-dto/element/update-visibility.dto'
-import { UpdateWeightDto } from '../../core/http/dto/element-dto/element/update-weight.dto'
-import { UpdateElementDto } from '../../core/http/dto/element-dto/element/update-element.dto'
-import { UpdateElementCategoryDto } from '../../core/http/dto/element-dto/element-category/update-element-category.dto'
+import { UpdateVisibilityDto } from '../../core/http/dto/element/update-visibility.dto'
+import { UpdateWeightDto } from '../../core/http/dto/element/update-weight.dto'
+import { UpdateElementDto } from '../../core/http/dto/element/update-element.dto'
+import { UpdateElementCategoryDto } from '../../core/http/dto/element-category/update-element-category.dto'
 
 
 export interface TableFeatureStore {

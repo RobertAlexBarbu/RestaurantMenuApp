@@ -6,8 +6,8 @@ import { MatInput } from '@angular/material/input'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 
 import { MatIcon } from '@angular/material/icon'
-import { ElementService } from '../../../../../core/http/services/element-services/element/element.service'
-import { ElementDto } from '../../../../../core/http/dto/element-dto/element/element.dto'
+import { ElementService } from '../../../../../core/http/services/element/element.service'
+import { ElementDto } from '../../../../../core/http/dto/element/element.dto'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
 
 @Component({

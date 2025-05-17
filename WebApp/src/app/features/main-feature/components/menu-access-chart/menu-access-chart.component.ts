@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, ElementRef, inject, Input, viewChild} from '@angular/core';
 import {ChartColors, ChartJsService} from "../../../../core/services/chart-js/chart-js.service";
 import {Chart, ChartOptions} from "chart.js";
-import {MenuAccessDto} from "../../../../core/http/dto/menu-dto/menu-analytics/menu-access.dto";
+import {MenuAccessDto} from "../../../../core/http/dto/menu-analytics/menu-access.dto";
 
 @Component({
   selector: 'app-menu-access-chart',

@@ -6,7 +6,7 @@ import {AppStore} from "../../../../core/stores/app.store";
 import {JsonPipe} from "@angular/common";
 import {RightSidebarComponent} from "../../../../shared/components/right-sidebar/right-sidebar.component";
 import {EnvironmentService} from "../../../../core/services/environment/environment.service";
-import {MenuService} from "../../../../core/http/services/menu-services/menu/menu.service";
+import {MenuService} from "../../../../core/http/services/menu/menu.service";
 import {CardComponent} from "../../../../shared/components/card/card.component";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
@@ -33,13 +33,13 @@ import {MatOption, provideNativeDateAdapter} from "@angular/material/core";
 import {MatSelect, MatSelectChange} from "@angular/material/select";
 import {ChartJsService} from "../../../../core/services/chart-js/chart-js.service";
 import {PieChartComponent} from "../../../../recipes/components/charts/pie-chart/pie-chart.component";
-import {MenuAnalyticsService} from "../../../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
+import {MenuAnalyticsService} from "../../../../core/http/services/menu-analytics/menu-analytics.service";
 import {LoadingPageComponent} from "../../../../shared/components/loading-page/loading-page.component";
 import {
   FeatureLoadingPageComponent
 } from "../../../../shared/components/feature-loading-page/feature-loading-page.component";
 import {MenuAccessChartComponent} from "../menu-access-chart/menu-access-chart.component";
-import {MenuAccessDto} from "../../../../core/http/dto/menu-dto/menu-analytics/menu-access.dto";
+import {MenuAccessDto} from "../../../../core/http/dto/menu-analytics/menu-access.dto";
 import {MatDialog} from "@angular/material/dialog";
 import {MenuAccessInsightDialogComponent} from "../menu-access-insight-dialog/menu-access-insight-dialog.component";
 

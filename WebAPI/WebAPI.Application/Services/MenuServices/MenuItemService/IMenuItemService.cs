@@ -8,7 +8,7 @@ public interface IMenuItemService
 {
     Task ReplaceAllByMenuIdAsync(int menuId, int userId, List<CreateMenuItemDto > createMenuItemDtos);
     
-    Task<MenuItemDto> CreateAsync(int userId, CreateMenuItemDto createMenuItemDto);
+    Task<MenuCategoryDto> CreateAsync(int userId, CreateMenuItemDto createMenuItemDto);
 
     Task DeleteByIdAsync(int id, int userId);
 

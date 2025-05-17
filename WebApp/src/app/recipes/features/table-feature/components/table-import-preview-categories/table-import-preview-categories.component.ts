@@ -19,8 +19,8 @@ import {
 } from '@angular/material/table'
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
-import { ImportElementCategoryDto } from '../../../../../core/http/dto/element-dto/element-category/import-element-category.dto'
-import { ImportElementDto } from '../../../../../core/http/dto/element-dto/element/import-element.dto'
+import { ImportElementCategoryDto } from '../../../../../core/http/dto/element-category/import-element-category.dto'
+import { ImportElementDto } from '../../../../../core/http/dto/element/import-element.dto'
 import {
     MatAutocomplete,
     MatAutocompleteSelectedEvent,

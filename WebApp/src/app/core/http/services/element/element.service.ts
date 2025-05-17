@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { UpdateElementDto } from '../../../dto/element-dto/element/update-element.dto'
-import { CreateElementDto } from '../../../dto/element-dto/element/create-element.dto'
-import { ElementDetailDto } from '../../../dto/element-dto/element/element-detail.dto'
-import { PositionDto } from '../../../dto/other/position.dto'
-import { UpdateVisibilityDto } from '../../../dto/element-dto/element/update-visibility.dto'
-import { UpdateWeightDto } from '../../../dto/element-dto/element/update-weight.dto'
-import { EnvironmentService } from '../../../../services/environment/environment.service'
+import { UpdateElementDto } from '../../dto/element/update-element.dto'
+import { CreateElementDto } from '../../dto/element/create-element.dto'
+import { ElementDetailDto } from '../../dto/element/element-detail.dto'
+import { PositionDto } from '../../dto/other/position.dto'
+import { UpdateVisibilityDto } from '../../dto/element/update-visibility.dto'
+import { UpdateWeightDto } from '../../dto/element/update-weight.dto'
+import { EnvironmentService } from '../../../services/environment/environment.service'
 
 @Injectable({
     providedIn: 'root',
