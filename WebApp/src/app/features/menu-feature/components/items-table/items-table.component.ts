@@ -44,6 +44,17 @@ import {responsiveDialogConfig} from "../../../../shared/configs/dialogs.config"
 import {InfoDialogComponent} from "../../../../shared/components/info-dialog/info-dialog.component";
 import {map, startWith} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {
+    IsVisibleButtonComponent
+} from "../../../../recipes/features/table-feature/components/is-visible-button/is-visible-button.component";
+import {ElementDetailDto} from "../../../../core/http/dto/element/element-detail.dto";
+import {
+    TableEditDialogComponent
+} from "../../../../recipes/features/table-feature/components/table-edit-dialog/table-edit-dialog.component";
+import {
+    TableDeleteDialogComponent
+} from "../../../../recipes/features/table-feature/components/table-delete-dialog/table-delete-dialog.component";
+import {ItemVisibilityButtonComponent} from "../item-visibility-button/item-visibility-button.component";
 
 interface TableItem extends MenuItemDetailDto {
     finalPosition: string, 
@@ -79,7 +90,9 @@ interface TableItem extends MenuItemDetailDto {
         MatSelect,
         MatSelectTrigger,
         MatSuffix,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        IsVisibleButtonComponent,
+        ItemVisibilityButtonComponent
     ],
   templateUrl: './items-table.component.html',
   styleUrl: './items-table.component.scss',
@@ -112,6 +125,7 @@ export class ItemsTableComponent {
         'expand',
         'categoryName',
         'price',
+        'actions'
     ]
 
     // Select Filter Fields
@@ -268,6 +282,24 @@ export class ItemsTableComponent {
     openAddModal() {
         this.dialog.open(InfoDialogComponent, {
             ...responsiveDialogConfig,
+            viewContainerRef: this.viewContainerRef,
+        })
+    }
+
+    openEditModal(element: ElementDetailDto) {
+        this.dialog.open(TableEditDialogComponent, {
+            ...responsiveDialogConfig,
+            data: {
+                element: element,
+            },
+            viewContainerRef: this.viewContainerRef,
+        })
+    }
+
+    openDeleteModal(element: ElementDetailDto) {
+        this.dialog.open(TableDeleteDialogComponent, {
+            autoFocus: false,
+            data: element,
             viewContainerRef: this.viewContainerRef,
         })
     }

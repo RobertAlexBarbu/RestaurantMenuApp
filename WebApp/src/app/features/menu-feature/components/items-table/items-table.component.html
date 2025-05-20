@@ -1,5 +1,5 @@
 <div [@pageLoad] [style.width]="tableWidth">
-    <div class="pt-4 pl-page pr-4  flex-col inline-block sticky left-drawer-sm">
+    <div class="pt-4 pl-page pr-4  flex-col inline-block sticky left-drawer-drawer-sm">
         <div class="flex responsive-flex ">
             <!-- Search Filter -->
             <mat-form-field  class="mr-4">
@@ -66,11 +66,11 @@
 
         </div>
         <!-- Paginator -->
-        <div class="inline-block sticky left-drawer-sm self-center mt-4 ">
+        <div class="inline-block sticky left-drawer-drawer-sm self-center mt-4 ">
             <mat-paginator [pageSizeOptions]="[25, 10, 5]" aria-label="Select page of users"></mat-paginator>
         </div>
     </div>
-    <div class="sticky-table-header-toolbar-tabs-mobile sticky-table-column-drawer-sm">
+    <div class="sticky-table-header-toolbar-tabs-mobile sticky-table-column-drawer-drawer-sm">
         <table [dataSource]="dataSource" [trackBy]="trackByFn" id="table" mat-table matSort multiTemplateDataRows>
             <!-- Columns -->
             <ng-container matColumnDef="finalPosition">
@@ -93,6 +93,22 @@
                 <td *matCellDef="let element" mat-cell> {{ element.categoryName }}</td>
             </ng-container>
             <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td *matCellDef="let element" mat-cell>
+                    <div class="flex justify-end">
+<!--                        <app-is-visible-button [element]="element"></app-is-visible-button>-->
+                        <app-item-visibility-button [item]="element"></app-item-visibility-button>
+                        <button (click)="openEditModal(element.original); $event.stopPropagation()"
+                                mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button (click)="openDeleteModal(element); $event.stopPropagation()" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
 
             <!-- Expand Content Column -->
             <ng-container matColumnDef="expand">

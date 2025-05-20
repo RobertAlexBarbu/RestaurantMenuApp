@@ -32,6 +32,11 @@
   will-change: transform;
 }
 
+.sticky-table-column-drawer-drawer-sm .mat-mdc-table-sticky {
+  left:calc(var(--w-drawer)  + var(--w-drawer-sm))!important;
+  will-change: transform; // otherwise border style is strange
+}
+
 
 .mat-mdc-cell .mat-mdc-form-field-infix {
   padding: 4px !important;
