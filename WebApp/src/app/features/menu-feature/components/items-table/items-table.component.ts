@@ -14,6 +14,13 @@ import {MatIconButton} from "@angular/material/button";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {detailExpandAnimation, pageLoadAnimation} from "../../../../app.animations";
 
+import {MenuItemDetailDto} from "../../../../core/http/dto/menu-dto/menu-item/menu-item-detail.dto";
+
+interface TableItem extends MenuItemDetailDto {
+    finalPosition: string, 
+    categoryName: string
+}
+
 @Component({
   selector: 'app-items-table',
     imports: [
@@ -44,35 +51,36 @@ import {detailExpandAnimation, pageLoadAnimation} from "../../../../app.animatio
 export class ItemsTableComponent {
     private readonly menuStoreService = inject(MenuStoreService);
     expandedTableItemId: number | null = null
-    tableItems: MenuItemDto[] = []
-    dataSource: MatTableDataSource<MenuItemDto> =
-        new MatTableDataSource<MenuItemDto>([])
+    tableItems: TableItem[] = []
+    dataSource: MatTableDataSource<TableItem> =
+        new MatTableDataSource<TableItem>([])
     displayedColumns: string[] = [
-        'position',
+        'finalPosition',
         'name',
         'expand',
-        'symbol',
-        'density',
-        'meltingPoint',
-        'boilingPoint',
-        'atomicRadius',
         'categoryName',
-
+        'price',
     ]
 
     constructor() {
         effect(() => {
             // Set up table
-            this.tableItems = this.menuStoreService.foodItems()
+            this.tableItems = this.menuStoreService.foodItemsWithCategory().map(i => {
+                return {
+                    ...i, 
+                    categoryName: i.category.name,
+                    finalPosition: i.category.position + '.' + i.position,
+                }
+            })
             this.dataSource = new MatTableDataSource(this.tableItems)
 
         })
     }
 
-    trackByFn: TrackByFunction<MenuItemDto> = (a) => {
+    trackByFn: TrackByFunction<TableItem> = (a) => {
         return a
     }
-    toggleExpandRow(tableItem: MenuItemDto) {
+    toggleExpandRow(tableItem: TableItem) {
         this.expandedTableItemId =
             this.expandedTableItemId === tableItem.id ? null : tableItem.id
     }

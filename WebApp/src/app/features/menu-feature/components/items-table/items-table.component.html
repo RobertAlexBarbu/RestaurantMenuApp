@@ -1,7 +1,7 @@
 <div class="sticky-table-header-toolbar-tabs-mobile sticky-table-column-drawer-sm">
     <table [dataSource]="dataSource" [trackBy]="trackByFn" id="table" mat-table matSort multiTemplateDataRows>
         <!-- Columns -->
-        <ng-container matColumnDef="position">
+        <ng-container matColumnDef="finalPosition">
             <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by number"> No.</th>
             <td *matCellDef="let element" mat-cell> {{ element.position }}</td>
         </ng-container>
@@ -11,9 +11,9 @@
             <td *matCellDef="let element" mat-cell> {{ element.name }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="symbol">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Symbol</th>
-            <td *matCellDef="let element" mat-cell> {{ element.symbol }}</td>
+        <ng-container matColumnDef="price">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Price</th>
+            <td *matCellDef="let element" mat-cell> {{ element.price }}</td>
         </ng-container>
         <ng-container matColumnDef="density">
             <th *matHeaderCellDef mat-header-cell mat-sort-header> Density</th>
