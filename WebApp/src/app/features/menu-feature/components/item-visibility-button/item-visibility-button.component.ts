@@ -47,9 +47,16 @@ export class ItemVisibilityButtonComponent {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: () => {
-                    this.menuStoreService.updateFoodItemById(
-                        this.item().id, { isVisible: true },
-                    )
+                    if (this.item().menuType == 'food') {
+                        this.menuStoreService.updateFoodItemById(
+                            this.item().id, { isVisible: true },
+                        )
+                    } else {
+                        this.menuStoreService.updateDrinksItemById(
+                            this.item().id, { isVisible: true },
+                        )
+                    }
+
                     this.spinner$.next(false)
                 },
             })
@@ -64,9 +71,15 @@ export class ItemVisibilityButtonComponent {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: () => {
-                    this.menuStoreService.updateFoodItemById(
-                        this.item().id, { isVisible: false },
-                    )
+                    if (this.item().menuType == 'food') {
+                        this.menuStoreService.updateFoodItemById(
+                            this.item().id, { isVisible: false },
+                        )
+                    } else {
+                        this.menuStoreService.updateDrinksItemById(
+                            this.item().id, { isVisible: false },
+                        )
+                    }
                     this.spinner$.next(false)
                 },
             })

@@ -3,7 +3,7 @@ import {
     Component,
     DestroyRef,
     effect,
-    inject, signal,
+    inject, input, signal,
     TrackByFunction, viewChild,
     ViewContainerRef
 } from '@angular/core';
@@ -55,6 +55,9 @@ import {
     TableDeleteDialogComponent
 } from "../../../../recipes/features/table-feature/components/table-delete-dialog/table-delete-dialog.component";
 import {ItemVisibilityButtonComponent} from "../item-visibility-button/item-visibility-button.component";
+import {ItemDeleteDialogComponent} from "../item-delete-dialog/item-delete-dialog.component";
+import {ItemAddDialogComponent} from "../item-add-dialog/item-add-dialog.component";
+import {ItemEditDialogComponent} from "../item-edit-dialog/item-edit-dialog.component";
 
 interface TableItem extends MenuItemDetailDto {
     finalPosition: string, 
@@ -112,6 +115,7 @@ export class ItemsTableComponent {
     private readonly tableUtilityService = inject(TableUtilityService)
     readonly sorter = viewChild.required(MatSort)
     readonly paginator = viewChild.required(MatPaginator)
+    readonly type = input.required<'food' | 'drinks'>();
 
     tableWidth = 'auto'
     tableSelector='#table'
@@ -142,19 +146,32 @@ export class ItemsTableComponent {
     constructor() {
         effect(() => {
             // Set up table
-            this.tableItems = this.menuStoreService.foodItemsWithCategory().map(i => {
-                return {
-                    ...i, 
-                    categoryName: i.category.name,
-                    finalPosition: i.category.position + '.' + i.position,
-                }
-            })
+            if(this.type() == 'food') {
+                this.tableItems = this.menuStoreService.foodItemsWithCategory().map(i => {
+                    return {
+                        ...i,
+                        categoryName: i.category.name,
+                        finalPosition: i.category.position + '.' + i.position,
+                    }
+                })
+                this.selectFilterOptions = this.menuStoreService.foodCategories()
+            } else {
+                this.tableItems = this.menuStoreService.drinksItemsWithCategory().map(i => {
+                    return {
+                        ...i,
+                        categoryName: i.category.name,
+                        finalPosition: i.category.position + '.' + i.position,
+                    }
+                })
+                this.selectFilterOptions = this.menuStoreService.drinksCategories()
+            }
+            
             this.dataSource = new MatTableDataSource(this.tableItems)
-            this.selectFilterOptions = this.menuStoreService.foodCategories()
             this.searchFilterOptions.set(this.tableItems.map((t) => t.name))
 
             // Apply Select Filter
             if (this.selectFilterValue.length > 0) {
+                this.selectClearVisible.set(true);
                 this.dataSource = new MatTableDataSource(
                     this.tableItems.filter((e) =>
                         this.selectFilterValue.includes(e.categoryName),
@@ -246,15 +263,19 @@ export class ItemsTableComponent {
         )
     }
     // Select Filter Methods
+    selectClearVisible = signal(false);
     applySelectFilter(event: MatSelectChange) {
         this.selectFilterValue = event.value
+        console.log(event.value);
         if (event.value.length == 0) {
+            this.selectClearVisible.set(false);
             this.dataSource = new MatTableDataSource(this.tableItems)
             this.dataSource.sort = this.sorter()
             this.dataSource.paginator = this.paginator()
             this.dataSource.filter = this.searchFilterValue.trim().toLowerCase()
             this.paginator().length = this.dataSource.filteredData.length
         } else {
+            this.selectClearVisible.set(true);
             this.dataSource = new MatTableDataSource(
                 this.tableItems.filter((e) =>
                     this.selectFilterValue.includes(e.categoryName),
@@ -267,6 +288,7 @@ export class ItemsTableComponent {
         }
     }
     clearSelectFilter(event: Event) {
+        this.selectClearVisible.set(false);
         event.stopPropagation()
         this.selectFilterValue = []
         this.selectFilterFormControl.setValue('')
@@ -280,24 +302,29 @@ export class ItemsTableComponent {
     
     // OTHER
     openAddModal() {
-        this.dialog.open(InfoDialogComponent, {
-            ...responsiveDialogConfig,
-            viewContainerRef: this.viewContainerRef,
-        })
-    }
-
-    openEditModal(element: ElementDetailDto) {
-        this.dialog.open(TableEditDialogComponent, {
+        this.dialog.open(ItemAddDialogComponent, {
             ...responsiveDialogConfig,
             data: {
-                element: element,
+                type: this.type()
             },
+            width: "700px",
             viewContainerRef: this.viewContainerRef,
         })
     }
 
-    openDeleteModal(element: ElementDetailDto) {
-        this.dialog.open(TableDeleteDialogComponent, {
+    openEditModal(element: MenuItemDto) {
+        this.dialog.open(ItemEditDialogComponent, {
+            ...responsiveDialogConfig,
+            data: {
+                item: element,
+            },
+            width: "700px",
+            viewContainerRef: this.viewContainerRef,
+        })
+    }
+
+    openDeleteModal(element: MenuItemDto) {
+        this.dialog.open(ItemDeleteDialogComponent, {
             autoFocus: false,
             data: element,
             viewContainerRef: this.viewContainerRef,

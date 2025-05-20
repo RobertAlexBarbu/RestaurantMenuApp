@@ -81,18 +81,18 @@ export class MenuItemService {
     return this.http.delete(`${this.baseUrl}/DeleteById/${id}`)
   }
 
-  public addImage(id:number, file: File, user: UserDto) {
+  public addImage(item: MenuItemDto, file: File, user: UserDto) {
     // Path needs a random string to break existing caches
     const path = `item-images/${user.firebaseId}/${this.utility.generateRandomString(10)}`
     return this.storage.uploadAndCache(path, file).pipe(
       tap(() => {
         // Delete old picture from storage if it exists
-        if (user.imageUrl) {
-          this.storage.delete(user.imageUrl).subscribe()
+        if (item.imageUrl) {
+          this.storage.delete(item.imageUrl).subscribe()
         }
       }),
       switchMap(() => {
-        return this.updateImageUrlById(id, {
+        return this.updateImageUrlById(item.id, {
           imageUrl: path,
         })
       }),

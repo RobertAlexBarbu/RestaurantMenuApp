@@ -24,12 +24,12 @@ public class MenuItemService(AppDbContext context, IMapper mapper) : IMenuItemSe
         await context.SaveChangesAsync();
     }
 
-    public async Task<MenuCategoryDto> CreateAsync(int userId, CreateMenuItemDto createMenuItemDto)
+    public async Task<MenuItemDto> CreateAsync(int userId, CreateMenuItemDto createMenuItemDto)
     {
         var menuItem =
             await context.CreateFromDtoWithUserIdAsync<MenuItem, CreateMenuItemDto>(userId,
                 createMenuItemDto, mapper);
-        return mapper.Map<MenuCategoryDto>(menuItem);
+        return mapper.Map<MenuItemDto>(menuItem);
     }
 
     public async Task DeleteByIdAsync(int id, int userId)

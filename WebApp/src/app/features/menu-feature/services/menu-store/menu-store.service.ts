@@ -43,8 +43,8 @@ export class MenuStoreService {
     // State signals
     readonly foodItems = computed(() => this.state().foodItems);
     readonly drinksItems = computed(() => this.state().drinksItems);
-    readonly foodCategories = computed(() => this.state().foodCategories);
-    readonly drinksCategories = computed(() => this.state().drinksCategories);
+    readonly foodCategories = computed(() => this.state().foodCategories.sort((a, b) => a.position - b.position));
+    readonly drinksCategories = computed(() => this.state().drinksCategories.sort((a, b) => a.position - b.position));
     readonly isInitialized = computed(() => this.state().init);
 
     // Computed signals
@@ -59,14 +59,14 @@ export class MenuStoreService {
         this.foodItems().map(item => ({
             ...item,
             category: this.foodCategoryMap().get(item.menuCategoryId)!
-        }))
+        })).sort(sortByCategoryElementPosition(this.foodCategories()))
     );
 
     readonly drinksItemsWithCategory = computed(() =>
         this.drinksItems().map(item => ({
             ...item,
             category: this.drinksCategoryMap().get(item.menuCategoryId)!
-        }))
+        })).sort(sortByCategoryElementPosition(this.drinksCategories()))
     );
 
     // Methods

@@ -30,7 +30,7 @@
             <mat-form-field class="mr-4">
                 <mat-label>Filter</mat-label>
 
-                @if (selectFilterFormControl.value && selectFilterFormControl.value !== '') {
+                @if (selectClearVisible()) {
                     <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectFilter($event)">
                         <mat-icon>close</mat-icon>
                     </button>
@@ -75,7 +75,7 @@
             <!-- Columns -->
             <ng-container matColumnDef="finalPosition">
                 <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by number"> No.</th>
-                <td *matCellDef="let element" mat-cell> {{ element.position }}</td>
+                <td *matCellDef="let element" mat-cell> {{ element.finalPosition }}</td>
             </ng-container>
             <!-- Sticky Column -->
             <ng-container matColumnDef="name" sticky>
@@ -97,9 +97,8 @@
                 <th *matHeaderCellDef mat-header-cell></th>
                 <td *matCellDef="let element" mat-cell>
                     <div class="flex justify-end">
-<!--                        <app-is-visible-button [element]="element"></app-is-visible-button>-->
                         <app-item-visibility-button [item]="element"></app-item-visibility-button>
-                        <button (click)="openEditModal(element.original); $event.stopPropagation()"
+                        <button (click)="openEditModal(element); $event.stopPropagation()"
                                 mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
@@ -130,19 +129,33 @@
                 <td *matCellDef="let element" [attr.colspan]="displayedColumns.length" mat-cell>
                     <div>
                         <div [@detailExpand]="expandedTableItemId === element.id ? 'expanded' : 'collapsed'"
-                             class="example-element-detail"
-                             id="div2">
-                            <div class="p-4 ">
-                                <div class="example-element-diagram">
-                                    <div class="example-element-position"> {{ element.position }}</div>
-                                    <div class="example-element-symbol"> {{ element.symbol }}</div>
-                                    <div class="example-element-name"> {{ element.name }}</div>
-                                    <div class="example-element-weight"> {{ element.weight }}</div>
+                             class="  example-element-detail"
+                             id="div2"> 
+                            <div class="pt-2 pb-4 flex flex-col gap-4">
+                                <div>
+                                    <div class="text-xl">
+                                        Description
+                                    </div>
+                                    <div>{{element.description ? element.description : "Nothing here yet"}}</div>
                                 </div>
-                            </div>
-                            <div class="example-element-description whitespace-pre-line">
-                                {{ element.description }}
-                                <span class="example-element-description-attribution"> -- Lorem Ipsum </span>
+                                <div>
+                                    <div class="text-xl">
+                                        Ingredients
+                                    </div>
+                                    <div>{{element.ingredients ? element.ingredients : "Nothing here yet"}}</div>
+                                </div>
+                                <div>
+                                    <div class="text-xl">
+                                        Nutritional Values
+                                    </div>
+                                    <div>{{element.nutritionalValues ? element.nutritionalValues : "Nothing here yet"}}</div>
+                                </div>
+                                <div>
+                                    <div class="text-xl">
+                                        Allergens
+                                    </div>
+                                    <div>{{element.allergens ? element.allergens : "Nothing here yet"}}</div>
+                                </div>
                             </div>
                         </div>
                     </div>

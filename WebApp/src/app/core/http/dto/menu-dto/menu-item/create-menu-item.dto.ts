@@ -4,7 +4,6 @@ export interface CreateMenuItemDto {
   description: string;
   imageUrl?: string | null;
   price: number;
-  weight: string;
 
   nutritionalValues: string;
   ingredients: string;

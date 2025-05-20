@@ -30,5 +30,5 @@ export const sidebarDialogConfig: MatDialogConfig = {
 export const responsiveDialogConfig: MatDialogConfig = {
     panelClass: 'responsive-dialog',
     backdropClass: 'responsive-dialog-backdrop',
-    maxWidth: "900px"
+
 }

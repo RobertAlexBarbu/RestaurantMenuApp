@@ -16,7 +16,7 @@ public class MenuItemController(IMapper mapper, IMenuItemService menuItemService
 {
     [HttpPost]
     [AllowAuthenticated]
-    public async Task<ActionResult<MenuCategoryDto>> CreateAsync(CreateMenuItemDto createMenuItemDto)
+    public async Task<ActionResult<MenuItemDto>> CreateAsync(CreateMenuItemDto createMenuItemDto)
     {
         var userClaims = claimService.GetUserClaims(User);
         var menuItemDto = await menuItemService.CreateAsync(userClaims.Id, createMenuItemDto);

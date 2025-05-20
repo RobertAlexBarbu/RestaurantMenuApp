@@ -1,0 +1,92 @@
+<h2 mat-dialog-title>Add Element</h2>
+<mat-dialog-content responsive-dialog-content>
+    <form #formAutoFocus="appModalFormAutoFocus" (keydown.enter)="$event.preventDefault()" [formGroup]="form"
+          appModalFormAutoFocus class="flex flex-col gap-4">
+        <app-form-section title="Image">
+            <app-single-image-upload [file]="file()" [loading]="imageLoading()" (uploadChange)="onUploadChange($event)"></app-single-image-upload>
+        </app-form-section>
+        <app-form-section title="Overview">
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4">
+
+                    <!-- Text Input -->
+                    <mat-form-field class="w-full max-w-lg">
+                        <mat-label>Name</mat-label>
+                        <input formControlName="name" inputmode="text" matInput type="text">
+                        @if (form.controls.name.hasError('required')) {
+                            <mat-error>
+                                Name is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                    <!-- Category Select -->
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Category</mat-label>
+                            <mat-select formControlName="menuCategoryId">
+                                @for (category of selectOptions(); track category) {
+                                    <mat-option [value]="category.id">
+                                        {{ category.name }}
+                                    </mat-option>
+                                } @empty {
+                                    <mat-option disabled>No Categories</mat-option>
+                                }
+                            </mat-select>
+                            @if (form.controls.menuCategoryId.hasError('required')) {
+                                <mat-error>
+                                    Category is required
+                                </mat-error>
+                            }
+                        </mat-form-field>
+                        <button (click)="openDialog()" class="relative  ml-2" mat-button type="button">Add
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <mat-form-field class="max-w-40">
+                        <mat-label>Price</mat-label>
+                        <input formControlName="price" inputmode="number" matInput type="number">
+                        @if (form.controls.price.hasError('required')) {
+                            <mat-error>
+                                Price is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <mat-form-field class="w-full">
+                    <mat-label>Description</mat-label>
+                    <textarea [cdkTextareaAutosize] formControlName="description" matInput rows="2"></textarea>
+                </mat-form-field>
+
+            </div>
+        </app-form-section>
+
+        <app-form-section title="Nutritional">
+            <!-- Text Area -->
+            <div class="flex flex-col gap-4 w-full">
+
+
+                <mat-form-field class="w-full">
+                    <mat-label>Ingredients</mat-label>
+                    <textarea [cdkTextareaAutosize] formControlName="ingredients" matInput rows="2"></textarea>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Nutritional Values</mat-label>
+                    <textarea [cdkTextareaAutosize] formControlName="nutritionalValues" matInput rows="2"></textarea>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Allerges</mat-label>
+                    <textarea [cdkTextareaAutosize] formControlName="allergens" matInput rows="2"></textarea>
+                </mat-form-field>
+            </div>
+
+        </app-form-section>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="closeDialog()" class="mr-2" mat-button type="button">Cancel</button>
+    <button (click)="submit(); formAutoFocus.focus()" [class.shake]="shake()"
+            [class.spinner]="loading()"
+            [disabled]="loading()" mat-flat-button type="button">Save
+    </button>
+</mat-dialog-actions>
