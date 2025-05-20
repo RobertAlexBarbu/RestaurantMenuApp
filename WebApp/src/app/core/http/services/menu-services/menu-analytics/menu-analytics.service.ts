@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {EnvironmentService} from "../../../services/environment/environment.service";
-import {MenuAccessDto} from "../../dto/menu-analytics/menu-access.dto";
-import {MenuAccessInsightDto} from "../../dto/menu-analytics/menu-access-insight.dto";
+import {EnvironmentService} from "../../../../services/environment/environment.service";
+import {MenuAccessDto} from "../../../dto/menu-dto/menu-analytics/menu-access.dto";
+import {MenuAccessInsightDto} from "../../../dto/menu-dto/menu-analytics/menu-access-insight.dto";
 
 
 @Injectable({

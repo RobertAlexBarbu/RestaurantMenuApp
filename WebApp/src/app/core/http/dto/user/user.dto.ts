@@ -1,4 +1,4 @@
-import {MenuDto} from "../menu/menu.dto";
+import {MenuDto} from "../menu-dto/menu/menu.dto";
 
 export interface UserDto {
     id: number

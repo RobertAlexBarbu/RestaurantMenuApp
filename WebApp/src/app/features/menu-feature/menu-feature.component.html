@@ -46,8 +46,14 @@
   </button>
 </app-navigation-sidebar>
 <div class="pl-drawer">
-  <router-outlet>
-  </router-outlet>
+    @if (!(spinner())) {
+
+            <router-outlet></router-outlet>
+
+    }
+    @if ((spinner())) {
+        <app-feature-loading-page></app-feature-loading-page>
+    }
 </div>
 
 <!--<app-feature-loading-page></app-feature-loading-page>-->
