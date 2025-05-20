@@ -1,92 +1,151 @@
-<div class="sticky-table-header-toolbar-tabs-mobile sticky-table-column-drawer-sm">
-    <table [dataSource]="dataSource" [trackBy]="trackByFn" id="table" mat-table matSort multiTemplateDataRows>
-        <!-- Columns -->
-        <ng-container matColumnDef="finalPosition">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by number"> No.</th>
-            <td *matCellDef="let element" mat-cell> {{ element.position }}</td>
-        </ng-container>
-        <!-- Sticky Column -->
-        <ng-container matColumnDef="name" sticky>
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Name</th>
-            <td *matCellDef="let element" mat-cell> {{ element.name }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="price">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Price</th>
-            <td *matCellDef="let element" mat-cell> {{ element.price }}</td>
-        </ng-container>
-        <ng-container matColumnDef="density">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Density</th>
-            <td *matCellDef="let element" mat-cell> {{ element.density }}</td>
-        </ng-container>
-        <ng-container matColumnDef="meltingPoint">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Melting Point</th>
-            <td *matCellDef="let element" mat-cell> {{ element.meltingPoint }}</td>
-        </ng-container>
-        <ng-container matColumnDef="boilingPoint">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Boiling Point</th>
-            <td *matCellDef="let element" mat-cell> {{ element.boilingPoint }}</td>
-        </ng-container>
-        <ng-container matColumnDef="atomicRadius">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Atomic Radius</th>
-            <td *matCellDef="let element" mat-cell> {{ element.atomicRadius }}</td>
-        </ng-container>
-        <ng-container matColumnDef="categoryName">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Category</th>
-            <td *matCellDef="let element" mat-cell> {{ element.categoryName }}</td>
-        </ng-container>
-        <!-- Actions Column -->
-
-        <!-- Expand Content Column -->
-        <ng-container matColumnDef="expand">
-            <th *matHeaderCellDef aria-label="row actions" mat-header-cell>&nbsp;</th>
-            <td *matCellDef="let element" mat-cell>
-                <button (click)="toggleExpandRow(element)" aria-label="expand row"
-                        mat-icon-button>
-                    @if (expandedTableItemId === element.id) {
-                        <mat-icon>keyboard_arrow_up</mat-icon>
+<div [@pageLoad] [style.width]="tableWidth">
+    <div class="pt-4 pl-page pr-4  flex-col inline-block sticky left-drawer-sm">
+        <div class="flex responsive-flex ">
+            <!-- Search Filter -->
+            <mat-form-field  class="mr-4">
+                <mat-label>Search</mat-label>
+                <input (keyup)="applySearchFilter($event)"
+                       [formControl]="searchFilterFormControl"
+                       [matAutocomplete]="auto"
+                       aria-label="Number"
+                       matInput
+                       type="text">
+                @if (searchFilterFormControl.value) {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchFilter($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                } @else {
+                    <button matSuffix class="invisible" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                }
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="applySearchFilterSelect($event)"
+                                  autoActiveFirstOption>
+                    @for (option of visibleSearchFilterOptions(); track option) {
+                        <mat-option [value]="option">{{ option }}</mat-option>
                     }
-                    @if (expandedTableItemId !== element.id) {
-                        <mat-icon>keyboard_arrow_down</mat-icon>
+                </mat-autocomplete>
+            </mat-form-field>
+            <!-- Filter Select -->
+            <mat-form-field class="mr-4">
+                <mat-label>Filter</mat-label>
+
+                @if (selectFilterFormControl.value && selectFilterFormControl.value !== '') {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectFilter($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                } @else {
+                    <button matSuffix class="invisible" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                }
+                <mat-select (selectionChange)="applySelectFilter($event)" [formControl]="selectFilterFormControl" multiple>
+                    <mat-select-trigger>
+                        {{ selectFilterFormControl.value?.[0] || '' }}
+                        @if ((selectFilterFormControl.value?.length || 0) > 1) {
+                            <span>
+                (+{{ (selectFilterFormControl.value?.length || 0) - 1 }} {{ selectFilterFormControl.value?.length === 2 ? 'other' : 'others' }})
+              </span>
+                        }
+                    </mat-select-trigger>
+                    @for (category of selectFilterOptions; track category.id) {
+                        <mat-option [value]="category.name">{{ category.name }}</mat-option>
                     }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="flex responsive-flex gap-4">
+            <div class="flex gap-4">
+                <!-- Add Item -->
+                <button (click)="openAddModal()" mat-flat-button>
+                    <mat-icon>add</mat-icon>
+                    Add
                 </button>
-            </td>
-        </ng-container>
-        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-        <ng-container matColumnDef="expandedDetail">
-            <td *matCellDef="let element" [attr.colspan]="displayedColumns.length" mat-cell>
-                <div>
-                    <div [@detailExpand]="expandedTableItemId === element.id ? 'expanded' : 'collapsed'"
-                         class="example-element-detail"
-                         id="div2">
-                        <div class="p-4 ">
-                            <div class="example-element-diagram">
-                                <div class="example-element-position"> {{ element.position }}</div>
-                                <div class="example-element-symbol"> {{ element.symbol }}</div>
-                                <div class="example-element-name"> {{ element.name }}</div>
-                                <div class="example-element-weight"> {{ element.weight }}</div>
+
+            </div>
+
+        </div>
+        <!-- Paginator -->
+        <div class="inline-block sticky left-drawer-sm self-center mt-4 ">
+            <mat-paginator [pageSizeOptions]="[25, 10, 5]" aria-label="Select page of users"></mat-paginator>
+        </div>
+    </div>
+    <div class="sticky-table-header-toolbar-tabs-mobile sticky-table-column-drawer-sm">
+        <table [dataSource]="dataSource" [trackBy]="trackByFn" id="table" mat-table matSort multiTemplateDataRows>
+            <!-- Columns -->
+            <ng-container matColumnDef="finalPosition">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by number"> No.</th>
+                <td *matCellDef="let element" mat-cell> {{ element.position }}</td>
+            </ng-container>
+            <!-- Sticky Column -->
+            <ng-container matColumnDef="name" sticky>
+                <th *matHeaderCellDef mat-header-cell mat-sort-header> Name</th>
+                <td *matCellDef="let element" mat-cell> {{ element.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header> Price</th>
+                <td *matCellDef="let element" mat-cell> {{ element.price }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="categoryName">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header> Category</th>
+                <td *matCellDef="let element" mat-cell> {{ element.categoryName }}</td>
+            </ng-container>
+            <!-- Actions Column -->
+
+            <!-- Expand Content Column -->
+            <ng-container matColumnDef="expand">
+                <th *matHeaderCellDef aria-label="row actions" mat-header-cell>&nbsp;</th>
+                <td *matCellDef="let element" mat-cell>
+                    <button (click)="toggleExpandRow(element)" aria-label="expand row"
+                            mat-icon-button>
+                        @if (expandedTableItemId === element.id) {
+                            <mat-icon>keyboard_arrow_up</mat-icon>
+                        }
+                        @if (expandedTableItemId !== element.id) {
+                            <mat-icon>keyboard_arrow_down</mat-icon>
+                        }
+                    </button>
+                </td>
+            </ng-container>
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+                <td *matCellDef="let element" [attr.colspan]="displayedColumns.length" mat-cell>
+                    <div>
+                        <div [@detailExpand]="expandedTableItemId === element.id ? 'expanded' : 'collapsed'"
+                             class="example-element-detail"
+                             id="div2">
+                            <div class="p-4 ">
+                                <div class="example-element-diagram">
+                                    <div class="example-element-position"> {{ element.position }}</div>
+                                    <div class="example-element-symbol"> {{ element.symbol }}</div>
+                                    <div class="example-element-name"> {{ element.name }}</div>
+                                    <div class="example-element-weight"> {{ element.weight }}</div>
+                                </div>
+                            </div>
+                            <div class="example-element-description whitespace-pre-line">
+                                {{ element.description }}
+                                <span class="example-element-description-attribution"> -- Lorem Ipsum </span>
                             </div>
                         </div>
-                        <div class="example-element-description whitespace-pre-line">
-                            {{ element.description }}
-                            <span class="example-element-description-attribution"> -- Lorem Ipsum </span>
-                        </div>
                     </div>
-                </div>
 
-            </td>
-        </ng-container>
-        <!-- Columns -->
-        <tr *matHeaderRowDef="displayedColumns;" mat-header-row></tr>
-        <!-- Rows -->
-        <!-- Normal Rows -->
-        <tr *matRowDef="let element; columns: displayedColumns;"
-            [class.example-expanded-row]="expandedTableItemId === element.id"
-            class="expanded-row"
-            mat-row
-        >
-        </tr>
-        <!-- Expanded Detail Row, that's why it's hidden (example-detail-row) most of the time -->
-        <tr *matRowDef="let row; columns: ['expandedDetail']" class="expanded-detail-row" mat-row></tr>
-    </table>
+                </td>
+            </ng-container>
+            <!-- Columns -->
+            <tr *matHeaderRowDef="displayedColumns;" mat-header-row></tr>
+            <!-- Rows -->
+            <!-- Normal Rows -->
+            <tr *matRowDef="let element; columns: displayedColumns;"
+                [class.example-expanded-row]="expandedTableItemId === element.id"
+                class="expanded-row"
+                mat-row
+            >
+            </tr>
+            <!-- Expanded Detail Row, that's why it's hidden (example-detail-row) most of the time -->
+            <tr *matRowDef="let row; columns: ['expandedDetail']" class="expanded-detail-row" mat-row></tr>
+        </table>
+    </div>
 </div>
+
