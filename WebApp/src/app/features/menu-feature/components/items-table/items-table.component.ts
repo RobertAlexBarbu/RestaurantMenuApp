@@ -42,6 +42,8 @@ import {
 } from "../../../../recipes/features/table-feature/components/table-add-dialog/table-add-dialog.component";
 import {responsiveDialogConfig} from "../../../../shared/configs/dialogs.config";
 import {InfoDialogComponent} from "../../../../shared/components/info-dialog/info-dialog.component";
+import {map, startWith} from "rxjs";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 interface TableItem extends MenuItemDetailDto {
     finalPosition: string, 
@@ -134,8 +136,48 @@ export class ItemsTableComponent {
                 }
             })
             this.dataSource = new MatTableDataSource(this.tableItems)
+            this.selectFilterOptions = this.menuStoreService.foodCategories()
+            this.searchFilterOptions.set(this.tableItems.map((t) => t.name))
+
+            // Apply Select Filter
+            if (this.selectFilterValue.length > 0) {
+                this.dataSource = new MatTableDataSource(
+                    this.tableItems.filter((e) =>
+                        this.selectFilterValue.includes(e.categoryName),
+                    ),
+                )
+            }
+
+            // Apply Search Filter
+            this.dataSource.filter = this.searchFilterValue.trim().toLowerCase()
+            const searchValue = this.searchFilterFormControl.value
+            if (this.searchFilterValue) {
+                this.visibleSearchFilterOptions.set(
+                    this.searchFilterOptions().filter((option) =>
+                        option.toLowerCase().includes(searchValue.toLowerCase()),
+                    ),
+                )
+            } else {
+                this.visibleSearchFilterOptions.set(this.searchFilterOptions())
+            }
+
+            // Set Up Sorter/Paginator
+            this.paginator().length = this.dataSource.filteredData.length
+            this.dataSource.sort = this.sorter()
+            this.dataSource.paginator = this.paginator()
 
         })
+        this.tableUtilityService.setUpPaginatorIntl(this.pg);
+
+        this.searchFilterFormControl.valueChanges
+            .pipe(
+                startWith(''),
+                map((value) => this.searchFilterHelper(value || '')),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe((value) => {
+                this.visibleSearchFilterOptions.set(value)
+            })
     }
 
     ngAfterViewInit(): void {
