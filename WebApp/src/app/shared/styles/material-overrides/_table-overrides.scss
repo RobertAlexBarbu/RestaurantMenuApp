@@ -24,26 +24,36 @@
 
 .sticky-table-column-drawer .mat-mdc-table-sticky {
   left: var(--w-drawer) !important;
-  will-change: transform; // otherwise border style is strange
+  will-change: transform !important; // otherwise border style is strange
 }
 
 .sticky-table-column-drawer-sm .mat-mdc-table-sticky {
   left: var(--w-drawer-sm) !important;
-  will-change: transform;
+  will-change: transform !important;
 }
 
 .sticky-table-column-drawer-drawer-sm .mat-mdc-table-sticky {
   left:calc(var(--w-drawer)  + var(--w-drawer-sm))!important;
-  will-change: transform; // otherwise border style is strange
+  will-change: transform !important; // otherwise border style is strange
 }
 
 
 .mat-mdc-cell .mat-mdc-form-field-infix {
   padding: 4px !important;
+
 }
 
 .mat-mdc-cell .mat-mdc-text-field-wrapper {
   height: 2rem !important;
+
+}
+
+td {
+  will-change: transform !important;
+}
+
+table * {
+  //will-change: transform !important;
 }
 
 @media (max-width: 900px) {

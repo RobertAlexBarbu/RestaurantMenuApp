@@ -61,6 +61,7 @@ import {ItemEditDialogComponent} from "../item-edit-dialog/item-edit-dialog.comp
 import {ItemImageButtonComponent} from "../item-image-button/item-image-button.component";
 import {CdkOverlayOrigin} from "@angular/cdk/overlay";
 import {InlinePriceInputComponent} from "../inline-price-input/inline-price-input.component";
+import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
 
 interface TableItem extends MenuItemDetailDto {
     finalPosition: string, 
@@ -141,7 +142,7 @@ export class ItemsTableComponent {
 
     // Select Filter Fields
     selectFilterValue: string[] = []
-    selectFilterOptions: ElementCategoryDto[] = []
+    selectFilterOptions: MenuCategoryDto[] = []
     selectFilterFormControl = new FormControl()
 
     // Search Filter Fields

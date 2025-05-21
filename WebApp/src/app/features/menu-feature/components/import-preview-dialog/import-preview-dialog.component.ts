@@ -1,12 +1,64 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
+import {MatButton} from "@angular/material/button";
+import {
+    MAT_DIALOG_DATA,
+    MatDialogActions,
+    MatDialogContent,
+    MatDialogRef,
+    MatDialogTitle
+} from "@angular/material/dialog";
+import {MatTab, MatTabChangeEvent, MatTabGroup} from "@angular/material/tabs";
+import {
+    TableImportPreviewCategoriesComponent
+} from "../../../../recipes/features/table-feature/components/table-import-preview-categories/table-import-preview-categories.component";
+import {
+    TableImportPreviewElementsComponent
+} from "../../../../recipes/features/table-feature/components/table-import-preview-elements/table-import-preview-elements.component";
+import {ImportElementDto} from "../../../../core/http/dto/element/import-element.dto";
+import {ImportElementCategoryDto} from "../../../../core/http/dto/element-category/import-element-category.dto";
+import {ScrollService} from "../../../../core/services/scroll/scroll.service";
+import {ImportMenuItemDto} from "../../services/menu-spreadsheet/menu-spreadsheet.service";
+import {CreateMenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/create-menu-category.dto";
+import {JsonPipe} from "@angular/common";
+import {ImportItemsPreviewComponent} from "../import-items-preview/import-items-preview.component";
+import {ImportCategoriesPreviewComponent} from "../import-categories-preview/import-categories-preview.component";
 
 @Component({
   selector: 'app-import-preview-dialog',
-  imports: [],
+    imports: [
+        MatButton,
+        MatDialogActions,
+        MatDialogContent,
+        MatDialogTitle,
+        MatTab,
+        MatTabGroup,
+        TableImportPreviewCategoriesComponent,
+        TableImportPreviewElementsComponent,
+        JsonPipe,
+        ImportItemsPreviewComponent,
+        ImportCategoriesPreviewComponent
+    ],
   templateUrl: './import-preview-dialog.component.html',
   styleUrl: './import-preview-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ImportPreviewDialogComponent {
+    private readonly dialogRef = inject(MatDialogRef<ImportPreviewDialogComponent>)
+    readonly data = inject<{ foodItems: ImportMenuItemDto[],
+        drinksItems: ImportMenuItemDto[]
+        foodCategories: CreateMenuCategoryDto[],
+        drinksCategories: CreateMenuCategoryDto[],
+    }>(MAT_DIALOG_DATA)
+    private readonly scrollService = inject(ScrollService);
+    tabIndex = signal(0);
 
+    closeDialog() {
+        this.dialogRef.close()
+    }
+
+    tabClicked(event: MatTabChangeEvent) {
+        this.scrollService.scrollDialogContentTop(false, 1);
+        this.tabIndex.set(event.index);
+    }
 }

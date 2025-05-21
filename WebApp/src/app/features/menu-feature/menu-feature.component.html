@@ -36,7 +36,7 @@
       </div>
     </a>
   </mat-nav-list>
-  <button [disabled]="spinner()" mat-stroked-button>
+  <button [disabled]="spinner()" (click)="importMenu()" mat-stroked-button>
     <mat-icon>publish</mat-icon>
     Import Menu
   </button>

@@ -1,1 +1,54 @@
-<p>import-preview-dialog works!</p>
+<h2 mat-dialog-title>Import Preview</h2>
+<mat-dialog-content no-padding responsive-dialog-content >
+    <div class="h-10 sticky left-0 top-0 z-10 bg-surface" >
+        <mat-tab-group  (selectedTabChange)="tabClicked($event)" class="sticky left-0 top-0 z-10 bg-surface"   sticky-header  preserveContent>
+            <mat-tab label="Food Items" >
+
+            </mat-tab>
+            <mat-tab label="Food Categories">
+
+            </mat-tab>
+            <mat-tab label="Drinks Items" >
+
+            </mat-tab>
+            <mat-tab label="Drinks Categories">
+
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+    @if (tabIndex() === 0 ) {
+        @if (data.foodItems.length === 0) {
+            <div [@pageLoad] class="p-4 text-2xl">No Food Items Imported</div>
+        } @else {
+            <app-import-items-preview [items]="data.foodItems" [categories]="data.foodCategories"></app-import-items-preview>
+        }
+
+
+    } @else if(tabIndex() === 1){
+        @if (data.foodCategories.length === 0) {
+            <div [@pageLoad] class="p-4 text-2xl">No Food Categories Imported</div>
+        } @else {
+            <app-import-categories-preview [items]="data.foodItems" [categories]="data.foodCategories"></app-import-categories-preview>
+        }
+    } @else if (tabIndex() === 2) {
+        @if (data.drinksItems.length === 0) {
+            <div [@pageLoad] class="p-4 text-2xl">No Drinks Items Imported</div>
+        } @else {
+            <app-import-items-preview [items]="data.drinksItems" [categories]="data.drinksCategories"></app-import-items-preview>
+        }
+    } @else {
+        @if (data.drinksCategories.length === 0) {
+            <div [@pageLoad] class="p-4 text-2xl">No Drinks Categories Imported</div>
+        } @else {
+            <app-import-categories-preview [items]="data.drinksItems" [categories]="data.drinksCategories"></app-import-categories-preview>
+        }
+    } 
+
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="closeDialog()" mat-button>Ok</button>
+</mat-dialog-actions>

@@ -10,6 +10,21 @@ import {map} from "rxjs/operators";
 import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
 import {ElementDto} from "../../../../core/http/dto/element/element.dto";
 import {MenuItemDetailDto} from "../../../../core/http/dto/menu-dto/menu-item/menu-item-detail.dto";
+import {CreateMenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/create-menu-category.dto";
+
+export interface ImportMenuItemDto {
+    menuType: string; // "drinks" or "food"
+    name: string;
+    description: string;
+    price: number;
+
+    nutritionalValues: string;
+    ingredients: string;
+    allergens: string;
+    position: number;
+    menuCategoryName: string;
+    menuId: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +32,7 @@ import {MenuItemDetailDto} from "../../../../core/http/dto/menu-dto/menu-item/me
 export class MenuSpreadsheetService {
     private readonly spreadsheetService = inject(SpreadsheetService)
 
-    exportElementTable(
+    exportMenuTable(
         foodCategories: MenuCategoryDto[],
         foodItems: MenuItemDetailDto[],
         drinksCategories: MenuCategoryDto[],
@@ -36,81 +51,174 @@ export class MenuSpreadsheetService {
         return this.spreadsheetService.exportWorkbook(workbook, name)
     }
 
-    importElementTable(file: File): Observable<{
-        categories: CreateElementCategoryDto[];
-        elements: ImportElementDto[];
+    importItemsTable(file: File, menuId: number): Observable<{
+        categories: CreateMenuCategoryDto[];
+        items: ImportMenuItemDto[];
     }> {
 
         const workbook = new ExcelJS.Workbook()
         return this.spreadsheetService.importWorkbook(file, workbook).pipe(
             map((wb) => {
-                const categoriesSheet = workbook.getWorksheet('Categories')
-                const elementsSheet = workbook.getWorksheet('Elements')
-                const categories: CreateElementCategoryDto[] = []
-                const elements: ImportElementDto[] = []
-                if (categoriesSheet) {
-                    categoriesSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                const foodCategoriesSheet = workbook.getWorksheet('Food Categories')
+                const drinksCategoriesSheet = workbook.getWorksheet('Drinks Categories')
+                const foodItemsSheet = workbook.getWorksheet('Food Items')
+                const drinksItemsSheet = workbook.getWorksheet('Drinks Items')
+                const categories: CreateMenuCategoryDto[] = []
+                const items: ImportMenuItemDto[] = []
+                if (foodCategoriesSheet) {
+                    let index = 0
+                    foodCategoriesSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
                         if (rowNumber <= 3) return // Skip title, info, and header rows
+                        index++;
                         const nameCell = row.getCell(1)
+                        const descriptionCell = row.getCell(2)
                         const name = nameCell.value!.toString()
+                        const description = descriptionCell.value!.toString()
                         if (name) {
                             categories.push({
                                 name: name.trim(),
+                                description: description.trim(),
+                                menuId: menuId,
+                                menuType: 'food',
+                                position: index
+                            })
+                        }
+                    })
+                }
+                if (drinksCategoriesSheet) {
+                    let index = 0
+                    drinksCategoriesSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                        if (rowNumber <= 3) return // Skip title, info, and header rows
+                        index++;
+                        const nameCell = row.getCell(1)
+                        const descriptionCell = row.getCell(2)
+                        const name = nameCell.value!.toString()
+                        const description = descriptionCell.value!.toString()
+                        if (name) {
+                            categories.push({
+                                name: name.trim(),
+                                description: description.trim(),
+                                menuId: menuId,
+                                menuType: 'drinks',
+                                position: index
                             })
                         }
                     })
                 }
 
-                if (elementsSheet) {
-                    let index = 0
-                    elementsSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                if (foodItemsSheet) {
+                    foodItemsSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
                         if (rowNumber <= 3) return
-                        index++
                         const nameCell = row.getCell(1)
-                        const symbolCell = row.getCell(2)
-                        const categoryNameCell = row.getCell(3)
-                        const densityCell = row.getCell(4)
-                        const weightCell = row.getCell(5)
-                        const meltingPointCell = row.getCell(6)
-                        const boilingPointCell = row.getCell(7)
-                        const atomicRadiusCell = row.getCell(8)
-                        const isVisibleCell = row.getCell(9)
-                        const descriptionCell = row.getCell(10)
+                        const categoryNameCell = row.getCell(2)
+                        const priceCell = row.getCell(3)
+                        const descriptionCell = row.getCell(4)
+                        const ingredientsCell = row.getCell(5)
+                        const nutritionalValuesCell = row.getCell(6)
+                        const allergensCell = row.getCell(7)
 
                         const name = nameCell.value?.toString()
-                        const symbol = symbolCell.value?.toString()
                         const categoryName = categoryNameCell.value?.toString()
-                        const density = Number(densityCell.value!)
-                        const weight = Number(weightCell.value!)
-                        const meltingPoint = Number(meltingPointCell.value)
-                        const boilingPoint = Number(boilingPointCell.value)
-                        const atomicRadius = Number(atomicRadiusCell.value)
-                        const isVisible = isVisibleCell.value?.toString()?.toLowerCase() === 'true'
+                        const price = Number(priceCell.value!)
                         const description = descriptionCell.value?.toString()
+                        const ingredients = ingredientsCell.value?.toString()
+                        const nutritionalValues = nutritionalValuesCell.value?.toString()
+                        const allergens = allergensCell.value?.toString()
+                        
 
-                        if (name && symbol && categoryName) {
-                            elements.push({
+                        if (name && categoryName) {
+                            items.push({
                                 name: name.trim(),
-                                symbol: symbol.trim(),
-                                categoryName: categoryName.trim(),
-                                density: density,
-                                weight: weight,
-                                meltingPoint: meltingPoint,
-                                boilingPoint: boilingPoint,
-                                atomicRadius: atomicRadius,
-                                isVisible,
+                                price: price,
+                                menuCategoryName: categoryName.trim(),
                                 description: description?.trim() || '',
-                                position: index,
+                                ingredients: ingredients?.trim() || '',
+                                nutritionalValues: nutritionalValues?.trim() || '',
+                                allergens: allergens?.trim() || '',
+                                menuId: menuId,
+                                menuType: 'food',
+                                position: 0,
                             })
                         }
                     })
                 }
+                if (drinksItemsSheet) {
+                    drinksItemsSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                        if (rowNumber <= 3) return
+                        const nameCell = row.getCell(1)
+                        const categoryNameCell = row.getCell(2)
+                        const priceCell = row.getCell(3)
+                        const descriptionCell = row.getCell(4)
+                        const ingredientsCell = row.getCell(5)
+                        const nutritionalValuesCell = row.getCell(6)
+                        const allergensCell = row.getCell(7)
+
+                        const name = nameCell.value?.toString()
+                        const categoryName = categoryNameCell.value?.toString()
+                        const price = Number(priceCell.value!)
+                        const description = descriptionCell.value?.toString()
+                        const ingredients = ingredientsCell.value?.toString()
+                        const nutritionalValues = nutritionalValuesCell.value?.toString()
+                        const allergens = allergensCell.value?.toString()
+                        
+
+                        if (name  && categoryName) {
+                            items.push({
+                                name: name.trim(),
+                                price: price,
+                                menuCategoryName: categoryName.trim(),
+                                description: description?.trim() || '',
+                                ingredients: ingredients?.trim() || '',
+                                nutritionalValues: nutritionalValues?.trim() || '',
+                                allergens: allergens?.trim() || '',
+                                menuId: menuId,
+                                menuType: 'drinks',
+                                position: 0,
+                            })
+                        }
+                    })
+                }
+                console.log(items);
                 return {
                     categories,
-                    elements,
+                    items: this.assignCategoryPositions(items),
                 }
             }),
         )
+    }
+
+    assignCategoryPositions(items: ImportMenuItemDto[]): ImportMenuItemDto[] {
+        // Group items by their category name
+        const categories = new Map<string, ImportMenuItemDto[]>();
+
+        // Create groups
+        for (const item of items) {
+            if (!categories.has(item.menuCategoryName)) {
+                categories.set(item.menuCategoryName, []);
+            }
+            categories.get(item.menuCategoryName)!.push(item);
+        }
+
+        // Process each category
+        for (const [categoryName, categoryItems] of categories) {
+            // Sort items by their current position (if valid) or by name as fallback
+            categoryItems.sort((a, b) => {
+                // If both have valid positions, sort by position
+                if (a.position > 0 && b.position > 0) {
+                    return a.position - b.position;
+                }
+                // Otherwise sort by name as fallback
+                return a.name.localeCompare(b.name);
+            });
+
+            // Assign sequential positions starting from 1
+            categoryItems.forEach((item, index) => {
+                item.position = index + 1;
+            });
+        }
+
+        // Return the flattened array (though original array is modified by reference)
+        return items;
     }
 
     private createCategoriesSheet(workbook: ExcelJS.Workbook, categories: MenuCategoryDto[], title: string): ExcelJS.Worksheet {
@@ -151,23 +259,11 @@ export class MenuSpreadsheetService {
             },
             {
                 header: 'Price*',
-                key: 'symbol',
+                key: 'price',
                 width: 20,
                 style: { font: { bold: true } },
             },
-
-            {
-                header: 'Density',
-                key: 'density',
-                width: 15,
-                style: { numFmt: '0' },
-            },
-            {
-                header: 'Weight',
-                key: 'weight',
-                width: 15,
-                style: { numFmt: '0' },
-            },
+            
 
             { header: 'Description', key: 'description', width: 100 },
             { header: 'Ingredients', key: 'ingredients', width: 100 },
@@ -175,7 +271,7 @@ export class MenuSpreadsheetService {
             { header: 'Allergens', key: 'allergens', width: 100 },
         ]
 
-        this.spreadsheetService.addTitleRow(elementSheet, title, 'A1:I1')
+        this.spreadsheetService.addTitleRow(elementSheet, title, 'A1:G1')
         this.spreadsheetService.addInfoRow(elementSheet, '⚠️ Cells colored red and columns marked with * are mandatory fields.', 'A2:I2')
         this.spreadsheetService.addHeaderRow(elementSheet)
 

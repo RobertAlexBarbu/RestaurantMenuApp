@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, ViewContainerRef} from '@angular/core';
 import {Router, RouterOutlet} from "@angular/router";
 import {FeatureLoadingPageComponent} from "../../shared/components/feature-loading-page/feature-loading-page.component";
 import {ActiveFeaturePipe} from "../../shared/pipes/active-feature/active-feature.pipe";
@@ -13,6 +13,9 @@ import {MenuStoreService} from "./services/menu-store/menu-store.service";
 import {MenuService} from "../../core/http/services/menu-services/menu/menu.service";
 import {MenuSpreadsheetService} from "./services/menu-spreadsheet/menu-spreadsheet.service";
 import {NotificationService} from "../../core/services/notification/notification.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ImportDialogComponent} from "./components/import-dialog/import-dialog.component";
+import {fullscreenDialogConfig} from "../../shared/configs/dialogs.config";
 
 @Component({
   selector: 'app-menu-feature',
@@ -43,6 +46,8 @@ export class MenuFeatureComponent {
     private readonly notificationService = inject(NotificationService)
     private readonly spreadsheetService = inject(MenuSpreadsheetService);
     spinner = signal(true)
+    private readonly viewContainerRef = inject(ViewContainerRef)
+    private readonly dialog = inject(MatDialog)
 
 
   user = this.appStore.user
@@ -70,13 +75,20 @@ export class MenuFeatureComponent {
     }
     
     exportMenu() {
-      this.spreadsheetService.exportElementTable(this.menuStoreService.foodCategories(), this.menuStoreService.foodItemsWithCategory(),
+      this.spreadsheetService.exportMenuTable(this.menuStoreService.foodCategories(), this.menuStoreService.foodItemsWithCategory(),
           this.menuStoreService.drinksCategories(), this.menuStoreService.drinksItemsWithCategory()).pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe({
               next: (data) => {
                   this.notificationService.notify("Menu Exported Successfully!")
               }
           })
+    }
+    
+    importMenu() {
+        this.dialog.open(ImportDialogComponent, {
+            ...fullscreenDialogConfig,
+            viewContainerRef: this.viewContainerRef
+        })
     }
 
 
