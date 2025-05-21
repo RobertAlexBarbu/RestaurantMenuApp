@@ -11,6 +11,8 @@ import {AppStore} from "../../core/stores/app.store";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MenuStoreService} from "./services/menu-store/menu-store.service";
 import {MenuService} from "../../core/http/services/menu-services/menu/menu.service";
+import {MenuSpreadsheetService} from "./services/menu-spreadsheet/menu-spreadsheet.service";
+import {NotificationService} from "../../core/services/notification/notification.service";
 
 @Component({
   selector: 'app-menu-feature',
@@ -38,6 +40,8 @@ export class MenuFeatureComponent {
   private readonly menuService = inject(MenuService);
   private readonly destroyRef = inject(DestroyRef)
   private readonly router = inject(Router)
+    private readonly notificationService = inject(NotificationService)
+    private readonly spreadsheetService = inject(MenuSpreadsheetService);
     spinner = signal(true)
 
 
@@ -63,6 +67,16 @@ export class MenuFeatureComponent {
                 this.spinner.set(false)
             }
         })
+    }
+    
+    exportMenu() {
+      this.spreadsheetService.exportElementTable(this.menuStoreService.foodCategories(), this.menuStoreService.foodItemsWithCategory(),
+          this.menuStoreService.drinksCategories(), this.menuStoreService.drinksItemsWithCategory()).pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+              next: (data) => {
+                  this.notificationService.notify("Menu Exported Successfully!")
+              }
+          })
     }
 
 

@@ -36,11 +36,11 @@
       </div>
     </a>
   </mat-nav-list>
-  <button mat-stroked-button>
+  <button [disabled]="spinner()" mat-stroked-button>
     <mat-icon>publish</mat-icon>
     Import Menu
   </button>
-  <button mat-stroked-button>
+  <button [disabled]="spinner()" (click)="exportMenu()" mat-stroked-button>
     <mat-icon>download</mat-icon>
     Export Menu
   </button>
