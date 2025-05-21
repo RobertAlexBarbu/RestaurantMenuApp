@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Order Categories</h2>
+<mat-dialog-content responsive-dialog-content>
+    <div class="flex flex-col gap-4">
+        <!-- Info Message -->
+        @if (dragAndDropElements.length > 0) {
+            @if (!isMobile) {
+                <div>
+                    <app-info-text>
+                        <div>
+                            Drag and drop items to rearrange them or use the arrow buttons to move them up or
+                            down.
+                            Remember to press save when you are done.
+                        </div>
+                    </app-info-text>
+                </div>
+            }
+            @if (isMobile) {
+                <div>
+                    <app-info-text>
+                        <div>
+                            Tap and hold the
+                            drag
+                            icon to drag and reorder items. Remember to press save when you are done.
+                        </div>
+                    </app-info-text>
+                </div>
+            }
+        }
+
+
+
+
+        <!-- Drag-and-Drop-->
+        <app-drag-and-drop-sorting (elementsOrdered)="updatePositions($event)" [basicInfoMessages]="false"
+                                   [elements]="dragAndDropElements"
+        ></app-drag-and-drop-sorting>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="closeDialog()" class="mr-2" mat-button>Cancel</button>
+    <button (click)="save()" [class.spinner]="loading$ | async" [disabled]="loading$ | async" mat-button>Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Order Items</h2>
+<mat-dialog-content responsive-dialog-content>
+    <div class="flex flex-col gap-4">
+        <mat-form-field  subscriptSizing="dynamic">
+            <mat-label>Category</mat-label>
+            <mat-select (selectionChange)="selectCategory($event)" [formControl]="select">
+                @for (option of selectOptions(); track option) {
+                    <mat-option [value]="option.id">{{ option.name }}</mat-option>
+                } @empty {
+                    <mat-option disabled>No Options</mat-option>
+                }
+            </mat-select>
+
+        </mat-form-field>
+        <!-- Info Message -->
+        @if (dragAndDropElements().length >= 0) {
+            @if (!isMobile) {
+                <div>
+                    <app-info-text>
+                        <div>
+                            Drag and drop items to rearrange them or use the arrow buttons to move them up or
+                            down.
+                            Remember to press save when you are done.
+                        </div>
+                    </app-info-text>
+                </div>
+            }
+            @if (isMobile) {
+                <div>
+                    <app-info-text>
+                        <div>
+                            Tap and hold the
+                            drag
+                            icon to drag and reorder items. Remember to press save when you are done.
+                        </div>
+                    </app-info-text>
+                </div>
+            }
+        }
+        
+        <!-- Drag-and-Drop-->
+        <app-drag-and-drop-sorting (elementsOrdered)="updatePositions($event)" [basicInfoMessages]="false"
+                                   [elements]="dragAndDropElements()"
+        ></app-drag-and-drop-sorting>
+        @if(dragAndDropElements().length === 0) {
+            <div class="text-xl text-center">No items in this category</div>
+        }
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="closeDialog()" class="mr-2" mat-button>Cancel</button>
+    <button (click)="save()" [class.spinner]="loading$ | async" [disabled]="loading$ | async" mat-button>Save</button>
+</mat-dialog-actions>

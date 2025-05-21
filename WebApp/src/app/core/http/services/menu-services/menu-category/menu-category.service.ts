@@ -40,9 +40,9 @@ export class MenuCategoryService {
     )
   }
 
-  public updatePositionsByMenuId(menuId: number, categoryPositions: PositionDto[]) {
+  public updatePositionsByMenuId(menuId: number, menuType: string, categoryPositions: PositionDto[]) {
     return this.http.patch(
-      `${this.baseUrl}/UpdatePositionsByMenuId/${menuId}`,
+      `${this.baseUrl}/UpdatePositionsByMenuId/${menuId}/${menuType}`,
       categoryPositions
     )
   }

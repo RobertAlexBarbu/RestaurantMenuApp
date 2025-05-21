@@ -44,10 +44,11 @@ public class MenuCategoryController(IMenuCategoryService menuCategoryService, IC
 
     [HttpPatch]
     [AllowAuthenticated]
-    public async Task<ActionResult> UpdatePositionsByMenuIdAsync(int menuId, List<PositionDto> categoryPositions)
+    [Route("{menuId}/{menuType}")]
+    public async Task<ActionResult> UpdatePositionsByMenuIdAsync(int menuId,  string menuType, List<PositionDto> categoryPositions)
     {
         var userClaims = claimService.GetUserClaims(User);
-        await menuCategoryService.UpdatePositionsByMenuIdAsync(menuId, userClaims.Id, categoryPositions);
+        await menuCategoryService.UpdatePositionsByMenuIdAsync(menuId, menuType, userClaims.Id, categoryPositions);
         return Ok();
     }
 

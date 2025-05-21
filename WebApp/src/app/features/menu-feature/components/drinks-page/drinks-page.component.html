@@ -4,10 +4,10 @@
   <ng-container *ngTemplateOutlet="tabs" toolbar-mobile-navigation>
   </ng-container>
   <div class="visible-over-1200px">
-    <button class="mr-4" mat-stroked-button>
+    <button class="mr-4" [disabled]="items().length === 0" mat-stroked-button (click)="orderItems()">
       Order Items
     </button>
-    <button mat-stroked-button>
+    <button mat-stroked-button [disabled]="cats().length === 0" (click)="orderCategories()">
       Order Categories
     </button>
   </div>
@@ -17,10 +17,10 @@
     </button>
   </div>
   <mat-menu #menu class="top-overlay">
-    <button mat-menu-item>
+    <button mat-menu-item [disabled]="items().length === 0" (click)="orderItems()">
       Order Items
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item [disabled]="cats().length === 0" (click)="orderCategories()">
       Order Categories
     </button>
   </mat-menu>

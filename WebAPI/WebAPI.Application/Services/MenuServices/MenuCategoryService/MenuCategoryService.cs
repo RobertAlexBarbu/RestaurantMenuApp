@@ -51,10 +51,11 @@ public class MenuCategoryService(AppDbContext context, IMapper mapper) : IMenuCa
             updateMenuCategoryDto, mapper);
     }
 
-    public async Task UpdatePositionsByMenuIdAsync(int menuId, int userId, List<PositionDto> categoryPositions)
+    public async Task UpdatePositionsByMenuIdAsync(int menuId, string menuType, int userId, List<PositionDto> categoryPositions)
     {
-        var categories = await context.MenuCategories.Where(e => e.UserId == userId && e.MenuId == menuId).ToListAsync();
+        var categories = await context.MenuCategories.Where(e => e.UserId == userId && e.MenuId == menuId && e.MenuType == menuType).ToListAsync();
         if (categoryPositions.Count != categories.Count)
+            
             throw new Exception("More/Less positions than elements");
         foreach (var categoryPosition in categoryPositions)
         {

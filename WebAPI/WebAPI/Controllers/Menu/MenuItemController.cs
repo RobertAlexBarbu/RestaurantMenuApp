@@ -65,6 +65,7 @@ public class MenuItemController(IMapper mapper, IMenuItemService menuItemService
 
     [HttpPatch]
     [AllowAuthenticated]
+    [Route("{categoryId}")]
     public async Task<ActionResult> UpdatePositionsByCategoryIdAsync(int categoryId, List<PositionDto> itemPositions)
     {
         var userClaims = claimService.GetUserClaims(User);

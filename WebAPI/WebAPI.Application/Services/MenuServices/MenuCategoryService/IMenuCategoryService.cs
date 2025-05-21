@@ -12,7 +12,7 @@ public interface IMenuCategoryService
 
     Task UpdateByIdAsync(int id, int userId, UpdateMenuCategoryDto updateMenuCategoryDto);
     
-    Task UpdatePositionsByMenuIdAsync(int menuId, int userId, List<PositionDto> categoryPositions);
+    Task UpdatePositionsByMenuIdAsync(int menuId, string menuType, int userId, List<PositionDto> categoryPositions);
     
     Task UpdateVisibilityByIdAsync(int id, int userId, UpdateMenuCategoryVisibilityDto updateVisibilityDto);
 }

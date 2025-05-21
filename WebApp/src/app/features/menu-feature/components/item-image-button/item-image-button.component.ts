@@ -36,7 +36,18 @@ export class ItemImageButtonComponent {
         private elRef: ElementRef,
         private cdr: ChangeDetectorRef,
     ) {
-
+        const imgUrl = this.imageUrl();
+        console.log(imgUrl);
+        if (imgUrl) {
+            this.storage
+                .download(imgUrl)
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe({
+                    next: (file) => {
+                        this.firebaseFileUrl.set(URL.createObjectURL(file))
+                    },
+                })
+        }
     }
     
 

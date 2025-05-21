@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit, output } from '@angular/core'
+import {ChangeDetectionStrategy, Component, computed, effect, inject, input, OnInit, output} from '@angular/core'
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop'
 import { MatIconButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
@@ -30,7 +30,7 @@ import { InfoTextComponent } from '../info-text/info-text.component'
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [DragAndDropSortingStore],
 })
-export class DragAndDropSortingComponent implements OnInit {
+export class DragAndDropSortingComponent  {
     private readonly dragAndDropSortingStore = inject(DragAndDropSortingStore)
     private readonly utilityService = inject(UtilityService)
     isMobile = this.utilityService.isMobile()
@@ -72,13 +72,17 @@ export class DragAndDropSortingComponent implements OnInit {
         return elements.sort((a, b) => a.position - b.position)
     })
 
-    ngOnInit() {
-        this.dragAndDropSortingStore.setElements(
-            this.elements().map((e) => ({
-                id: e.id,
-                position: e.position,
-            })),
-        )
+
+    
+    constructor() {
+        effect(() => {
+            this.dragAndDropSortingStore.setElements(
+                this.elements().map((e) => ({
+                    id: e.id,
+                    position: e.position,
+                })),
+            )
+        });
     }
 
     drop(event: CdkDragDrop<string[]>) {
