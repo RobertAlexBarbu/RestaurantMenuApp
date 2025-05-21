@@ -32,9 +32,17 @@ public class MenuItemService(AppDbContext context, IMapper mapper) : IMenuItemSe
         return mapper.Map<MenuItemDto>(menuItem);
     }
 
-    public async Task DeleteByIdAsync(int id, int userId)
+    public async Task DeleteByIdAsync(int id, int categoryId, int userId)
     {
+        
         await context.DeleteByIdWithUserIdAsync<MenuItem>(id, userId);
+        var items = await context.MenuItems
+            .Where(e => e.UserId == userId && e.MenuCategoryId == categoryId)
+            .OrderBy(e => e.Position)
+            .ToListAsync();
+        for (var i = 0; i < items.Count; i++)
+            items[i].Position = i + 1;
+        await context.SaveChangesAsync();
     }
 
     public async Task UpdateByIdAsync(int id, int userId, UpdateMenuItemDto updateMenuItemDto)

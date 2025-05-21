@@ -4,7 +4,7 @@ public class UpdateMenuItemDto
 {
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string? ImageUrl { get; set; } = null;
+
     public double Price { get; set; }
 
     

@@ -1,0 +1,17 @@
+<button [disabled]="imageUrl() === null" #trigger="cdkOverlayOrigin" (click)="toggleOverlay()" cdkOverlayOrigin mat-icon-button type="button">
+    <mat-icon>image</mat-icon>
+</button>
+
+<ng-template
+        [cdkConnectedOverlayOpen]="isOpen"
+        [cdkConnectedOverlayOrigin]="trigger"
+        cdkConnectedOverlay
+>
+    <div #overlayPane
+         class="bg-surface-container overlay-elevation corner-l flex items-center justify-center">
+        <app-image [fileUrl]="firebaseFileUrl()" [style.max-width]="'250px'"
+                   
+                   class="flex-grow"></app-image>
+    </div>
+</ng-template>
+

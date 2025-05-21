@@ -13,6 +13,7 @@ import { ElementCategoryDto } from '../../../../../core/http/dto/element-categor
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { ElementCategoryService } from '../../../../../core/http/services/element-category/element-category.service'
 import { TableFeatureStore } from '../../../../stores/table-feature.store'
+import {MenuCategoryDto} from "../../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
 
 @Component({
     selector: 'app-table-delete-category-dialog',
@@ -31,8 +32,8 @@ export class TableDeleteCategoryDialogComponent {
     )
     private readonly notificationService = inject(NotificationService)
     public readonly data = inject<{
-        category: ElementCategoryDto
-        totalElements: number
+        category: MenuCategoryDto
+        totalItems: number
     }>(MAT_DIALOG_DATA)
     loading = signal(false)
 

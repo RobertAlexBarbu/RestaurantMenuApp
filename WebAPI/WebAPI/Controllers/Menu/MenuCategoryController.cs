@@ -62,11 +62,11 @@ public class MenuCategoryController(IMenuCategoryService menuCategoryService, IC
 
     [HttpDelete]
     [AllowAuthenticated]
-    [Route("{id}")]
-    public async Task<ActionResult> DeleteByIdAsync(int id)
+    [Route("{menuType}/{id}")]
+    public async Task<ActionResult> DeleteByIdAsync(int id, string menuType)
     {
         var userClaims = claimService.GetUserClaims(User);
-        await menuCategoryService.DeleteByIdAsync(id, userClaims.Id);
+        await menuCategoryService.DeleteByIdAsync(id, menuType, userClaims.Id);
         return Ok();
     }
 }

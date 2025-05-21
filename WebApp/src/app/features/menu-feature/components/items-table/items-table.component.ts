@@ -58,6 +58,9 @@ import {ItemVisibilityButtonComponent} from "../item-visibility-button/item-visi
 import {ItemDeleteDialogComponent} from "../item-delete-dialog/item-delete-dialog.component";
 import {ItemAddDialogComponent} from "../item-add-dialog/item-add-dialog.component";
 import {ItemEditDialogComponent} from "../item-edit-dialog/item-edit-dialog.component";
+import {ItemImageButtonComponent} from "../item-image-button/item-image-button.component";
+import {CdkOverlayOrigin} from "@angular/cdk/overlay";
+import {InlinePriceInputComponent} from "../inline-price-input/inline-price-input.component";
 
 interface TableItem extends MenuItemDetailDto {
     finalPosition: string, 
@@ -95,7 +98,10 @@ interface TableItem extends MenuItemDetailDto {
         MatSuffix,
         ReactiveFormsModule,
         IsVisibleButtonComponent,
-        ItemVisibilityButtonComponent
+        ItemVisibilityButtonComponent,
+        ItemImageButtonComponent,
+        InlinePriceInputComponent,
+
     ],
   templateUrl: './items-table.component.html',
   styleUrl: './items-table.component.scss',
@@ -126,8 +132,9 @@ export class ItemsTableComponent {
     displayedColumns: string[] = [
         'finalPosition',
         'name',
-        'expand',
         'categoryName',
+        'expand',
+
         'price',
         'actions'
     ]
@@ -151,7 +158,7 @@ export class ItemsTableComponent {
                     return {
                         ...i,
                         categoryName: i.category.name,
-                        finalPosition: i.category.position + '.' + i.position,
+                        finalPosition: i.category.position + '.' + i.position ,
                     }
                 })
                 this.selectFilterOptions = this.menuStoreService.foodCategories()

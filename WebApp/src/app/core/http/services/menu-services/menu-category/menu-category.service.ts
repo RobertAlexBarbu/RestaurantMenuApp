@@ -54,7 +54,7 @@ export class MenuCategoryService {
     )
   }
 
-  public deleteById(id: number) {
-    return this.http.delete(`${this.baseUrl}/DeleteById/${id}`)
+  public deleteById(id: number, menuType: string) {
+    return this.http.delete(`${this.baseUrl}/DeleteById/${menuType}/${id}`)
   }
 }

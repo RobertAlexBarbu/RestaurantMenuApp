@@ -10,7 +10,7 @@ public interface IMenuItemService
     
     Task<MenuItemDto> CreateAsync(int userId, CreateMenuItemDto createMenuItemDto);
 
-    Task DeleteByIdAsync(int id, int userId);
+    Task DeleteByIdAsync(int id, int categoryId, int userId);
 
     Task UpdateByIdAsync(int id, int userId, UpdateMenuItemDto updateMenuItemDto);
     

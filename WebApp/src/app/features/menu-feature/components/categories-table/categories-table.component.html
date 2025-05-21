@@ -27,32 +27,7 @@
                 </mat-autocomplete>
             </mat-form-field>
             <!-- Filter Select -->
-            <mat-form-field class="mr-4">
-                <mat-label>Filter</mat-label>
 
-                @if (selectClearVisible()) {
-                    <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectFilter($event)">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                } @else {
-                    <button matSuffix class="invisible" mat-icon-button>
-                        <mat-icon>close</mat-icon>
-                    </button>
-                }
-                <mat-select (selectionChange)="applySelectFilter($event)" [formControl]="selectFilterFormControl" multiple>
-                    <mat-select-trigger>
-                        {{ selectFilterFormControl.value?.[0] || '' }}
-                        @if ((selectFilterFormControl.value?.length || 0) > 1) {
-                            <span>
-                (+{{ (selectFilterFormControl.value?.length || 0) - 1 }} {{ selectFilterFormControl.value?.length === 2 ? 'other' : 'others' }})
-              </span>
-                        }
-                    </mat-select-trigger>
-                    @for (category of selectFilterOptions; track category.id) {
-                        <mat-option [value]="category.name">{{ category.name }}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
         </div>
         <div class="flex responsive-flex gap-4">
             <div class="flex gap-4">
@@ -73,9 +48,9 @@
     <div class="sticky-table-header-toolbar-tabs-mobile sticky-table-column-drawer-drawer-sm">
         <table [dataSource]="dataSource" [trackBy]="trackByFn" id="table" mat-table matSort multiTemplateDataRows>
             <!-- Columns -->
-            <ng-container matColumnDef="finalPosition">
+            <ng-container matColumnDef="position">
                 <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by number"> No.</th>
-                <td *matCellDef="let element" mat-cell> {{ element.finalPosition }}</td>
+                <td *matCellDef="let element" mat-cell> {{ element.position }}</td>
             </ng-container>
             <!-- Sticky Column -->
             <ng-container matColumnDef="name" sticky>
@@ -83,23 +58,18 @@
                 <td *matCellDef="let element" mat-cell> {{ element.name}}</td>
             </ng-container>
 
-            <ng-container matColumnDef="price">
-                <th *matHeaderCellDef mat-header-cell mat-sort-header> Price</th>
-                <td *matCellDef="let element" mat-cell> 
-                <app-inline-price-input [item]="element"></app-inline-price-input>
-                </td>
-            </ng-container>
 
-            <ng-container matColumnDef="categoryName">
-                <th *matHeaderCellDef mat-header-cell mat-sort-header> Category</th>
-                <td *matCellDef="let element" mat-cell> {{ element.categoryName }}</td>
+
+            <ng-container matColumnDef="totalItems">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header> Total Items</th>
+                <td *matCellDef="let element" mat-cell> {{ element.totalItems }}</td>
             </ng-container>
             <!-- Actions Column -->
             <ng-container matColumnDef="actions">
                 <th *matHeaderCellDef mat-header-cell></th>
                 <td *matCellDef="let element" mat-cell>
                     <div class="flex justify-end">
-                        <app-item-visibility-button [item]="element"></app-item-visibility-button>
+                        <app-category-visibility-button [cat]="element"></app-category-visibility-button>
                         <button (click)="openEditModal(element); $event.stopPropagation()"
                                 mat-icon-button>
                             <mat-icon>edit</mat-icon>
@@ -124,7 +94,6 @@
                             <mat-icon>keyboard_arrow_down</mat-icon>
                         }
                     </button>
-                    <app-item-image-button [imageUrl]="element.imageUrl"></app-item-image-button>
 
                 </td>
             </ng-container>
@@ -134,7 +103,7 @@
                     <div>
                         <div [@detailExpand]="expandedTableItemId === element.id ? 'expanded' : 'collapsed'"
                              class="  example-element-detail"
-                             id="div2"> 
+                             id="div2">
                             <div class="pt-2 pb-4 flex flex-col gap-4">
                                 <div>
                                     <div class="text-xl">
@@ -142,24 +111,7 @@
                                     </div>
                                     <div>{{element.description ? element.description : "Nothing here yet"}}</div>
                                 </div>
-                                <div>
-                                    <div class="text-xl">
-                                        Ingredients
-                                    </div>
-                                    <div>{{element.ingredients ? element.ingredients : "Nothing here yet"}}</div>
-                                </div>
-                                <div>
-                                    <div class="text-xl">
-                                        Nutritional Values
-                                    </div>
-                                    <div>{{element.nutritionalValues ? element.nutritionalValues : "Nothing here yet"}}</div>
-                                </div>
-                                <div>
-                                    <div class="text-xl">
-                                        Allergens
-                                    </div>
-                                    <div>{{element.allergens ? element.allergens : "Nothing here yet"}}</div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

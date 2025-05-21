@@ -57,6 +57,7 @@ export class MenuItemService {
   }
 
   public updateImageUrlById(id: number, updateImageUrlDto: UpdateMenuItemImageUrlDto) {
+      console.log('Update image url!')
     return this.http.patch(
       `${this.baseUrl}/UpdateImageUrlById/${id}`,
       updateImageUrlDto,
@@ -77,8 +78,8 @@ export class MenuItemService {
     )
   }
 
-  public deleteById(id: number) {
-    return this.http.delete(`${this.baseUrl}/DeleteById/${id}`)
+  public deleteById(id: number, categoryId: number,) {
+    return this.http.delete(`${this.baseUrl}/DeleteById/${categoryId}/${id}`)
   }
 
   public addImage(item: MenuItemDto, file: File, user: UserDto) {

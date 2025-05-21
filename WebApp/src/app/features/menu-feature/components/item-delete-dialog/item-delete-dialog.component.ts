@@ -47,7 +47,7 @@ export class ItemDeleteDialogComponent {
     onDelete(elementId: number): void {
         this.spinner.set(true)
         this.menuItemService
-            .deleteById(elementId)
+            .deleteById(elementId, this.data.menuCategoryId)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: () => {

@@ -1,0 +1,10 @@
+<button (click)="toggleVisibility(cat().isVisible); $event.stopPropagation()" [class.spinner]="spinner$ |async"
+        [disabled]="spinner$ |async"
+        mat-icon-button>
+    @if (cat().isVisible) {
+        <mat-icon>visibility</mat-icon>
+    } @else {
+        <mat-icon>visibility_off</mat-icon>
+    }
+</button>
+

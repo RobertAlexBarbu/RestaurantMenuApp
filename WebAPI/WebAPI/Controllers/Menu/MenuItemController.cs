@@ -83,11 +83,11 @@ public class MenuItemController(IMapper mapper, IMenuItemService menuItemService
 
     [HttpDelete]
     [AllowAuthenticated]
-    [Route("{id}")]
-    public async Task<ActionResult> DeleteByIdAsync(int id)
+    [Route("{categoryId}/{id}")]
+    public async Task<ActionResult> DeleteByIdAsync(int id, int categoryId)
     {
         var userClaims = claimService.GetUserClaims(User);
-        await menuItemService.DeleteByIdAsync(id, userClaims.Id);
+        await menuItemService.DeleteByIdAsync(id, categoryId, userClaims.Id);
         return Ok();
     }
 }
