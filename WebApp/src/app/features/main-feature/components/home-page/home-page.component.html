@@ -30,16 +30,21 @@
       </div>
       <div>
         <app-card class="block max-w-2xl" cardTitle="Your Restaurant Menu" appearance="raised">
-          <div [formGroup]="form" class="flex flex-col  gap-x-4">
+          <div [formGroup]="form" class="flex flex-col  gap-4">
             <mat-form-field class="min-w-64  flex-grow">
               <mat-label>Restaurant Name</mat-label>
               <input (input)="enableSave()" formControlName="name" inputmode="text" matInput type="text">
+                @if (form.controls.name.hasError('required')) {
+                    <mat-error>Restaurant Name is required</mat-error>
+                }
             </mat-form-field>
             <mat-form-field class="min-w-64 flex-grow">
               <mat-label>Menu Url</mat-label>
               <input (input)="enableSave()" formControlName="url" inputmode="text" matInput type="text">
               @if (urlUnavailable()) {
                 <mat-error>Url unavailable</mat-error>
+              } @else if (form.controls.url.hasError('required')) {
+                  <mat-error>Url is required</mat-error>
               }
             </mat-form-field>
             <div class="ml-auto gap-4 flex">

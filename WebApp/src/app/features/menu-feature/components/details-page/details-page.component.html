@@ -1,6 +1,57 @@
 <app-toolbar class="w-full-minus-drawer-sm-drawer" featureName="Details">
 
 </app-toolbar>
-<div class="pt-toolbar">
-  details-page works!
+<div class="p-page" [@pageLoad]>
+    <div class="pt-toolbar responsive-page max-w-page">
+        
+        <app-card appearance="raised" cardTitle="WiFi">
+            <div card-button class="flex items-center gap-4">
+                <mat-spinner [diameter]="18"></mat-spinner>
+                <mat-slide-toggle  [checked]=""
+                                  [disabled]="" labelPosition="before"></mat-slide-toggle>
+
+
+            </div>
+            <form [formGroup]="wifiForm" class="flex gap-4 flex-wrap">
+                <mat-form-field class="flex-grow max-w-96">
+                    <mat-label>Network Name</mat-label>
+                    <input  type="text" formControlName="wifiNetworkName" matInput>
+                    @if (wifiForm.controls.wifiNetworkName.hasError('required')) {
+                        <mat-error>Network Name required</mat-error>
+                    }
+                </mat-form-field >
+                <mat-form-field class=" flex-grow max-w-96">
+                    <mat-label>Password</mat-label>
+                    <input  type="text" formControlName="wifiPassword" matInput>
+                    @if (wifiForm.controls.wifiPassword.hasError('required')) {
+                        <mat-error>Network Name required</mat-error>
+                    }
+                </mat-form-field>
+
+
+            </form>
+            <div class="flex mt-4">
+                <button [disabled]="disabledWifiSave() || updateWifiLoading()"
+                        [class.spinner]="updateWifiLoading()"
+                        class="ml-auto" mat-button >Save
+                </button>
+            </div>
+
+
+        </app-card>
+
+        <app-card appearance="raised" cardTitle="Contact">
+            <mat-slide-toggle card-button [checked]=""
+                              [disabled]="" labelPosition="before"></mat-slide-toggle>
+        </app-card>
+        <app-card appearance="raised" cardTitle="Opnening Hours">
+            <mat-slide-toggle card-button [checked]=""
+                              [disabled]="" labelPosition="before"></mat-slide-toggle>
+        </app-card>
+        <app-card appearance="raised" cardTitle="Address">
+            <mat-slide-toggle card-button [checked]=""
+                              [disabled]="" labelPosition="before"></mat-slide-toggle>
+        </app-card>
+    </div>
 </div>
+

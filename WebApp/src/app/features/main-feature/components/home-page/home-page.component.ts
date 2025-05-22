@@ -8,7 +8,7 @@ import {RightSidebarComponent} from "../../../../shared/components/right-sidebar
 import {EnvironmentService} from "../../../../core/services/environment/environment.service";
 import {MenuService} from "../../../../core/http/services/menu-services/menu/menu.service";
 import {CardComponent} from "../../../../shared/components/card/card.component";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
@@ -69,10 +69,12 @@ export class HomePageComponent {
   qrUrl = computed(() => this.ssrUrl + '/qr/' + this.menu.id())
   form = new FormGroup({
     name: new FormControl<string>('', {
+        validators: [Validators.required],
       nonNullable: true,
     }),
     url: new FormControl<string>('',
       {
+          validators: [Validators.required,],
         nonNullable: true,
       },
     ),
@@ -138,6 +140,9 @@ export class HomePageComponent {
     this.timePeriod.set(event);
   }
   updateMenu(): void {
+      if (this.form.invalid) {
+          return;
+      }
     this.updateMenuLoading.set(true);
     if(this.form.getRawValue().url === this.menu.url()) {
       this.menuService.updateById(this.menu.id(), this.form.getRawValue())
