@@ -41,8 +41,8 @@ export class MenuSpreadsheetService {
     ): Observable<void> {
         const workbook = new ExcelJS.Workbook()
         const foodCategoriesSheet = this.createCategoriesSheet(workbook, foodCategories, 'Food Categories')
-        const drinksCategoriesSheet = this.createCategoriesSheet(workbook, drinksCategories, 'Drinks Categories')
         const foodItemsSheet = this.createItemsSheet(workbook, foodItems, 'Food Items')
+        const drinksCategoriesSheet = this.createCategoriesSheet(workbook, drinksCategories, 'Drinks Categories')
         const drinksItemsSheet = this.createItemsSheet(workbook, drinksItems, 'Drinks Items')
         this.spreadsheetService.styleSheet(foodItemsSheet)
         this.spreadsheetService.styleSheet(drinksCategoriesSheet)
@@ -261,7 +261,8 @@ export class MenuSpreadsheetService {
                 header: 'Price*',
                 key: 'price',
                 width: 20,
-                style: { font: { bold: true } },
+                style: { font: { bold: true },
+                    numFmt: '#,##0.00'},
             },
             
 
