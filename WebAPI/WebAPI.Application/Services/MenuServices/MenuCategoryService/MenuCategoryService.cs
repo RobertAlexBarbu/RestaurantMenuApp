@@ -11,7 +11,7 @@ namespace WebAPI.Application.Services.MenuServices.MenuCategoryService;
 
 public class MenuCategoryService(AppDbContext context, IMapper mapper) : IMenuCategoryService
 {
-    public async Task ReplaceAllByMenuIdAsync(int menuId, int userId, List<CreateMenuCategoryDto> createMenuCategoryDtos)
+    public async Task<List<MenuCategoryDto>> ReplaceAllByMenuIdAsync(int menuId, int userId, List<CreateMenuCategoryDto> createMenuCategoryDtos)
     {
         var oldCategories = await context.MenuCategories.Where(e => e.UserId == userId && e.MenuId == menuId).ToListAsync();
         oldCategories.ForEach(e => { context.Remove(e); });
@@ -23,6 +23,7 @@ public class MenuCategoryService(AppDbContext context, IMapper mapper) : IMenuCa
             context.Add(e);
         });
         await context.SaveChangesAsync();
+        return menuCategories.Select(mapper.Map<MenuCategoryDto>).ToList();
     }
 
     public async Task<MenuCategoryDto> CreateAsync(int userId, CreateMenuCategoryDto createMenuCategoryDto)

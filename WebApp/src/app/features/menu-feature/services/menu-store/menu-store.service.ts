@@ -84,6 +84,16 @@ export class MenuStoreService {
         this.state.update(current => ({ ...current, init }));
     }
 
+    resetInit(): void {
+        this.state.set({
+            foodItems: [],
+            foodCategories: [],
+            drinksItems: [],
+            drinksCategories: [],
+            init: false
+        });
+    }
+
     // Food methods
     addFoodItem(item: MenuItemDto): void {
         this.state.update(current => ({

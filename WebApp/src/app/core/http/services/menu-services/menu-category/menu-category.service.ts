@@ -48,7 +48,7 @@ export class MenuCategoryService {
   }
 
   public replaceAllByMenuId(menuId: number, createMenuCategoryDtos: CreateMenuCategoryDto[]) {
-    return this.http.put(
+    return this.http.put<MenuCategoryDto[]>(
       `${this.baseUrl}/ReplaceAllByMenuId/${menuId}`,
       createMenuCategoryDtos
     )

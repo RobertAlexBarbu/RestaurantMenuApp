@@ -5,7 +5,7 @@ namespace WebAPI.Application.Services.MenuServices.MenuCategoryService;
 
 public interface IMenuCategoryService
 {
-    Task ReplaceAllByMenuIdAsync(int menuId, int userId, List<CreateMenuCategoryDto> createMenuCategoryDtos);
+    Task<List<MenuCategoryDto>> ReplaceAllByMenuIdAsync(int menuId, int userId, List<CreateMenuCategoryDto> createMenuCategoryDtos);
     Task<MenuCategoryDto> CreateAsync(int userId, CreateMenuCategoryDto createMenuCategoryDto);
 
     Task DeleteByIdAsync(int id, string menuType, int userId);

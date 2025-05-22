@@ -113,33 +113,31 @@ export class ImportDialogComponent {
 
     import(stepper: MatStepper) {
         this.importing.set(true)
-        // this.elementCategoryService.replaceAll(this.categories())
-        //     .pipe(
-        //         switchMap(categories => {
-        //             console.log(categories)
-        //             this.tableFeatureStore.setCategories([])
-        //             this.tableFeatureStore.setElements([])
-        //             return this.elementService.replaceAll(this.elements().map(importElement => {
-        //                 const category = categories.find(c => c.name === importElement.categoryName)
-        //                 return {
-        //                     ...importElement,
-        //                     categoryId: category!.id,
-        //                 }
-        //             }))
-        //         }),
-        //         takeUntilDestroyed(this.destroyRef),
-        //     ).subscribe({
-        //     next: (e) => {
-        //         console.log(e)
-        //         this.importing.set(false)
-        //         this.tableFeatureStore.setElements([])
-        //         this.tableFeatureStore.setInit(false);
-        //         stepper.next()
-        //     },
-        //     error: () => {
-        //         this.importing.set(false)
-        //     },
-        // })
+        this.menuCategoryService.replaceAllByMenuId( this.appStore.user.menu.id(), this.categories())
+            .pipe(
+                switchMap(categories => {
+                    console.log(categories)
+
+                    return this.menuItemService.replaceAllByMenuId(this.appStore.user.menu.id(), this.items().map(importElement => {
+                        const category = categories.find(c => c.name === importElement.menuCategoryName)
+                        return {
+                            ...importElement,
+                            menuCategoryId: category!.id,
+                        }
+                    }))
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            ).subscribe({
+            next: (e) => {
+                console.log(e)
+                this.importing.set(false)
+                this.menuStoreService.resetInit();
+                stepper.next()
+            },
+            error: () => {
+                this.importing.set(false)
+            },
+        })
 
     }
 
@@ -154,7 +152,7 @@ export class ImportDialogComponent {
             viewContainerRef: this.viewContainerRef,
             width: "1000px",
             maxWidth: "1000px",
-            height: "85dvh"
+            height: "630px"
         })
     }
 }

@@ -54,11 +54,12 @@ public class MenuCategoryController(IMenuCategoryService menuCategoryService, IC
 
     [HttpPut]
     [AllowAuthenticated]
-    public async Task<ActionResult> ReplaceAllByMenuIdAsync(int menuId, List<CreateMenuCategoryDto> createMenuCategoryDtos)
+    [Route("{menuId}")]
+    public async Task<ActionResult<List<MenuCategoryDto>>> ReplaceAllByMenuIdAsync(int menuId, List<CreateMenuCategoryDto> createMenuCategoryDtos)
     {
         var userClaims = claimService.GetUserClaims(User);
-        await menuCategoryService.ReplaceAllByMenuIdAsync(menuId, userClaims.Id, createMenuCategoryDtos);
-        return Ok();
+        var cats = await menuCategoryService.ReplaceAllByMenuIdAsync(menuId, userClaims.Id, createMenuCategoryDtos);
+        return Ok(cats);
     }
 
     [HttpDelete]

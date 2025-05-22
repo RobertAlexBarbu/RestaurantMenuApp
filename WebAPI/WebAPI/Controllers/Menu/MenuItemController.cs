@@ -75,6 +75,7 @@ public class MenuItemController(IMapper mapper, IMenuItemService menuItemService
 
     [HttpPut]
     [AllowAuthenticated]
+    [Route("{menuId}")]
     public async Task<ActionResult> ReplaceAllByMenuIdAsync(int menuId, List<CreateMenuItemDto> createMenuItemDtos)
     {
         var userClaims = claimService.GetUserClaims(User);
