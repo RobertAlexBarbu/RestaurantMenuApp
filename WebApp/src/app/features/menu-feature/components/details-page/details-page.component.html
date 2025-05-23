@@ -10,16 +10,16 @@
 
 
                 </div>
-                <form [formGroup]="wifiForm">
-                    <div  class="flex gap-4 flex-wrap">
-                        <mat-form-field class="flex-grow max-w-96">
+                <form [formGroup]="wifiForm" class="flex flex-col">
+                    <div  class="flex gap-x-4 flex-wrap">
+                        <mat-form-field class="flex-grow min-w-96">
                             <mat-label>Network Name</mat-label>
                             <input  type="text" formControlName="wifiNetworkName" matInput>
                             @if (wifiForm.controls.wifiNetworkName.hasError('required')) {
                                 <mat-error>Network Name required</mat-error>
                             }
                         </mat-form-field >
-                        <mat-form-field class=" flex-grow max-w-96">
+                        <mat-form-field class="flex-grow min-w-96">
                             <mat-label>Password</mat-label>
                             <input  type="text" formControlName="wifiPassword" matInput>
                             @if (wifiForm.controls.wifiPassword.hasError('required')) {
@@ -37,44 +37,6 @@
                     </div>
                 </form>
             </app-card>
-            <app-card appearance="raised" cardTitle="Opening Hours">
-                <mat-slide-toggle card-button [checked]=""
-                                  [disabled]="" labelPosition="before"></mat-slide-toggle>
-                <div class="flex flex-col gap-4 max-w-md">
-                    <div class="flex flex-row items-center justify-between  h-10">
-                        <div class="text-xl flex-grow max-w-36">Monday</div>
-                        <button mat-stroked-button>Add Interval</button>
-                    </div>
-                    <div class="flex flex-row items-center justify-between  h-10">
-                        <div class="text-xl flex-grow max-w-36">Tuesday</div>
-                        <button mat-stroked-button>Add Interval</button>
-                    </div>
-                    <div class="flex flex-row items-center justify-between  h-10">
-                        <div class="text-xl flex-grow max-w-36">Wednesday</div>
-                        <button mat-stroked-button>Add Interval</button>
-                    </div>
-                    <div class="flex flex-row items-center justify-between  h-10">
-                        <div class="text-xl flex-grow max-w-36">Thursday</div>
-                        <button mat-stroked-button>Add Interval</button>
-                    </div>
-                    <div class="flex flex-row items-center justify-between h-10">
-                        <div class="text-xl flex-grow ">Friday</div>
-                        <button mat-stroked-button>Add Interval</button>
-                    </div>
-                    <div class="flex flex-row items-center justify-between  h-10">
-                        <div class="text-xl flex-grow ">Saturday</div>
-                        <button mat-stroked-button>Add Interval</button>
-                    </div>
-                    <div class="flex flex-row items-center justify-between  h-10">
-                        <div class="text-xl flex-grow max-w-36">Sunday</div>
-                        <button mat-stroked-button>Add Interval</button>
-                    </div>
-                </div>
-
-            </app-card>
-        </div>
-
-        <div class="flex flex-col gap-6">
             <app-card appearance="raised" cardTitle="Contact">
                 <mat-slide-toggle card-button [checked]=""
                                   [disabled]="" labelPosition="before"></mat-slide-toggle>
@@ -112,6 +74,59 @@
                 </form>
             </app-card>
 
+        </div>
+
+        <div class="flex flex-col gap-6">
+
+            <app-card appearance="raised" cardTitle="Opening Hours">
+                <mat-slide-toggle card-button [checked]=""
+                                  [disabled]="" labelPosition="before"></mat-slide-toggle>
+                <div class="flex flex-col gap-6 ">
+                    <div class="flex flex-row items-center flex-wrap gap-4">
+                        <div class="text-xl">Mon - Fri</div>
+                        <div class="ml-auto flex-shrink flex flex-row flex-wrap gap-4">
+                            <mat-form-field subscriptSizing="dynamic">
+                                <mat-label>Pick a time</mat-label>
+                                <input matInput [matTimepicker]="picker1">
+                                <mat-timepicker-toggle matIconSuffix [for]="picker1"/>
+                                <mat-timepicker #picker1/>
+                            </mat-form-field>
+                            <mat-form-field subscriptSizing="dynamic">
+                                <mat-label>Pick a time</mat-label>
+                                <input matInput [matTimepicker]="picker2">
+                                <mat-timepicker-toggle matIconSuffix [for]="picker2"/>
+                                <mat-timepicker #picker2/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center flex-wrap gap-4">
+                        <div class="text-xl">Weekend</div>
+                        <div class="ml-auto flex-shrink flex flex-row flex-wrap gap-4">
+                            <mat-form-field subscriptSizing="dynamic">
+                                <mat-label>Pick a time</mat-label>
+                                <input matInput [matTimepicker]="picker3">
+                                <mat-timepicker-toggle matIconSuffix [for]="picker3"/>
+                                <mat-timepicker #picker3/>
+                            </mat-form-field>
+                            <mat-form-field subscriptSizing="dynamic">
+                                <mat-label>Pick a time</mat-label>
+                                <input matInput [matTimepicker]="picker4">
+                                <mat-timepicker-toggle matIconSuffix [for]="picker4"/>
+                                <mat-timepicker #picker4/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="flex mt-4">
+                    <button [disabled]="disabledWifiSave() || updateWifiLoading()"
+                            [class.spinner]="updateWifiLoading()"
+                            class="ml-auto" mat-button (click)="saveWifiDetails()" >Save
+                    </button>
+                </div>
+
+            </app-card>
             <app-card appearance="raised" cardTitle="Address">
                 <mat-slide-toggle card-button [checked]=""
                                   [disabled]="" labelPosition="before">

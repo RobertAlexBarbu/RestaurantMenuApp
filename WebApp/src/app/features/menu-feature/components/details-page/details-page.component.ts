@@ -11,6 +11,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {MatTimepicker, MatTimepickerInput, MatTimepickerToggle} from "@angular/material/timepicker";
+import {provideNativeDateAdapter} from "@angular/material/core";
 
 @Component({
   selector: 'app-details-page',
@@ -30,12 +32,16 @@ import {MatInput} from "@angular/material/input";
         ReactiveFormsModule,
         MatInput,
         MatLabel,
-        MatError
+        MatError,
+        MatTimepickerInput,
+        MatTimepickerToggle,
+        MatTimepicker
     ],
   templateUrl: './details-page.component.html',
   styleUrl: './details-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+    providers: [provideNativeDateAdapter()],
     animations: [pageLoadAnimation]
 })
 export class DetailsPageComponent {
