@@ -12,4 +12,11 @@ public class MenuDetailsService(AppDbContext context, IMapper mapper): IMenuDeta
         await context.CreateFromDtoWithUserIdAsync<MenuDetails, CreateMenuDetailsDto>(userId, createMenuDetailsDto,
                 mapper);
     }
+
+    public async Task UpdateMenuDetailsByIdAsync(int id, int userId, UpdateMenuDetailsDto updateMenuDetailsDto)
+    {
+        await context.UpdateFromDtoWithUserIdSkipNullsAsync<MenuDetails, UpdateMenuDetailsDto>(id, userId,
+            updateMenuDetailsDto, mapper);
+        return;
+    }
 }

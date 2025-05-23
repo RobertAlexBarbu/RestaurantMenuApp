@@ -3,12 +3,17 @@ import {PositionDto} from "../../../../core/http/dto/other/position.dto";
 import {MenuItemDto} from "../../../../core/http/dto/menu-dto/menu-item/menu-item.dto";
 import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
 import {MenuDataDto} from "../../../../core/http/dto/menu-dto/menu/menu-data.dto";
+import {MenuDetailsDto} from "../../../../core/http/dto/menu-dto/menu-details/menu-details.dto";
+import {
+    UpdateMenuDetailsDto
+} from "../../../../core/http/dto/menu-dto/menu-details/update-menu-details.dto";
 
 export interface MenuFeatureStoreState {
     foodItems: MenuItemDto[];
     drinksItems: MenuItemDto[];
     foodCategories: MenuCategoryDto[];
     drinksCategories: MenuCategoryDto[];
+    menuDetails: MenuDetailsDto
     init: boolean;
 }
 
@@ -17,6 +22,31 @@ export const initialState: MenuFeatureStoreState = {
     foodCategories: [],
     drinksCategories: [],
     drinksItems: [],
+    menuDetails: {
+        id: -1,
+        menuId: -1,
+        userId: -1,
+
+        wifiNetworkName: "",
+        wifiPassword: "",
+        wifiNetworkVisible: false,
+
+        phoneNumber: "",
+        email: "",
+        contactInformationVisibile: false,
+
+        monFriOpen: "",
+        monFriClose: "",
+        weekendOpen: "",
+        weekendClose: "",
+        openingHoursVisible: false,
+
+        street: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        addressVisible: false,
+    },
     init: false
 };
 
@@ -45,6 +75,7 @@ export class MenuStoreService {
     readonly drinksItems = computed(() => this.state().drinksItems);
     readonly foodCategories = computed(() => this.state().foodCategories.sort((a, b) => a.position - b.position));
     readonly drinksCategories = computed(() => this.state().drinksCategories.sort((a, b) => a.position - b.position));
+    readonly menuDetails = computed(() => this.state().menuDetails);
     readonly isInitialized = computed(() => this.state().init);
 
     // Computed signals
@@ -76,6 +107,7 @@ export class MenuStoreService {
             foodCategories: [...menuDataDto.foodMenuCategories],
             drinksItems: [...menuDataDto.drinksMenuItems],
             drinksCategories: [...menuDataDto.drinksMenuCategories],
+            menuDetails: menuDataDto.menuDetails,
             init: true
         });
     }
@@ -85,13 +117,7 @@ export class MenuStoreService {
     }
 
     resetInit(): void {
-        this.state.set({
-            foodItems: [],
-            foodCategories: [],
-            drinksItems: [],
-            drinksCategories: [],
-            init: false
-        });
+        this.state.set(initialState);
     }
 
     // Food methods
@@ -99,6 +125,16 @@ export class MenuStoreService {
         this.state.update(current => ({
             ...current,
             foodItems: [...current.foodItems, item]
+        }));
+    }
+    
+    updateMenuDetails(updateMenuDetailsDto: Partial<UpdateMenuDetailsDto>) {
+        this.state.update(current => ({
+            ...current,
+            menuDetails: {
+                ...current.menuDetails,
+                ...updateMenuDetailsDto
+            }
         }));
     }
 

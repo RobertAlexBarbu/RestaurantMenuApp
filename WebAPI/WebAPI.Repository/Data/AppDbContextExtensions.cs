@@ -14,6 +14,23 @@ public static class AppDbContextExtensions
         var dtoProperties = typeof(TDto).GetProperties();
         foreach (var prop in dtoProperties) entry.Property(prop.Name).IsModified = true;
     }
+    
+    
+    public static void MarkPropertiesModifiedFromDtoSkipNulls<TEntity, TDto>(this AppDbContext context, TEntity entity, TDto dto)
+        where TEntity : class
+        where TDto : class
+    {
+        var entry = context.Entry(entity);
+        var dtoProperties = typeof(TDto).GetProperties();
+        foreach (var prop in dtoProperties)
+        {
+            var value = prop.GetValue(dto);
+            if (value != null)
+            {
+                entry.Property(prop.Name).IsModified = true;
+            }
+        }
+    }
 
     public static async Task EnsureExistsByIdAsync<TEntity>(this AppDbContext context, int id)
         where TEntity : class
@@ -91,6 +108,21 @@ public static class AppDbContextExtensions
         context.MarkPropertiesModifiedFromDto(entity, dto);
         await context.SaveChangesAsync();
         return entity;
+    }
+    public static async Task<TEntity> UpdateFromDtoWithUserIdSkipNullsAsync<TEntity, TDto>(
+        this AppDbContext context,
+        int id,
+        int userId,
+        TDto dto,
+        IMapper mapper)
+        where TEntity : class, new()
+        where TDto : class
+    {
+        await context.EnsureExistsByIdAndUserIdAsync<TEntity>(id, userId);
+        var entity = context.AttachAndMap<TEntity, TDto>(id, dto, mapper);
+        context.MarkPropertiesModifiedFromDtoSkipNulls(entity, dto);
+        await context.SaveChangesAsync();
+        return new TEntity();
     }
 
     public static async Task<TEntity> CreateFromDtoWithUserIdAsync<TEntity, TDto>(

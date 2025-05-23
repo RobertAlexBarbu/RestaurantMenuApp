@@ -1,14 +1,12 @@
 <app-toolbar class="w-full-minus-drawer-sm-drawer" featureName="Details">
 
 </app-toolbar>
-<div class="p-page" [@pageLoad]>
+<div class="p-page sidebar-content" [@pageLoad]>
     <div class="pt-toolbar responsive-page max-w-page">
         <div class="flex flex-col gap-6">
             <app-card appearance="raised" cardTitle="WiFi">
                 <div card-button class="flex items-center gap-4">
-                    <mat-slide-toggle  [checked]="" labelPosition="before"></mat-slide-toggle>
-
-
+                    <mat-slide-toggle (change)="updateWifiVisibility($event)"  [checked]="wifiVisible()" labelPosition="after">Visible</mat-slide-toggle>
                 </div>
                 <form [formGroup]="wifiForm" class="flex flex-col">
                     <div  class="flex gap-x-4 flex-wrap">
@@ -37,9 +35,81 @@
                     </div>
                 </form>
             </app-card>
-            <app-card appearance="raised" cardTitle="Contact">
-                <mat-slide-toggle card-button [checked]=""
-                                  [disabled]="" labelPosition="before"></mat-slide-toggle>
+            <app-card appearance="raised" cardTitle="Opening Hours">
+                <mat-slide-toggle (change)="updateOpeningHoursVisibility($event)" card-button [checked]="openingHoursVisible()"
+                                  labelPosition="after">Visible</mat-slide-toggle>
+                <form [formGroup]="openingHoursForm">
+                    <div class="flex flex-col gap-6 " >
+                        <div class="flex flex-col flex-wrap gap-4" >
+                            <div class="text-xl">Monday - Friday</div>
+                            <div class=" flex-shrink flex flex-row flex-wrap gap-4">
+                                <mat-form-field >
+                                    <mat-label>Open</mat-label>
+                                    <input formControlName="monFriOpen" matInput [matTimepicker]="picker1">
+                                    <mat-timepicker-toggle matIconSuffix [for]="picker1"/>
+                                    
+                                    <mat-timepicker #picker1/>
+                                    @if(openingHoursForm.controls.monFriOpen.hasError('required')) {
+                                        <mat-error>Required field</mat-error>
+                                    }
+                                </mat-form-field>
+                                <mat-form-field >
+                                    <mat-label>Close</mat-label>
+                                    <input formControlName="monFriClose" matInput [matTimepicker]="picker2">
+                                    <mat-timepicker-toggle matIconSuffix [for]="picker2"/>
+                                    <mat-timepicker #picker2/>
+                                    @if(openingHoursForm.controls.monFriClose.hasError('required')) {
+                                        <mat-error>Required field</mat-error>
+                                    }
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="flex flex-col  gap-4">
+                            <div class="text-xl">Weekend</div>
+                            <div class=" flex-shrink flex flex-row flex-wrap gap-4">
+                                <mat-form-field >
+                                    <mat-label>Open</mat-label>
+                                    <input formControlName="weekendOpen" matInput [matTimepicker]="picker3">
+                                    <mat-timepicker-toggle matIconSuffix [for]="picker3"/>
+                                    <mat-timepicker #picker3/>
+                                    @if(openingHoursForm.controls.weekendOpen.hasError('required')) {
+                                        <mat-error>Required field</mat-error>
+                                    }
+                                </mat-form-field>
+                                <mat-form-field >
+                                    <mat-label>Close</mat-label>
+                                    <input formControlName="weekendClose" matInput [matTimepicker]="picker4">
+                                    <mat-timepicker-toggle matIconSuffix [for]="picker4"/>
+                                    <mat-timepicker #picker4/>
+                                    @if(openingHoursForm.controls.weekendClose.hasError('required')) {
+                                        <mat-error>Required field</mat-error>
+                                    }
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="flex mt-4">
+                        <button [disabled]="disabledOpeningHoursSave() || updateOpeningHoursLoading()"
+                                [class.spinner]="updateOpeningHoursLoading()"
+                                class="ml-auto" mat-button (click)="saveOpeningHoursDetails()" >Save
+                        </button>
+                    </div>
+                </form>
+
+
+            </app-card>
+
+
+        </div>
+
+        <div class="flex flex-col gap-6">
+
+
+            <app-card appearance="raised" cardTitle="Contact Information">
+                <mat-slide-toggle card-button [checked]="contactVisible()" (change)="updateContactVisibility($event)"
+                                  [disabled]="" labelPosition="after">Visible</mat-slide-toggle>
                 <form [formGroup]="contactForm">
                     <div  class="flex gap-4 flex-wrap">
                         <mat-form-field class="flex-grow max-w-96">
@@ -51,16 +121,7 @@
                             <mat-label>Email</mat-label>
                             <input  type="text" formControlName="email" matInput>
                         </mat-form-field>
-                        <div class="w-full flex flex-col gap-4 max-w-lg">
-                            <mat-form-field class=" flex-grow">
-                                <mat-label>Facebook Url</mat-label>
-                                <input  type="text" formControlName="facebookUrl" matInput>
-                            </mat-form-field>
-                            <mat-form-field class=" flex-grow">
-                                <mat-label>Tiktok Url</mat-label>
-                                <input  type="text" formControlName="tiktokUrl" matInput>
-                            </mat-form-field>
-                        </div>
+
 
                     </div>
 
@@ -73,63 +134,9 @@
                     </div>
                 </form>
             </app-card>
-
-        </div>
-
-        <div class="flex flex-col gap-6">
-
-            <app-card appearance="raised" cardTitle="Opening Hours">
-                <mat-slide-toggle card-button [checked]=""
-                                  [disabled]="" labelPosition="before"></mat-slide-toggle>
-                <div class="flex flex-col gap-6 ">
-                    <div class="flex flex-row items-center flex-wrap gap-4">
-                        <div class="text-xl">Mon - Fri</div>
-                        <div class="ml-auto flex-shrink flex flex-row flex-wrap gap-4">
-                            <mat-form-field subscriptSizing="dynamic">
-                                <mat-label>Pick a time</mat-label>
-                                <input matInput [matTimepicker]="picker1">
-                                <mat-timepicker-toggle matIconSuffix [for]="picker1"/>
-                                <mat-timepicker #picker1/>
-                            </mat-form-field>
-                            <mat-form-field subscriptSizing="dynamic">
-                                <mat-label>Pick a time</mat-label>
-                                <input matInput [matTimepicker]="picker2">
-                                <mat-timepicker-toggle matIconSuffix [for]="picker2"/>
-                                <mat-timepicker #picker2/>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center flex-wrap gap-4">
-                        <div class="text-xl">Weekend</div>
-                        <div class="ml-auto flex-shrink flex flex-row flex-wrap gap-4">
-                            <mat-form-field subscriptSizing="dynamic">
-                                <mat-label>Pick a time</mat-label>
-                                <input matInput [matTimepicker]="picker3">
-                                <mat-timepicker-toggle matIconSuffix [for]="picker3"/>
-                                <mat-timepicker #picker3/>
-                            </mat-form-field>
-                            <mat-form-field subscriptSizing="dynamic">
-                                <mat-label>Pick a time</mat-label>
-                                <input matInput [matTimepicker]="picker4">
-                                <mat-timepicker-toggle matIconSuffix [for]="picker4"/>
-                                <mat-timepicker #picker4/>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="flex mt-4">
-                    <button [disabled]="disabledWifiSave() || updateWifiLoading()"
-                            [class.spinner]="updateWifiLoading()"
-                            class="ml-auto" mat-button (click)="saveWifiDetails()" >Save
-                    </button>
-                </div>
-
-            </app-card>
             <app-card appearance="raised" cardTitle="Address">
-                <mat-slide-toggle card-button [checked]=""
-                                  [disabled]="" labelPosition="before">
+                <mat-slide-toggle card-button [checked]="addressVisible()" (change)="updateAddressVisibility($event)"
+                                  [disabled]="" labelPosition="after">Visible
                 </mat-slide-toggle>
                 <form [formGroup]="addressForm">
                     <div class="w-full flex flex-col gap-4 max-w-lg">
@@ -161,12 +168,13 @@
                     <div class="flex mt-4">
                         <button [disabled]="disabledAddressSave() || updateAddressLoading()"
                                 [class.spinner]="updateAddressLoading()"
-                                class="ml-auto" mat-button (click)="saveContactDetails()" >Save
+                                class="ml-auto" mat-button (click)="saveAddressDetails()" >Save
                         </button>
                     </div>
                 </form>
 
             </app-card>
+
         </div>
 
     </div>

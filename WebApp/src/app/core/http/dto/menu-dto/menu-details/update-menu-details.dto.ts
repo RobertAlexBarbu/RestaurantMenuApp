@@ -1,9 +1,4 @@
-
-export interface MenuDetailsDto {
-  id: number;
-  menuId: number;
-  userId: number;
-
+export interface UpdateMenuDetailsDto {
     wifiNetworkName: string;
     wifiPassword: string;
     wifiNetworkVisible: boolean;

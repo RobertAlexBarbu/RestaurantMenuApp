@@ -50,6 +50,7 @@ public class MappingProfile : Profile
         CreateMap<CreateMenuAccessDto, MenuAccess>();
         CreateMap<CreateMenuDetailsDto, MenuDetails>();
         CreateMap<MenuDetails, MenuDetailsDto>();
+        CreateMap<UpdateMenuDetailsDto, MenuDetails>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         CreateMap<CreateMenuCategoryDto, MenuCategory>();
         CreateMap<UpdateMenuCategoryDto, MenuCategory>();
         CreateMap<UpdateMenuCategoryVisibilityDto, MenuCategory>();
