@@ -14,6 +14,7 @@
                 <a [href]="completeUrl()"  target="_blank" class="font-medium link">{{ssrUrl}}/{{menu.url()}}</a>
 
             </div>
+            
 
             <a class=" ml-auto" [href]="completeUrl()"  target="_blank">
                 <button   mat-flat-button><mat-icon>link</mat-icon> Go to</button>
@@ -21,6 +22,7 @@
 
 
         </div>
+        <button class="visible-mobile-flex" mat-stroked-button (click)="openPreviewDialog()">See Preview</button>
         <app-card cardTitle="Hello" appearance="raised"></app-card> 
     </div>
 

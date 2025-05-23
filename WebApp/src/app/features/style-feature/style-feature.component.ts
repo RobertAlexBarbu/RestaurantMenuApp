@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, DestroyRef, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, DestroyRef, inject, ViewContainerRef} from '@angular/core';
 import {ToolbarComponent} from "../../shared/components/toolbar/toolbar.component";
 import {QrGeneratorComponent} from "../../recipes/components/qr-generator/qr-generator.component";
 import {RightSidebarComponent} from "../../shared/components/right-sidebar/right-sidebar.component";
@@ -13,6 +13,8 @@ import {MenuService} from "../../core/http/services/menu-services/menu/menu.serv
 import {NotificationService} from "../../core/services/notification/notification.service";
 import {MenuAnalyticsService} from "../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 import {MatDialog} from "@angular/material/dialog";
+import {StylePreviewDialogComponent} from "./components/style-preview-dialog/style-preview-dialog.component";
+import {fullscreenDialogConfig} from "../../shared/configs/dialogs.config";
 
 @Component({
   selector: 'app-style-feature',
@@ -38,8 +40,16 @@ export class StyleFeatureComponent {
     private readonly destroyRef = inject(DestroyRef);
     private readonly notificationService = inject(NotificationService)
     private readonly menuAnalyticsService = inject(MenuAnalyticsService)
-    private readonly matDialog = inject(MatDialog)
+    private readonly dialog = inject(MatDialog)
+    private readonly viewContainerRef = inject(ViewContainerRef);
     menu = this.appStore.user.menu;
     ssrUrl = this.environmentService.getSsrUrl();
     completeUrl = computed(() => this.ssrUrl + '/' + this.menu.url())
+    
+    openPreviewDialog() {
+        this.dialog.open(StylePreviewDialogComponent, {
+            ...fullscreenDialogConfig,
+                viewContainerRef: this.viewContainerRef
+        })
+    }
 }
