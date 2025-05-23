@@ -22,10 +22,10 @@
            [active]="'preferences' | activeFeature"
            mat-tab-link
         >Preferences</a>
-        <a (click)="goTo('/settings/billing')"
-           [active]="'billing' | activeFeature"
-           mat-tab-link
-        >Billing</a>
+<!--        <a (click)="goTo('/settings/billing')"-->
+<!--           [active]="'billing' | activeFeature"-->
+<!--           mat-tab-link-->
+<!--        >Billing</a>-->
     </nav>
 </ng-template>
 
@@ -42,11 +42,11 @@
 
             <span [class.font-medium]="'preferences' | activeFeature" class="text-sm" mat-line>Preferences</span>
         </a>
-        <a (click)="goTo('/settings/billing')" [class.bg-secondary-container]="'billing' | activeFeature"
-           mat-list-item>
-            <span [class.font-medium]="'billing' | activeFeature" class="text-sm" mat-line>Billing</span>
+<!--        <a (click)="goTo('/settings/billing')" [class.bg-secondary-container]="'billing' | activeFeature"-->
+<!--           mat-list-item>-->
+<!--            <span [class.font-medium]="'billing' | activeFeature" class="text-sm" mat-line>Billing</span>-->
 
-        </a>
+<!--        </a>-->
     </mat-nav-list>
     <button (click)="logout()" class="visible-desktop-flex" mat-stroked-button>
         <mat-icon>logout</mat-icon>

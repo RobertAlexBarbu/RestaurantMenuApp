@@ -4,7 +4,7 @@
 @if (user(); as user) {
     <div [@pageLoad] class="p-page max-w-page responsive-page">
         <div class="flex flex-col gap-6">
-            <app-card appearance="raised" title="Email & Password">
+            <app-card appearance="raised" cardTitle="Email & Password">
                 <div class="flex flex-col gap-4 ">
                     <mat-card [class.disabled-card]="!user.email">
                         <div class="flex pt-2 pb-2 pl-4 pr-4 items-center">
@@ -45,7 +45,7 @@
                 </div>
 
             </app-card>
-            <app-card appearance="raised" title="Google Account">
+            <app-card appearance="raised" cardTitle="Google Account">
                 <div class="flex flex-col gap-4">
                     <mat-card [class.disabled-card]="!user.googleEmail" class="fake-border ">
                         <div class="flex pt-2 pb-2 pl-4 pr-4 items-center">
@@ -158,7 +158,7 @@
             </app-card>
         </div>
 
-        <app-card appearance="raised" title="Delete Account">
+        <app-card appearance="raised" cardTitle="Delete Account">
             <mat-card>
                 <div class=" p-4">
                     <p class=" font-medium">

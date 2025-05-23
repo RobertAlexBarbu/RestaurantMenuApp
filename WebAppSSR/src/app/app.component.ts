@@ -1,7 +1,8 @@
-import {Component, inject} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, DestroyRef, inject} from '@angular/core';
+import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {MatButton} from "@angular/material/button";
-import {MenuService} from "./core/http/services/menu/menu.service";
+import {MenuService} from "./core/http/services/menu-services/menu/menu.service";
+import {MenuAnalyticsService} from "./core/http/services/menu-services/menu-analytics/menu-analytics.service";
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import {MenuService} from "./core/http/services/menu/menu.service";
 })
 export class AppComponent {
   title = 'WebAppSSR';
+
 }

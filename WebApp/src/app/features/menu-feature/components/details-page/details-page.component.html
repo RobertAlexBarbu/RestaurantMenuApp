@@ -3,85 +3,119 @@
 </app-toolbar>
 <div class="p-page" [@pageLoad]>
     <div class="pt-toolbar responsive-page max-w-page">
-        
-        <app-card appearance="raised" cardTitle="WiFi">
-            <div card-button class="flex items-center gap-4">
-                <mat-slide-toggle  [checked]="" labelPosition="before"></mat-slide-toggle>
+        <div class="flex flex-col gap-6">
+            <app-card appearance="raised" cardTitle="WiFi">
+                <div card-button class="flex items-center gap-4">
+                    <mat-slide-toggle  [checked]="" labelPosition="before"></mat-slide-toggle>
 
 
-            </div>
-            <form [formGroup]="wifiForm">
-                <div  class="flex gap-4 flex-wrap">
-                    <mat-form-field class="flex-grow max-w-96">
-                        <mat-label>Network Name</mat-label>
-                        <input  type="text" formControlName="wifiNetworkName" matInput>
-                        @if (wifiForm.controls.wifiNetworkName.hasError('required')) {
-                            <mat-error>Network Name required</mat-error>
-                        }
-                    </mat-form-field >
-                    <mat-form-field class=" flex-grow max-w-96">
-                        <mat-label>Password</mat-label>
-                        <input  type="text" formControlName="wifiPassword" matInput>
-                        @if (wifiForm.controls.wifiPassword.hasError('required')) {
-                            <mat-error>Password required</mat-error>
-                        }
-                    </mat-form-field>
                 </div>
-
-
-                <div class="flex mt-4">
-                    <button [disabled]="disabledWifiSave() || updateWifiLoading()"
-                            [class.spinner]="updateWifiLoading()"
-                            class="ml-auto" mat-button (click)="saveWifiDetails()" >Save
-                    </button>
-                </div>
-            </form>
-        </app-card>
-
-        <app-card appearance="raised" cardTitle="Contact">
-            <mat-slide-toggle card-button [checked]=""
-                              [disabled]="" labelPosition="before"></mat-slide-toggle>
-            <form [formGroup]="contactForm">
-                <div  class="flex gap-4 flex-wrap">
-                    <mat-form-field class="flex-grow max-w-96">
-                        <mat-label>Phone Number</mat-label>
-                        <input  type="text" formControlName="phoneNumber" matInput>
-
-                    </mat-form-field >
-                    <mat-form-field class=" flex-grow max-w-96">
-                        <mat-label>Email</mat-label>
-                        <input  type="text" formControlName="email" matInput>
-                    </mat-form-field>
-                    <div class="w-full flex flex-col gap-4 max-w-lg">
-                        <mat-form-field class=" flex-grow">
-                            <mat-label>Facebook Url</mat-label>
-                            <input  type="text" formControlName="facebookUrl" matInput>
-                        </mat-form-field>
-                        <mat-form-field class=" flex-grow">
-                            <mat-label>Tiktok Url</mat-label>
-                            <input  type="text" formControlName="tiktokUrl" matInput>
+                <form [formGroup]="wifiForm">
+                    <div  class="flex gap-4 flex-wrap">
+                        <mat-form-field class="flex-grow max-w-96">
+                            <mat-label>Network Name</mat-label>
+                            <input  type="text" formControlName="wifiNetworkName" matInput>
+                            @if (wifiForm.controls.wifiNetworkName.hasError('required')) {
+                                <mat-error>Network Name required</mat-error>
+                            }
+                        </mat-form-field >
+                        <mat-form-field class=" flex-grow max-w-96">
+                            <mat-label>Password</mat-label>
+                            <input  type="text" formControlName="wifiPassword" matInput>
+                            @if (wifiForm.controls.wifiPassword.hasError('required')) {
+                                <mat-error>Password required</mat-error>
+                            }
                         </mat-form-field>
                     </div>
 
+
+                    <div class="flex mt-4">
+                        <button [disabled]="disabledWifiSave() || updateWifiLoading()"
+                                [class.spinner]="updateWifiLoading()"
+                                class="ml-auto" mat-button (click)="saveWifiDetails()" >Save
+                        </button>
+                    </div>
+                </form>
+            </app-card>
+            <app-card appearance="raised" cardTitle="Opening Hours">
+                <mat-slide-toggle card-button [checked]=""
+                                  [disabled]="" labelPosition="before"></mat-slide-toggle>
+                <div class="flex flex-col gap-4 max-w-md">
+                    <div class="flex flex-row items-center justify-between  h-10">
+                        <div class="text-xl flex-grow max-w-36">Monday</div>
+                        <button mat-stroked-button>Add Interval</button>
+                    </div>
+                    <div class="flex flex-row items-center justify-between  h-10">
+                        <div class="text-xl flex-grow max-w-36">Tuesday</div>
+                        <button mat-stroked-button>Add Interval</button>
+                    </div>
+                    <div class="flex flex-row items-center justify-between  h-10">
+                        <div class="text-xl flex-grow max-w-36">Wednesday</div>
+                        <button mat-stroked-button>Add Interval</button>
+                    </div>
+                    <div class="flex flex-row items-center justify-between  h-10">
+                        <div class="text-xl flex-grow max-w-36">Thursday</div>
+                        <button mat-stroked-button>Add Interval</button>
+                    </div>
+                    <div class="flex flex-row items-center justify-between h-10">
+                        <div class="text-xl flex-grow ">Friday</div>
+                        <button mat-stroked-button>Add Interval</button>
+                    </div>
+                    <div class="flex flex-row items-center justify-between  h-10">
+                        <div class="text-xl flex-grow ">Saturday</div>
+                        <button mat-stroked-button>Add Interval</button>
+                    </div>
+                    <div class="flex flex-row items-center justify-between  h-10">
+                        <div class="text-xl flex-grow max-w-36">Sunday</div>
+                        <button mat-stroked-button>Add Interval</button>
+                    </div>
                 </div>
 
+            </app-card>
+        </div>
 
-                <div class="flex mt-4">
-                    <button [disabled]="disabledContactSave() || updateContactLoading()"
-                            [class.spinner]="updateContactLoading()"
-                            class="ml-auto" mat-button (click)="saveContactDetails()" >Save
-                    </button>
-                </div>
-            </form>
-        </app-card>
-        <app-card appearance="raised" cardTitle="Opening Hours">
-            <mat-slide-toggle card-button [checked]=""
-                              [disabled]="" labelPosition="before"></mat-slide-toggle>
-        </app-card>
-        <app-card appearance="raised" cardTitle="Address">
-            <mat-slide-toggle card-button [checked]=""
-                              [disabled]="" labelPosition="before">
-            </mat-slide-toggle>
+        <div class="flex flex-col gap-6">
+            <app-card appearance="raised" cardTitle="Contact">
+                <mat-slide-toggle card-button [checked]=""
+                                  [disabled]="" labelPosition="before"></mat-slide-toggle>
+                <form [formGroup]="contactForm">
+                    <div  class="flex gap-4 flex-wrap">
+                        <mat-form-field class="flex-grow max-w-96">
+                            <mat-label>Phone Number</mat-label>
+                            <input  type="text" formControlName="phoneNumber" matInput>
+
+                        </mat-form-field >
+                        <mat-form-field class=" flex-grow max-w-96">
+                            <mat-label>Email</mat-label>
+                            <input  type="text" formControlName="email" matInput>
+                        </mat-form-field>
+                        <div class="w-full flex flex-col gap-4 max-w-lg">
+                            <mat-form-field class=" flex-grow">
+                                <mat-label>Facebook Url</mat-label>
+                                <input  type="text" formControlName="facebookUrl" matInput>
+                            </mat-form-field>
+                            <mat-form-field class=" flex-grow">
+                                <mat-label>Tiktok Url</mat-label>
+                                <input  type="text" formControlName="tiktokUrl" matInput>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex mt-4">
+                        <button [disabled]="disabledContactSave() || updateContactLoading()"
+                                [class.spinner]="updateContactLoading()"
+                                class="ml-auto" mat-button (click)="saveContactDetails()" >Save
+                        </button>
+                    </div>
+                </form>
+            </app-card>
+
+            <app-card appearance="raised" cardTitle="Address">
+                <mat-slide-toggle card-button [checked]=""
+                                  [disabled]="" labelPosition="before">
+                </mat-slide-toggle>
                 <form [formGroup]="addressForm">
                     <div class="w-full flex flex-col gap-4 max-w-lg">
                         <mat-form-field class=" flex-grow">
@@ -116,8 +150,10 @@
                         </button>
                     </div>
                 </form>
- 
-        </app-card>
+
+            </app-card>
+        </div>
+
     </div>
 </div>
 

@@ -1,2 +1,14 @@
-<p>main-feature works!</p>
-{{path}}
+@if (loading()) {
+    <div class="h-full flex flex-col justify-center items-center">
+        <div>
+            <div>{{restaurantName()}}</div>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+
+    </div>
+
+} @else {
+    <p>main-feature works!</p>
+    {{path}} 
+    <div>{{data() | json}}</div>
+}

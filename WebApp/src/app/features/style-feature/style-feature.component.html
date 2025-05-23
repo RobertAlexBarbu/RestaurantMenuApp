@@ -1,0 +1,27 @@
+<app-toolbar class="w-full-minus-drawer-sm" featureName="Style"></app-toolbar>
+<app-right-sidebar class="visible-desktop bg-green-300">
+    <div class=" w-full h-full p-8">
+        <app-phone #phone [url]="completeUrl()">
+        </app-phone>
+    </div>
+</app-right-sidebar>
+
+<div [@pageLoad] class="pt-toolbar pr-sidebar sidebar-content">
+    <div class="p-page flex flex-col gap-6">
+        <div class="bg-secondary-container text-on-secondary-container corner-l p-3 flex flex-wrap items-center gap-4 ">
+            <div class="flex gap-1 flex-wrap">
+                <span>      Your menu is live at:</span>
+                <a [href]="completeUrl()"  target="_blank" class="font-medium link">{{ssrUrl}}/{{menu.url()}}</a>
+
+            </div>
+
+            <a class=" ml-auto" [href]="completeUrl()"  target="_blank">
+                <button   mat-flat-button><mat-icon>link</mat-icon> Go to</button>
+            </a>
+
+
+        </div>
+        <app-card cardTitle="Hello" appearance="raised"></app-card> 
+    </div>
+
+</div>

@@ -4,7 +4,7 @@
 @if (user(); as user) {
     <div [@pageLoad] class="p-page max-w-page responsive-page">
         <div class="flex flex-col gap-6">
-            <app-card appearance="raised" title="Profile">
+            <app-card appearance="raised" cardTitle="Profile">
                 <div class="flex flex-col  gap-x-4" [formGroup]="form">
                     <div class="flex flex-wrap gap-x-4">
                         <mat-form-field class="min-w-64  flex-grow">
@@ -32,7 +32,7 @@
                 </div>
 
             </app-card>
-            <app-card appearance="raised" title="Notifications">
+            <app-card appearance="raised" cardTitle="Notifications">
                 <div class="flex justify-start gap-4 items-center">
                     <p>
                         <mat-slide-toggle (change)="setEmailNotifications($event)" [checked]="user.emailNotifications"
@@ -46,7 +46,7 @@
             </app-card>
         </div>
 
-        <app-card appearance="raised" title="Theme">
+        <app-card appearance="raised" cardTitle="Theme">
             <mat-selection-list (selectionChange)="changeTheme($event)" [multiple]="false">
                 <mat-list-option [selected]="(theme$ | async) === 'light'" value="light">
                     <div class="flex items-center">

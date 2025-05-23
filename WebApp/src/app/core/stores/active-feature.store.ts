@@ -56,6 +56,10 @@ const featuresMap: Record<string, string[]> = {
   '/menu/food/categories': ['menu', 'food', 'food-categories'],
   '/menu/drinks/items': ['menu', 'drinks', 'drinks-items'],
   '/menu/drinks/categories': ['menu', 'drinks', 'drinks-categories'],
-  '/menu/details': ['menu', 'details']
+  '/menu/details': ['menu', 'details'],
+    '/style': ['style'],
+    '/analytics': ['analytics', 'analytics-basic'],
+    '/reviews': ['reviews']
+    
 
 }
