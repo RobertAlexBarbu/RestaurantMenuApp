@@ -1,0 +1,28 @@
+<mat-dialog-content>
+    @if (fixedCloseButton()) {
+        <div class="flex items-center pl-6 pr-6 h-toolbar fixed z-2000 top-0 w-full bg-surface">
+            <div class="ml-auto">
+                <button (click)="closeDialog()" mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+    }
+    <div [ngClass]="!noPadding() ? 'pb-4 pl-6 pr-6' : ''" class="dialog-content">
+        <!-- Close Button -->
+        @if (!fixedCloseButton()) {
+            <div [ngClass]="noPadding() ? 'pl-6 pr-6' : ''" class="flex items-center h-toolbar">
+                <div class="ml-auto">
+                    <button (click)="closeDialog()" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+        }
+
+        <ng-content></ng-content>
+    </div>
+    <div class="fixed bottom-0 w-full">
+        <ng-content select="[fullscreen-dialog-bottom]"></ng-content>
+    </div>
+</mat-dialog-content>

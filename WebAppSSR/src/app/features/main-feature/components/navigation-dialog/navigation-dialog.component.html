@@ -1,0 +1,171 @@
+
+<app-fullscreen-dialog-content  (close)="closeDialog()">
+<!--            <div class="flex items-center pl-4 mb-4">-->
+<!--                <div class="text-3xl mr-1">{{ AppData.name }}</div>-->
+<!--                <app-logo [heigth]="30" [width]="30"></app-logo>-->
+<!--            </div>-->
+    <mat-nav-list>
+
+        @if(!layoutView() && !menuView()) {
+            <div >
+                <a [@fadeIn]       (click)="goTo('')"
+                         [class.bg-secondary-container]="'home' | activeFeature"
+                         mat-list-item>
+
+                    <span [class.font-medium]="'home' | activeFeature" >            Home        </span>
+                    <mat-icon matListItemIcon>home</mat-icon>
+
+                </a>
+
+              <a    [@fadeIn]     (click)="goToMenu()"
+                    [class.bg-secondary-container]="'menu' | activeFeature"
+                    mat-list-item>
+
+                <span [class.font-medium]="'menu' | activeFeature" >            Menu     </span>
+                <mat-icon matListItemIcon>menu_book</mat-icon>
+                <div matListItemMeta>
+                  <mat-icon >arrow_forward</mat-icon>
+                </div>
+              </a>
+                <a [@fadeIn]         (click)="goTo('/style')"
+                           [class.bg-secondary-container]="'style' | activeFeature"
+                           mat-list-item>
+
+                    <span [class.font-medium]="'style' | activeFeature" >            Style       </span>
+                    <mat-icon matListItemIcon>palette</mat-icon>
+
+                </a>
+                <a     [@fadeIn]    (click)="goTo('/analytics')"
+                       [class.bg-secondary-container]="'analytics' | activeFeature"
+                       mat-list-item>
+
+                    <span [class.font-medium]="'analytics' | activeFeature" >            Analytics       </span>
+                    <mat-icon matListItemIcon>analytics</mat-icon>
+
+                </a>
+                <a   [@fadeIn]      (click)="goTo('/reviews')"
+                           [class.bg-secondary-container]="'reviews' | activeFeature"
+                           mat-list-item>
+
+                    <span [class.font-medium]="'reviews' | activeFeature" >            Reviews      </span>
+                    <mat-icon matListItemIcon>star</mat-icon>
+
+                </a>
+
+<!--                <a    [@fadeIn]     (click)="goToLayout()"-->
+<!--                           [class.bg-secondary-container]="'layout' | activeFeature"-->
+<!--                           mat-list-item>-->
+
+<!--                    <span [class.font-medium]="'layout' | activeFeature" >            Layout      </span>-->
+<!--                    <mat-icon matListItemIcon>dashboard</mat-icon>-->
+<!--                    <div matListItemMeta>-->
+<!--                        <mat-icon >arrow_forward</mat-icon>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--                <a       [@fadeIn]  (click)="goTo('/debug')"-->
+<!--                           [class.bg-secondary-container]="'debug' | activeFeature"-->
+<!--                           mat-list-item>-->
+
+<!--                    <span [class.font-medium]="'debug' | activeFeature" >            Debug       </span>-->
+<!--                    <mat-icon matListItemIcon>bug_report</mat-icon>-->
+
+<!--                </a>-->
+                @if (user(); as userState) {
+                    @if (userState | isRole:Roles.Admin) {
+                        <a  [@fadeIn]       (click)="goTo('/admin')"
+                                   [class.bg-secondary-container]="'admin' | activeFeature"
+                                   mat-list-item>
+
+                            <span [class.font-medium]="'admin' | activeFeature" >            Admin       </span>
+                            <mat-icon matListItemIcon>admin_panel_settings</mat-icon>
+
+                        </a>
+                    }}
+                <a    [@fadeIn]     (click)="goTo('/settings/general')"
+                           [class.bg-secondary-container]="'settings' | activeFeature"
+                           mat-list-item>
+
+                    <span [class.font-medium]="'settings' | activeFeature" >            Settings       </span>
+                    <mat-icon matListItemIcon>settings</mat-icon>
+
+                </a>
+            </div>
+
+        } @else if(layoutView()){
+            <div >
+                <a [@fadeIn]       (click)="goToMainMenu()"
+                         mat-list-item>
+
+                    <span >            Main Menu        </span>
+                    <mat-icon matListItemIcon>arrow_backwards</mat-icon>
+
+                </a>
+                <div [@fadeIn] class="pl-8">
+                    <a       (click)="goTo('/layout/tabs/page1')"
+                             [class.bg-secondary-container]="'tabs' | activeFeature"
+                             mat-list-item>
+
+                    <span [class.font-medium]="'tabs' | activeFeature" >
+                    Tabs Navigation</span>
+
+                    </a>
+                    <a       (click)="goTo('/layout/scroll')"
+                             [class.bg-secondary-container]="'scroll' | activeFeature"
+                             mat-list-item>
+
+                    <span [class.font-medium]="'scroll' | activeFeature" >
+                    Scroll Navigation</span>
+
+                    </a>
+                    <a       (click)="goTo('/layout/mobile')"
+                             [class.bg-secondary-container]="'mobile' | activeFeature"
+                             mat-list-item>
+
+                    <span [class.font-medium]="'mobile' | activeFeature" >
+                    Mobile Preview</span>
+
+                    </a>
+                </div>
+            </div>
+
+
+        } @else if (menuView()) {
+          <div >
+            <a [@fadeIn]       (click)="goToMainMenu()"
+               mat-list-item>
+
+              <span >            Main Menu        </span>
+              <mat-icon matListItemIcon>arrow_backwards</mat-icon>
+
+            </a>
+            <div [@fadeIn] class="pl-8">
+              <a       (click)="goTo('/menu/food/items')"
+                       [class.bg-secondary-container]="'food' | activeFeature"
+                       mat-list-item>
+
+                    <span [class.font-medium]="'food' | activeFeature" >
+                    Food</span>
+
+              </a>
+              <a       (click)="goTo('/menu/drinks/items')"
+                       [class.bg-secondary-container]="'drinks' | activeFeature"
+                       mat-list-item>
+
+                    <span [class.font-medium]="'drinks' | activeFeature" >
+                    Drinks</span>
+
+              </a>
+              <a       (click)="goTo('/menu/details')"
+                       [class.bg-secondary-container]="'details' | activeFeature"
+                       mat-list-item>
+
+                    <span [class.font-medium]="'details' | activeFeature" >
+                    Details</span>
+
+              </a>
+            </div>
+          </div>
+        }
+
+    </mat-nav-list>
+</app-fullscreen-dialog-content>

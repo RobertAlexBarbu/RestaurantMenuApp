@@ -1,0 +1,30 @@
+<div [style.height]="heightPx" [style.width]="widthPx"
+     class="m-auto h-full w-full relative border rounded-2xl border-color-variant">
+    @if (loading() && !fileUrl()) {
+        <div [style.height]="heightPx" [style.width]="widthPx"
+             class="rounded-2xl flex items-center justify-center">
+            <mat-spinner [diameter]="24"></mat-spinner>
+        </div>
+    }
+    @if (!loading() && !fileUrl()) {
+        <div [style.height]="heightPx" [style.width]="widthPx"
+             class="rounded-full flex-col flex justify-center items-center">
+            <mat-icon class=" scale-150 mb-4 text-primary ">image</mat-icon>
+            <p class=" mb-2 text-sm text-primary font-medium">No Image</p>
+        </div>
+    }
+    @if (fileUrl()) {
+        <img (click)="openImageDialog(fileUrl())" [src]="fileUrl()" alt="Uploaded Image"
+             class="h-full w-full object-cover rounded-2xl cursor-pointer" />
+    }
+    <div class="absolute right-1 bottom-1 bg-surface border border-color-variant rounded-full">
+        <button (click)="emitEditImage()" [disabled]="loading() && !fileUrl()" mat-icon-button>
+            <mat-icon class="material-icons text-primary ">edit</mat-icon>
+        </button>
+    </div>
+</div>
+@if (visibleCaption() && caption()) {
+    <div [style.width]="widthPx">
+        <div class="text-center p-1 text-xs">{{ caption() }}</div>
+    </div>
+}

@@ -53,6 +53,7 @@ export class MenuService {
   
 
     public getByUrl(menuUrl: string) {
+      console.log("HEEELO");
         return this.http.get<MenuDto>(
             `${this.baseUrl}/GetByUrl/${menuUrl}`
         )

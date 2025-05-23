@@ -1,0 +1,54 @@
+.z-2000 {
+  z-index: 2000 !important;
+}
+
+.z-1001 {
+  z-index: 1001 !important;
+}
+
+.z-3000 {
+  z-index: 3000 !important;
+}
+
+.z-4000 {
+  z-index: 4000 !important;
+}
+
+.top-toolbar {
+  top: var(--h-toolbar)
+}
+
+.top-toolbar-dropdown {
+  top: calc(var(--h-toolbar) + var(--h-dropdown-nav))
+}
+
+.top-toolbar-mobile-dropdown {
+  top: var(--h-toolbar);
+}
+
+.left-drawer {
+  left: var(--w-drawer)
+}
+
+.left-drawer-sm {
+  left: var(--w-drawer-sm)
+}
+
+.left-drawer-drawer-sm {
+  left: calc(var(--w-drawer) + var(--w-drawer-sm));
+}
+
+.right-18px {
+  right: 18px;
+}
+
+
+// Mobile
+@media (max-width: 900px) {
+  .top-toolbar-mobile-dropdown {
+    top: calc(var(--h-toolbar) + var(--h-dropdown-nav));
+  }
+
+}
+
+

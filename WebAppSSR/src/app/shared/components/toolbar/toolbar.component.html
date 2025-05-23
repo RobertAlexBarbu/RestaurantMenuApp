@@ -1,0 +1,31 @@
+<div>
+    <mat-toolbar>
+        <button (click)="openNavigationDialog()"
+                class="visible-mobile mr-1 example-icon"
+                mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div [@toolbarLoad]>
+            <span class="ml-8 text-4xl visible-desktop">{{ featureName() }}</span>
+            <span class="text-2xl  visible-mobile">{{ featureName() }}</span>
+        </div>
+        @if (navigationVisible()) {
+            <div [@pageLoad] class="ml-4 mr-4 visible-desktop">
+                <ng-content select="[toolbar-navigation]"></ng-content>
+            </div>
+        }
+        <div [@pageLoad] class="ml-auto mr-4">
+            <ng-content></ng-content>
+            
+        </div>
+    </mat-toolbar>
+    @if (navigationVisible()) {
+        <div 
+             class="visible-mobile bg-surface fixed top-toolbar pl-4 pr-4 pb-2  w-full z-2000 ">
+            <div [@pageLoad]>
+                <ng-content  select="[toolbar-mobile-navigation]"></ng-content>
+            </div>
+
+        </div>
+    }
+</div>

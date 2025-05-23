@@ -1,0 +1,99 @@
+@use "./_button-overrides";
+@use "./_table-overrides";
+@use "./_dialog-overrides";
+
+// Paginator Overrides
+.mat-mdc-paginator-range-label {
+  margin: 0 !important;
+  width: 5rem !important;
+}
+
+.mat-mdc-paginator-container {
+  padding: 0 !important;
+}
+
+// Toolbar Overrides
+.mat-toolbar .mat-mdc-button-base.mat-mdc-button-base.mat-unthemed {
+  // Reset variables
+  --mdc-text-button-label-text-color: initial !important;
+  --mdc-outlined-button-label-text-color: initial !important;
+}
+
+mat-toolbar {
+  //background: var(--mat-sys-surface-container-low) !important;
+  //border-bottom: 1px solid var(--mat-sys-outline-variant) !important;
+}
+
+// Snackbar Overrides
+.mat-mdc-snackbar-surface {
+  white-space: pre-wrap
+}
+
+// Drag-and-Drop Overrides
+.dark-theme .cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: var(--mat-sys-corner-small) !important;
+  box-shadow: 0 3px 14px 2px rgba(255, 255, 255, 0.12);
+}
+
+.light-theme .cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: var(--mat-sys-corner-small) !important;
+  box-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+// Overlay Overrides
+.cdk-overlay-container:has(.mat-mdc-dialog-container,
+.mat-datepicker-dialog, .mat-datepicker-popup, .image-dialog, .top-overlay, .mdc-tooltip__surface, mat-snack-bar-container) {
+  z-index: 3000 !important;
+}
+
+
+// Stepper
+@media (max-width: 900px) {
+  mat-step-header {
+    border-radius: 0px !important;
+  }
+}
+
+// Tabs
+.mat-mdc-tab-link-container {
+  border: none !important;
+  border-radius: var(--mat-sys-corner-extra-large) !important;
+  background-color: var(--mat-sys-surface-container) !important;
+
+}
+.mat-mdc-tab-header-pagination-after, .mat-mdc-tab-header-pagination-before {
+  border-radius: var(--mat-sys-corner-extra-large) !important;
+}
+a.mat-mdc-list-item {
+  margin-bottom: 0.5rem !important;
+}
+[sticky-header] .mat-mdc-tab-header{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 3000 !important;
+  background-color: var(--mat-sys-surface);
+}
+[sticky-header] .mat-mdc-tab-header{
+  position: sticky !important;
+  top: 50px;
+  z-index: 3000 !important;
+  background-color: var(--mat-sys-surface);
+}
+
+
+// Outlined Form fields with Tailwind
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right-style: hidden;
+}
+
+.mat-mdc-input-element {
+  box-shadow: none !important;
+}
+
+mat-dialog-content {
+  padding-top: 4px !important;
+}

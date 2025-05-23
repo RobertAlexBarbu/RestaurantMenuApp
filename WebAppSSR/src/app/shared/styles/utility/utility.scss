@@ -1,0 +1,21 @@
+@use "./_colors.scss";
+@use "./_sizing.scss";
+@use "./_display.scss";
+@use "./_padding.scss";
+@use "./_positioning.scss";
+
+.corner-xl {
+  border-radius: var(--mat-sys-corner-extra-large);
+}
+
+.corner-l {
+  border-radius: var(--mat-sys-corner-large);
+}
+
+.corner-s {
+  border-radius: var(--mat-sys-corner-small);
+}
+
+.corner-xs {
+  border-radius: var(--mat-sys-corner-extra-small);
+}

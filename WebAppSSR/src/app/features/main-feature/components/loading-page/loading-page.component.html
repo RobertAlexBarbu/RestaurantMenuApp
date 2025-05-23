@@ -1,0 +1,36 @@
+<div
+        style="
+    height: 100vh;
+    background-color: var(--mat-sys-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  "
+>
+    <div style="max-width: 420px; width: 100%;">
+        <div
+                style="
+        font-weight: 600;
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+      "
+        >
+            {{ restaurantName() }}
+        </div>
+
+        <mat-progress-bar
+                mode="indeterminate"
+                style="height: 6px; border-radius: 4px;"
+                color="primary"
+        ></mat-progress-bar>
+
+        <div style="margin-top: 1rem; color: #666; font-size: 1rem;">
+            Loading your menu...
+        </div>
+    </div>
+</div>

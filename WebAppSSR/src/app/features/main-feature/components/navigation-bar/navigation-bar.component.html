@@ -1,0 +1,100 @@
+
+<div class="flex flex-col gap-2 items-center pt-2 pl-2 pr-2 w-full h-full relative z-2000 left-0  ">
+    <app-icon-button
+        (click)="goTo('')"
+        [class.bg-secondary-container]="'home' | activeFeature"
+        class="w-full"
+        icon="home"
+        label="Home"
+    ></app-icon-button>
+
+  <app-icon-button
+    (click)="goTo('/menu/food/items')"
+    [class.bg-secondary-container]="'menu' | activeFeature"
+    class="w-full"
+    icon="menu_book"
+    label="Menu"
+  ></app-icon-button>
+
+<!--    <app-icon-button-->
+<!--        (click)="goTo('/basic/form')"-->
+<!--        [class.bg-secondary-container]="'basic' | activeFeature"-->
+<!--        class="w-full"-->
+<!--        icon="edit_square"-->
+<!--        label="Basic"-->
+<!--    ></app-icon-button>-->
+
+<!--    <app-icon-button-->
+<!--        (click)="goTo('/table/elements')"-->
+<!--        [class.bg-secondary-container]="'table' | activeFeature"-->
+<!--        class="w-full"-->
+<!--        icon="table_view"-->
+<!--        label="Table"-->
+<!--    ></app-icon-button>-->
+
+    <app-icon-button
+            (click)="goTo('/style')"
+            [class.bg-secondary-container]="'style' | activeFeature"
+            class="w-full"
+            icon="palette"
+            label="Style"
+    ></app-icon-button>
+    
+    <app-icon-button
+        (click)="goTo('/analytics')"
+        [class.bg-secondary-container]="'analytics' | activeFeature"
+        class="w-full"
+        icon="analytics"
+        label="Analytics"
+    ></app-icon-button>
+
+    <app-icon-button
+            (click)="goTo('/reviews')"
+            [class.bg-secondary-container]="'reviews' | activeFeature"
+            class="w-full"
+            icon="star"
+            label="Reviews"
+    ></app-icon-button>
+
+<!--    <app-icon-button-->
+<!--        (click)="goTo('/layout/tabs/page1')"-->
+<!--        [class.bg-secondary-container]="'layout' | activeFeature"-->
+<!--        class="w-full"-->
+<!--        icon="dashboard"-->
+<!--        label="Layout"-->
+<!--    ></app-icon-button>-->
+
+<!--    <app-icon-button-->
+<!--        (click)="goTo('/debug')"-->
+<!--        [class.bg-secondary-container]="'debug' | activeFeature"-->
+<!--        class="w-full"-->
+<!--        icon="bug_report"-->
+<!--        label="Debug"-->
+<!--    ></app-icon-button>-->
+
+    @if (user(); as userState) {
+        @if (userState | isRole:Roles.Admin) {
+            <app-icon-button
+                icon="admin_panel_settings"
+                label="Admin"
+                (click)="goTo('/admin')"
+                [class.bg-secondary-container]="'admin' | activeFeature"
+            ></app-icon-button>
+        }
+    }
+
+
+    <div class="mt-auto justify-self-end mb-4 flex flex-col gap-4 w-full">
+        <app-icon-button
+            (click)="goTo('/settings/general')"
+            [class.bg-secondary-container]="'settings' | activeFeature"
+            class="w-full"
+            icon="settings"
+            label="Settings"
+        ></app-icon-button>
+    </div>
+
+
+</div>
+
+

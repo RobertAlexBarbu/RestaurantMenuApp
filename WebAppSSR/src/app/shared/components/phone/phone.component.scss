@@ -1,0 +1,13 @@
+.phone {
+
+  border-radius: var(--mat-sys-corner-large);
+  //border: 1px solid var(--mat-sys-outline-variant);
+  //box-shadow: var(--mat-sys-level2);
+  width: clamp(300px, 40dvh, 400px);
+  height: min(80dvh, 800px);
+  //background-color: var(--mat-sys-on-surface)
+}
+
+.preview {
+  border-radius: var(--mat-sys-corner-large);
+}

@@ -1,0 +1,24 @@
+.max-w-chart-options {
+  max-width: 300px
+}
+
+@media (max-width: 900px) {
+  .flex-col-chart-square {
+    flex-direction: column;
+  }
+  .flex-row-chart-square {
+    flex-direction: row !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .flex-col-chart {
+    flex-direction: column;
+  }
+  .flex-row-chart {
+    flex-direction: row !important;
+  }
+  .max-w-chart-options {
+    max-width: 100%
+  }
+}

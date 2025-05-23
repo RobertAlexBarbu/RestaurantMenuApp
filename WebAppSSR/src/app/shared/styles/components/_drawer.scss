@@ -1,0 +1,19 @@
+// Basic Styles
+.drawer {
+  border-left-width: 2px;
+  border-color: var(--mat-sys-surface-container-highest);
+  width: var(--w-drawer);
+  background-color: var(--mat-sys-surface-container);
+  border-top-right-radius: var(--mat-sys-corner-large);
+
+}
+
+.drawer-sm {
+  width: var(--w-drawer-sm);
+  background-color: var(--mat-sys-surface-container);
+}
+
+.left-drawer-corner {
+  border-top-left-radius: var(--mat-sys-corner-large);
+}
+

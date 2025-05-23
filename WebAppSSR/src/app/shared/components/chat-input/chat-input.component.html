@@ -1,0 +1,25 @@
+<div [class.pr-4]="isMobile" [class.pr-8]="!isMobile" class="w-full pt-4 pb-4 pl-4 bg-inherit flex justify-center">
+    <mat-form-field appearance="outline" class="w-full max-w-4xl">
+            <textarea
+                (keydown)="askQuestion($event)"
+                [formControl]="questionForm"
+                cdkAutosizeMaxRows="5"
+                cdkAutosizeMinRows="1"
+                cdkTextareaAutosize
+                matInput
+                placeholder="Ask a question..."
+                rows="2"
+            ></textarea>
+        @if (disabledStopButton()) {
+            <button (click)="askQuestionButton()" mat-icon-button matSuffix>
+                <mat-icon>arrow_upward</mat-icon>
+            </button>
+        } @else {
+            <button (click)="stop()" mat-icon-button matSuffix>
+                <mat-icon>stop</mat-icon>
+            </button>
+        }
+
+
+    </mat-form-field>
+</div>

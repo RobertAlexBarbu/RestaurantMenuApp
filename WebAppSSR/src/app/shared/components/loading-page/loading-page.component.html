@@ -1,0 +1,10 @@
+<div
+    style="height: 100%; background-color: var(--mat-sys-background); display: flex; align-items: center; justify-content: center;">
+    @if (show$ | async) {
+        <div>
+            <app-logo [heigth]="64" [width]="64" style="display: flex; justify-content: center;"></app-logo>
+            <div style="font-size: 1.5rem; padding-bottom: 0.75rem; text-align: center;">{{AppData.name}}</div>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+    }
+</div>

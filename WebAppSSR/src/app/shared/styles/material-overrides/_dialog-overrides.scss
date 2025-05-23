@@ -1,0 +1,132 @@
+// General
+.cdk-overlay-pane.mat-mdc-dialog-panel:not(.sidebar-dialog) {
+  animation: dialogAppear 0.2s ease-out forwards !important;
+  transform-origin: center !important;
+  pointer-events: auto !important;
+}
+
+@keyframes dialogAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Fullscreen Dialog
+.fullscreen-dialog .mat-mdc-dialog-content {
+  padding: 0 !important;
+  max-height: 100% !important;
+}
+[no-padding].mat-mdc-dialog-content {
+  padding: 0 !important;
+}
+
+.fullscreen-dialog .mat-mdc-dialog-surface {
+  border-radius: 0 !important;
+  overflow-y: scroll !important;
+}
+
+
+// Sidebar Dialog
+.sidebar-dialog .mat-mdc-dialog-content {
+  padding: 0 !important;
+  max-height: 100% !important;
+}
+.sidebar-dialog .mat-mdc-dialog-surface {
+  border-radius: 0 0 0 0 !important;
+  //box-shadow: var(--mat-sys-level2) !important;
+  background-color: var(--mat-sys-surface-container) !important;
+  //border-right: 1px solid var(--mat-sys-outline-variant);
+}
+.sidebar-backdrop {
+  background-color: transparent !important;
+}
+
+
+.sidebar-dialog {
+  animation: slideSidebarIn 0.3s ease-out forwards !important;
+  transform-origin: left !important;
+}
+.sidebar-dialog.closing {
+  animation: slideSidebarOut 0.3s ease-in forwards !important;
+  transform-origin: right !important;
+}
+
+.cdk-global-overlay-wrapper:has(.sidebar-dialog) {
+  justify-content: start !important;
+}
+.sidebar-dialog .mat-mdc-dialog-inner-container {
+  justify-content: start !important;
+}
+.sidebar-content.sidebar-open {
+  animation: slideContentOut 0.3s ease-out forwards !important;
+  transform-origin: right !important;
+}
+.sidebar-content.sidebar-close {
+  animation: slideContentIn 0.3s ease-in forwards !important;
+  transform-origin: right !important;
+}
+
+@keyframes slideSidebarIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideContentIn {
+  0% {
+    transform: translateX(300px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideContentOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(300px);
+  }
+}
+@keyframes slideSidebarOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+// Responsive
+
+.responsive-dialog-backdrop {
+  background: rgba(0, 0, 0, .32);
+}
+
+[responsive-dialog-content].mat-mdc-dialog-content {
+  overflow-y: scroll !important;
+}
+
+@media (max-width: 900px) {
+  .responsive-dialog-backdrop {
+    background: transparent;
+  }
+  .cdk-overlay-pane.mat-mdc-dialog-panel.responsive-dialog {
+    max-width: 100% !important;
+    min-width: 100% !important;
+    height: 100% !important;
+  }
+  [responsive-dialog-content].mat-mdc-dialog-content {
+    max-height: 100% !important;
+  }
+  .responsive-dialog .mat-mdc-dialog-surface {
+    border-radius: 0 !important;
+  }
+}

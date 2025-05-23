@@ -1,0 +1,59 @@
+.visible-mobile {
+  display: none !important;
+}
+
+.visible-mobile-flex {
+  display: none !important;
+}
+
+.visible-mobile-inline {
+  display: none !important;
+}
+
+.visible-desktop {
+  display: block !important;
+}
+
+.visible-desktop-flex {
+  display: inline-flex !important;
+}
+
+.visible-laptop {
+  display: none !important;
+}
+
+.visible-desktop-large {
+  display: block !important;
+}
+
+// Laptop
+@media (max-width: 1800px) {
+  .visible-laptop {
+    display: block !important;
+  }
+  .visible-desktop-large {
+    display: none !important;
+  }
+}
+
+// Mobile
+@media (max-width: 900px) {
+  .visible-mobile {
+    display: block !important;
+  }
+  .visible-mobile-flex {
+    display: flex !important;
+  }
+  .visible-mobile-inline {
+    display: inline-block !important;
+  }
+  .visible-desktop {
+    display: none !important;
+  }
+  .visible-desktop-flex {
+    display: none !important;
+  }
+  .flex-col-mobile {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,38 @@
+.custom-icon-button {
+  position: relative;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: var(--mat-sys-corner-small);
+  transition: background-color 200ms ease, font-variation-settings 0.2s cubic-bezier(0.2, 0, 0, 1);
+  font-weight: 500;
+
+  // Default state
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  // Hover state
+  &:hover::before {
+    opacity: 0.08; // Standard Material hover state opacity
+  }
+
+  // Active/pressed state
+  &:active::before {
+    opacity: 0.12; // Standard Material pressed state opacity
+  }
+}
+
+:host {
+  border-radius: var(--mat-sys-corner-small);
+}

@@ -1,0 +1,22 @@
+<div
+>
+    <div
+    >
+
+
+        <div class=" flex gap-4 items-center">
+            <div class="text-2xl">
+                {{ title() }}
+            </div>
+            <div class="flex gap-4 ml-auto">
+                <ng-content select="[card-button]"></ng-content>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mb-4  mt-4">
+        <ng-content></ng-content>
+    </div>
+
+</div>

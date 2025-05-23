@@ -8,12 +8,14 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {MenuDataDto} from "../../core/http/dto/menu-dto/menu/menu-data.dto";
 import {JsonPipe} from "@angular/common";
+import {LoadingPageComponent} from "./components/loading-page/loading-page.component";
 
 @Component({
   selector: 'app-main-feature',
     imports: [
         MatProgressBar,
-        JsonPipe
+        JsonPipe,
+        LoadingPageComponent
     ],
   templateUrl: './main-feature.component.html',
   styleUrl: './main-feature.component.scss',
@@ -33,6 +35,8 @@ export class MainFeatureComponent implements AfterViewInit {
     data = signal<MenuDataDto | null>(null);
     
     constructor() {
+        console.log('heee');
+        console.log(this.path);
         if (this.path == ':url') {
             this.menuService.getByUrl(this.route.snapshot.params['url'])
                 .pipe(
@@ -40,6 +44,7 @@ export class MainFeatureComponent implements AfterViewInit {
                 )
                 .subscribe({
                     next: data => {
+                        console.log(data);
                         this.restaurantName.set(data.name)
                         this.menuId = data.id;
                     }

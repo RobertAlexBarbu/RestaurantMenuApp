@@ -1,0 +1,27 @@
+<div [class.card-title]="titleCard()" [class.flat]="appearance() === 'flat'"
+     [class.raised]="appearance() === 'raised'"
+     [class.stroked]="appearance() === 'stroked'"
+     [class.h-full]="customHeight()"
+     class="border corner-l"
+>
+    <div
+        class="pl-4 pr-4 pt-4">
+
+
+        <div class="min-h-10 flex gap-4 items-center">
+            <div class="text-2xl">
+                {{ cardTitle() }}
+            </div>
+            <div class="flex gap-4 ml-auto">
+                <ng-content select="[card-button]"></ng-content>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mb-4 pl-4 pr-4 mt-4">
+        <ng-content></ng-content>
+    </div>
+
+</div>
+
