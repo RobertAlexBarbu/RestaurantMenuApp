@@ -365,6 +365,88 @@ namespace WebAPI.Repository.Migrations
                     b.ToTable("MenuItems");
                 });
 
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuItemAccess", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("MenuCategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MenuItemAccessType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuCategoryId");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("MenuItemId");
+
+                    b.ToTable("MenuItemAccesses");
+                });
+
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuStyle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Font")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FontCss")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Style")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ThemeColor")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ThemeCss")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MenuStyles");
+                });
+
             modelBuilder.Entity("WebAPI.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -531,6 +613,58 @@ namespace WebAPI.Repository.Migrations
                     b.Navigation("MenuCategory");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuItemAccess", b =>
+                {
+                    b.HasOne("WebAPI.Domain.Entities.Menu.MenuCategory", "MenuCategory")
+                        .WithMany()
+                        .HasForeignKey("MenuCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Domain.Entities.Menu.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Domain.Entities.Menu.MenuItem", "MenuItem")
+                        .WithMany()
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("MenuCategory");
+
+                    b.Navigation("MenuItem");
+                });
+
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuStyle", b =>
+                {
+                    b.HasOne("WebAPI.Domain.Entities.Menu.Menu", "Menu")
+                        .WithOne("MenuStyle")
+                        .HasForeignKey("WebAPI.Domain.Entities.Menu.MenuStyle", "MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.Menu", b =>
+                {
+                    b.Navigation("MenuStyle")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuCategory", b =>

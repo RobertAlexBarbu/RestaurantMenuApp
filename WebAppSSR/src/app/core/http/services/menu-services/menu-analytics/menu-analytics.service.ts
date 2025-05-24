@@ -4,6 +4,7 @@ import {EnvironmentService} from "../../../../services/environment/environment.s
 import {MenuAccessDto} from "../../../dto/menu-dto/menu-analytics/menu-access.dto";
 import {MenuAccessInsightDto} from "../../../dto/menu-dto/menu-analytics/menu-access-insight.dto";
 import {CreateMenuAccessDto} from "../../../dto/menu-dto/menu-analytics/create-menu-access.dto";
+import {CreateMenuItemAccessDto} from "../../../dto/menu-dto/menu-analytics/create-menu-item-access.dto";
 
 
 @Injectable({
@@ -25,10 +26,16 @@ export class MenuAnalyticsService {
     }
 
     public createMenuAccess(createMenuAccessDto: CreateMenuAccessDto) {
-        console.log("create-menu-access method called")
         return this.http.post(
             `${this.baseUrl}/CreateMenuAccess`,
             createMenuAccessDto,
+        )
+    }
+
+    public createMenuItemAccess(createMenuItemAccessDto: CreateMenuItemAccessDto) {
+        return this.http.post(
+            `${this.baseUrl}/CreateMenuItemAccess`,
+            createMenuItemAccessDto,
         )
     }
 

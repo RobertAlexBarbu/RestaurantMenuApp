@@ -35,7 +35,7 @@ public class MenuController(IMapper mapper, IMenuService menuService, IClaimServ
     
     [HttpGet]
     [Route("{menuId}")]
-    public async Task<ActionResult<MenuDto>> GetByIdAsync(int menuId)
+    public async Task<ActionResult<MenuDetailDto>> GetByIdAsync(int menuId)
     {
         var menu = await menuService.GetByIdAsync(menuId);
         return Ok(menu);
@@ -43,7 +43,7 @@ public class MenuController(IMapper mapper, IMenuService menuService, IClaimServ
     
     [HttpGet]
     [Route("{menuUrl}")]
-    public async Task<ActionResult<MenuDto>> GetByUrlAsync(string menuUrl)
+    public async Task<ActionResult<MenuDetailDto>> GetByUrlAsync(string menuUrl)
     {
         var menu = await menuService.GetByUrlAsync(menuUrl);
         return Ok(menu);

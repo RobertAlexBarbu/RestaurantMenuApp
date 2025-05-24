@@ -5,7 +5,9 @@ using WebAPI.Application.DTO.MenuDTO.Menu;
 using WebAPI.Application.DTO.MenuDTO.MenuCategory;
 using WebAPI.Application.DTO.MenuDTO.MenuDetails;
 using WebAPI.Application.DTO.MenuDTO.MenuItem;
+using WebAPI.Application.DTO.MenuDTO.MenuStyle;
 using WebAPI.Application.Services.MenuServices.MenuDetailsService;
+using WebAPI.Application.Services.MenuServices.MenuStyleService;
 using WebAPI.Application.Services.UtilityService;
 using WebAPI.Domain.Entities;
 using WebAPI.Domain.Entities.Menu;
@@ -15,7 +17,7 @@ using WebAPI.Repository.Data;
 
 namespace WebAPI.Application.Services.MenuService;
 
-public class MenuService(AppDbContext context, IMapper mapper, IUtilityService utilityService, IMenuDetailsService menuDetailsService): IMenuService
+public class MenuService(AppDbContext context, IMapper mapper, IUtilityService utilityService, IMenuDetailsService menuDetailsService, IMenuStyleService menuStyleService): IMenuService
 {
     public async Task<MenuDto> CreateAsync(int userId, CreateMenuDto createMenuDto)
     {
@@ -24,6 +26,10 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
         context.Menus.Add(menu);
         await context.SaveChangesAsync();
         await menuDetailsService.CreateMenuDetailsAsync(userId, new CreateMenuDetailsDto
+        {
+            MenuId = menu.Id
+        });
+        await menuStyleService.CreateAsync(userId, new CreateMenuStyleDto
         {
             MenuId = menu.Id
         });
@@ -48,24 +54,28 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
         return isAvailable;
     }
 
-    public async Task<MenuDto> GetByIdAsync(int menuId)
+    public async Task<MenuDetailDto> GetByIdAsync(int menuId)
     {
-        var menu = await context.Menus.FirstOrDefaultAsync(m => m.Id == menuId);
+        var menu = await context.Menus
+            .Include(m => m.MenuStyle)
+            .FirstOrDefaultAsync(m => m.Id == menuId);
         if (menu == null)
         {
             throw new NotFoundException("Menu");
         }
-        return mapper.Map<MenuDto>(menu);
+        return mapper.Map<MenuDetailDto>(menu);
     }
 
-    public async Task<MenuDto> GetByUrlAsync(string menuUrl)
+    public async Task<MenuDetailDto> GetByUrlAsync(string menuUrl)
     {
-        var menu = await context.Menus.FirstOrDefaultAsync(m => m.Url == menuUrl);
+        var menu = await context.Menus
+            .Include(m => m.MenuStyle)
+            .FirstOrDefaultAsync(m => m.Url == menuUrl);
         if (menu == null)
         {
             throw new NotFoundException("Menu");
         }
-        return mapper.Map<MenuDto>(menu);
+        return mapper.Map<MenuDetailDto>(menu);
     }
 
     public async Task<MenuDataDto> GetDataByIdAsync(int id)

@@ -11,6 +11,7 @@ using WebAPI.Application.Services.MenuService;
 using WebAPI.Application.Services.MenuServices.MenuCategoryService;
 using WebAPI.Application.Services.MenuServices.MenuDetailsService;
 using WebAPI.Application.Services.MenuServices.MenuItemService;
+using WebAPI.Application.Services.MenuServices.MenuStyleService;
 using WebAPI.Application.Services.UserService;
 using WebAPI.Application.Services.UtilityService;
 using WebAPI.Automapper;
@@ -92,6 +93,7 @@ builder.Services.AddScoped<IMenuDetailsService, MenuDetailsService>();
 builder.Services.AddScoped<IMenuCategoryService, MenuCategoryService>();
 builder.Services.AddScoped<IMenuItemService, MenuItemService>();
 builder.Services.AddScoped<IUtilityService, UtilityService>();
+builder.Services.AddScoped<IMenuStyleService, MenuStyleService>();
 
 var app = builder.Build();
 

@@ -8,4 +8,5 @@ public class MenuDto
     public string Url { get; set; } = string.Empty;
     public string? ImageUrl { get; set; } = null;
     public int UserId { get; set; }
+
 }

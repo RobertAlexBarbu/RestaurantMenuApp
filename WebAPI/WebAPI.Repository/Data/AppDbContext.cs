@@ -22,6 +22,7 @@ public class AppDbContext : DbContext
     public DbSet<MenuCategory> MenuCategories { get; set; }
     
     public DbSet<MenuAccess> MenuAccesses { get; set; }
+    public DbSet<MenuItemAccess> MenuItemAccesses { get; set; }
     
     public DbSet<MenuDetails> MenuDetails { get; set; }
     

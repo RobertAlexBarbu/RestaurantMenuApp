@@ -16,6 +16,14 @@ public class MenuAnalyticsController(IMenuAnalyticsService menuAnalyticsService)
         await menuAnalyticsService.CreateMenuAccessAsync(createMenuAccessDto);
         return Ok();
     }
+    
+    [HttpPost]
+    public async Task<ActionResult> CreateMenuItemAccessAsync(CreateMenuItemAccessDto createMenuItemAccessDto)
+    {
+        Console.WriteLine("Creating a Menu ACcess");
+        await menuAnalyticsService.CreateMenuItemAccessAsync(createMenuItemAccessDto);
+        return Ok();
+    }
 
     [Route("{menuId}")]
     [HttpGet]

@@ -8,10 +8,10 @@ public class MenuStyle
     public int UserId { get; set; }
     public User User { get; set; }
     public string? ImageUrl { get; set; } = null;
-    
-    public string Color { get; set; } = string.Empty;
-    public string ColorStyleTag { get; set; } = string.Empty;
+
+    public string ThemeColor { get; set; } = "#326b00";
+    public string ThemeCss { get; set; } = string.Empty;
     public string Font { get; set; } = "Roboto";
-    public string FontStyleTag { get; set; } = string.Empty;
+    public string FontCss { get; set; } = string.Empty;
     public string Style { get; set; } = "basic";
 }

@@ -18,6 +18,13 @@ public class MenuAnalyticsService(AppDbContext context, IMapper mapper, ILlmServ
         await context.SaveChangesAsync();
     }
 
+    public async Task CreateMenuItemAccessAsync(CreateMenuItemAccessDto createMenuItemAccessDto)
+    {
+        var menuAccess = mapper.Map<MenuItemAccess>(createMenuItemAccessDto);
+        context.MenuItemAccesses.Add(menuAccess);
+        await context.SaveChangesAsync();
+    }
+
     public async Task<List<MenuAccessDto>> GetMenuAccessesByMenuIdAsync(int menuId)
     {
         var menuAccesses = await context.MenuAccesses.Where(ma => ma.MenuId == menuId).ToListAsync();

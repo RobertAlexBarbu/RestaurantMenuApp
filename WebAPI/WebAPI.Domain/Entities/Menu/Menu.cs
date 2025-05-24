@@ -9,4 +9,6 @@ public class Menu
     public string? ImageUrl { get; set; } = null;
     public int UserId { get; set; }
     public User User { get; set; }
+    
+    public MenuStyle MenuStyle { get; set; }
 }

@@ -82,6 +82,9 @@ export class MainFeatureComponent implements AfterViewInit {
                         --mat-sys-label-large-font: "Barriecito";
                         --mat-toolbar-title-text-font: "Barriecito";
         }
+        html, body {
+        font-family: "Barriecito";
+        }
 
     `;
             document.head.appendChild(style);

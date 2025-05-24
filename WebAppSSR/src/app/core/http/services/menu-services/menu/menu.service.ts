@@ -5,6 +5,7 @@ import {UpdateMenuDto} from "../../../dto/menu-dto/menu/update-menu-dto";
 import {CreateMenuDto} from "../../../dto/menu-dto/menu/create-menu.dto";
 import {MenuDto} from "../../../dto/menu-dto/menu/menu.dto";
 import {MenuDataDto} from "../../../dto/menu-dto/menu/menu-data.dto";
+import {MenuDetailDto} from "../../../dto/menu-dto/menu/menu-detail.dto";
 
 
 @Injectable({
@@ -34,7 +35,7 @@ export class MenuService {
   }
 
   public getById(menuId: number) {
-    return this.http.get<MenuDto>(
+    return this.http.get<MenuDetailDto>(
       `${this.baseUrl}/GetById/${menuId}`
     )
   }
@@ -54,7 +55,7 @@ export class MenuService {
 
     public getByUrl(menuUrl: string) {
       console.log("HEEELO");
-        return this.http.get<MenuDto>(
+        return this.http.get<MenuDetailDto>(
             `${this.baseUrl}/GetByUrl/${menuUrl}`
         )
     }

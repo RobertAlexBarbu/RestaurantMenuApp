@@ -6,6 +6,8 @@ namespace WebAPI.Application.Services.MenuAnalyticsService;
 public interface IMenuAnalyticsService
 {
     Task CreateMenuAccessAsync(CreateMenuAccessDto createMenuAccessDto);
+    
+    Task CreateMenuItemAccessAsync(CreateMenuItemAccessDto createMenuAccessDto);
 
     Task<List<MenuAccessDto>> GetMenuAccessesByMenuIdAsync(int menuId);
 
