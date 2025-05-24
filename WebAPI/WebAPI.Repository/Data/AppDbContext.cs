@@ -24,6 +24,8 @@ public class AppDbContext : DbContext
     public DbSet<MenuAccess> MenuAccesses { get; set; }
     
     public DbSet<MenuDetails> MenuDetails { get; set; }
+    
+    public DbSet<MenuStyle> MenuStyles { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
