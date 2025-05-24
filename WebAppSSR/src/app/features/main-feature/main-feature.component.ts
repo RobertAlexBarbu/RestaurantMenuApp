@@ -1,5 +1,5 @@
 import {afterNextRender, AfterViewInit, Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterOutlet} from "@angular/router";
 import {MenuService} from "../../core/http/services/menu-services/menu/menu.service";
 import {MenuAnalyticsService} from "../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 import {HttpClient} from "@angular/common/http";
@@ -9,13 +9,19 @@ import {MatProgressBar} from "@angular/material/progress-bar";
 import {MenuDataDto} from "../../core/http/dto/menu-dto/menu/menu-data.dto";
 import {JsonPipe} from "@angular/common";
 import {LoadingPageComponent} from "./components/loading-page/loading-page.component";
+import {NavigationBarComponent} from "./components/navigation-bar/navigation-bar.component";
+import {CdkScrollable} from "@angular/cdk/overlay";
 
 @Component({
   selector: 'app-main-feature',
     imports: [
         MatProgressBar,
         JsonPipe,
-        LoadingPageComponent
+        LoadingPageComponent,
+        RouterOutlet,
+        NavigationBarComponent,
+        CdkScrollable,
+        CdkScrollable
     ],
   templateUrl: './main-feature.component.html',
   styleUrl: './main-feature.component.scss',
@@ -30,6 +36,7 @@ export class MainFeatureComponent implements AfterViewInit {
     private readonly destroyRef = inject(DestroyRef);
     path = this.route.snapshot.routeConfig?.path;
     loading = signal(true);
+    styleLoaded = signal(false);
     restaurantName = signal('');
     menuId = -1;
     data = signal<MenuDataDto | null>(null);
@@ -62,6 +69,29 @@ export class MainFeatureComponent implements AfterViewInit {
                 });
         }
         afterNextRender(() => {
+            const fontLink = document.createElement('link');
+            fontLink.href = 'https://fonts.googleapis.com/css2?family=Barriecito&display=swap';
+            fontLink.rel = 'stylesheet';
+            document.head.appendChild(fontLink);
+            
+    //         const style = document.createElement('style');
+    //         style.textContent = `
+    //     :root {
+    //         --mat-sys-background: red;
+    //                     --mat-sys-surface: red;
+    //                     --mat-sys-label-large-font: "Barriecito";
+    //                     --mat-toolbar-title-text-font: "Barriecito";
+    //     }
+    // `;
+    //         document.head.appendChild(style);
+            
+            // Add 'bg' class to html and body elements
+            const htmlElement = document.documentElement; // This is the <html> element
+            const bodyElement = document.body;
+
+            htmlElement.classList.add('bg');
+            bodyElement.classList.add('bg');
+            this.styleLoaded.set(true);
             if (this.path == ':url') {
                 this.menuAnalyticsService.createMenuAccess({
                     menuId: this.menuId,
@@ -91,6 +121,7 @@ export class MainFeatureComponent implements AfterViewInit {
 
                     }
                 })
+
         })
 
 

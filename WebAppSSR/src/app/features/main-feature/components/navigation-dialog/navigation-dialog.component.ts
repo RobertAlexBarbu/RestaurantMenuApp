@@ -22,9 +22,10 @@ import { Router } from '@angular/router'
 import { IconButtonComponent } from '../../../../shared/components/icon-button/icon-button.component'
 import { Roles } from '../../../../shared/configs/Roles'
 import { IsRolePipe } from '../../../../shared/pipes/is-role/is-role.pipe'
-import { AppStore } from '../../../../core/stores/app.store'
+
 import { ActiveFeatureStore } from '../../../../core/stores/active-feature.store'
-import { fadeInAnimation } from '../../../../app.animations'
+import {fadeInAnimation} from "../../../../app.animations";
+
 
 @Component({
     selector: 'app-navigation-dialog',
@@ -57,9 +58,9 @@ export class NavigationDialogComponent {
     private readonly dialogRef = inject(MatDialogRef<NavigationDialogComponent>)
     private readonly router = inject(Router)
     protected readonly AppData = AppData
-    private readonly appStore = inject(AppStore)
+
     private readonly activeFeatureStore = inject(ActiveFeatureStore)
-    user = this.appStore.user
+
     layoutView = signal(false)
   menuView = signal(false)
 

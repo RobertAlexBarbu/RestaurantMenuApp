@@ -70,17 +70,7 @@
 <!--                    <mat-icon matListItemIcon>bug_report</mat-icon>-->
 
 <!--                </a>-->
-                @if (user(); as userState) {
-                    @if (userState | isRole:Roles.Admin) {
-                        <a  [@fadeIn]       (click)="goTo('/admin')"
-                                   [class.bg-secondary-container]="'admin' | activeFeature"
-                                   mat-list-item>
 
-                            <span [class.font-medium]="'admin' | activeFeature" >            Admin       </span>
-                            <mat-icon matListItemIcon>admin_panel_settings</mat-icon>
-
-                        </a>
-                    }}
                 <a    [@fadeIn]     (click)="goTo('/settings/general')"
                            [class.bg-secondary-container]="'settings' | activeFeature"
                            mat-list-item>

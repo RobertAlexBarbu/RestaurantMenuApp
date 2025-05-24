@@ -72,16 +72,7 @@
 <!--        label="Debug"-->
 <!--    ></app-icon-button>-->
 
-    @if (user(); as userState) {
-        @if (userState | isRole:Roles.Admin) {
-            <app-icon-button
-                icon="admin_panel_settings"
-                label="Admin"
-                (click)="goTo('/admin')"
-                [class.bg-secondary-container]="'admin' | activeFeature"
-            ></app-icon-button>
-        }
-    }
+
 
 
     <div class="mt-auto justify-self-end mb-4 flex flex-col gap-4 w-full">

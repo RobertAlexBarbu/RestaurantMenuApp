@@ -13,6 +13,7 @@ const initialState: ActiveFeatureState = {
 }
 
 export const ActiveFeatureStore = signalStore(
+    {providedIn: "root"},
     withState(initialState),
     withMethods((store) => ({
         setActiveFeatures(url: string) {

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject, input, output } from '@angu
 import { Roles } from '../../../../shared/configs/Roles'
 import { MatIcon } from '@angular/material/icon'
 import { MatButton, MatIconButton } from '@angular/material/button'
-import { AppStore } from '../../../../core/stores/app.store'
 import { Router } from '@angular/router'
 import { ActiveFeatureStore } from '../../../../core/stores/active-feature.store'
 import { AsyncPipe, NgIf } from '@angular/common'
@@ -21,13 +20,13 @@ import { ActiveFeaturePipe } from '../../../../shared/pipes/active-feature/activ
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationBarComponent {
-    private readonly appStore = inject(AppStore)
+
     private readonly activeFeatureStore = inject(ActiveFeatureStore)
     private readonly router = inject(Router)
     protected readonly Roles = Roles
     appearance = input('drawer')
     readonly navigate = output<boolean>()
-    user = this.appStore.user
+
     features = this.activeFeatureStore.features
 
 

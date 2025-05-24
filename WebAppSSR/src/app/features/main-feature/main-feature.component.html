@@ -1,8 +1,23 @@
-@if (loading()) {
-    <app-loading-page [restaurantName]="restaurantName()"></app-loading-page>
+@if(styleLoaded()) {
+    @if (loading()) {
+        <app-loading-page [restaurantName]="restaurantName()"></app-loading-page>
 
-} @else {
-    <p>main-feature works!</p>
-    {{path}} 
-    <div>{{data() | json}}</div>
+    } @else {
+
+        <div cdkScrollable class="h-full overflow-y-scroll bg-surface" id="main">
+            <!-- DRAWER -->
+            <div class="h-full fixed top-0 z-50 drawer-sm visible-desktop">
+                <div class="flex-col flex h-full items-center gap-4 pt-2">
+                    <app-navigation-bar class="h-full"></app-navigation-bar>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="min-h-full w-full pl-drawer-sm">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    }
 }
+
+

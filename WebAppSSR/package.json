@@ -23,6 +23,7 @@
     "@angular/platform-server": "^19.1.0",
     "@angular/router": "^19.1.0",
     "@angular/ssr": "^19.1.4",
+    "@ngrx/signals": "^19.2.0",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -41,7 +42,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.2",
-    "tailwindcss": "^3.4.12"
+    "tailwindcss": "^3.4.12",
+    "typescript": "~5.7.2"
   }
 }
