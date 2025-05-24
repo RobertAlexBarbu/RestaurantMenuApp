@@ -7,12 +7,11 @@ public class MenuStyle
     public Menu Menu { get; set; }
     public int UserId { get; set; }
     public User User { get; set; }
-    
     public string? ImageUrl { get; set; } = null;
+    
     public string Color { get; set; } = string.Empty;
-    public string ColorHtml { get; set; } = string.Empty;
+    public string ColorStyleTag { get; set; } = string.Empty;
     public string Font { get; set; } = "Roboto";
-    public string FontHtml { get; set; } = string.Empty;
-
+    public string FontStyleTag { get; set; } = string.Empty;
     public string Style { get; set; } = "basic";
 }

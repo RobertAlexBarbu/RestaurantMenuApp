@@ -74,16 +74,17 @@ export class MainFeatureComponent implements AfterViewInit {
             fontLink.rel = 'stylesheet';
             document.head.appendChild(fontLink);
             
-    //         const style = document.createElement('style');
-    //         style.textContent = `
-    //     :root {
-    //         --mat-sys-background: red;
-    //                     --mat-sys-surface: red;
-    //                     --mat-sys-label-large-font: "Barriecito";
-    //                     --mat-toolbar-title-text-font: "Barriecito";
-    //     }
-    // `;
-    //         document.head.appendChild(style);
+            const style = document.createElement('style');
+            style.textContent = `
+        :root {
+            --mat-sys-background: red;
+                        --mat-sys-surface: red;
+                        --mat-sys-label-large-font: "Barriecito";
+                        --mat-toolbar-title-text-font: "Barriecito";
+        }
+
+    `;
+            document.head.appendChild(style);
             
             // Add 'bg' class to html and body elements
             const htmlElement = document.documentElement; // This is the <html> element

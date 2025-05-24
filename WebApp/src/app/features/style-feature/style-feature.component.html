@@ -23,7 +23,82 @@
 
         </div>
         <button class="visible-mobile-flex" mat-stroked-button (click)="openPreviewDialog()">See Preview</button>
-        <app-card cardTitle="Hello" appearance="raised"></app-card> 
+        
+        <app-card cardTitle="Color" appearance="raised">
+            <div class="flex flex-col gap-4">
+                <div class="flex gap-4 items-center">
+                    <mat-form-field>
+                        <mat-label>Theme Color</mat-label>
+                        <input matInput [formControl]="colorForm">
+                        @if (colorForm.hasError('required')) {
+                            <mat-error>Theme Color is required</mat-error>
+                        } @else if (colorForm.hasError('invalidHexColor')) {
+                            <mat-error>Invalid Hex color</mat-error>
+                        }
+                    </mat-form-field>
+                    <div class="flex flex-col justify-around">
+                        <div>
+                            <ngx-colors format="hex" [(ngModel)]="colorAux" (change)="colorChanged($event)" ngx-colors-trigger ></ngx-colors>
+                        </div>
+
+                        <app-form-error-placeholder></app-form-error-placeholder>
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <button [disabled]="disabledColorSave() || updateColorLoading()"
+                            [class.spinner]="updateColorLoading()"
+                            class="ml-auto" mat-button (click)="saveColorStyles()" >Save
+                    </button>
+                </div>
+            </div>
+
+        </app-card>
+        <app-card cardTitle="Font" appearance="raised">
+            <mat-selection-list (selectionChange)="changeFont($event)" [multiple]="false">
+                <mat-list-option [selected]="font() === 'Roboto'" value="light" >
+                    <div class="flex items-center text-2xl">
+                        Roboto
+                    </div>
+                </mat-list-option>
+                <mat-list-option [selected]="font() === 'Playfair'" value="light" >
+                    <div class="flex items-center font-playfair text-2xl">
+                        Playfair
+                    </div>
+                </mat-list-option>
+                <mat-list-option [selected]="font() === 'Poppins'" value="light" >
+                    <div class="flex items-center font-poppins text-2xl">
+                        Poppins
+                    </div>
+                </mat-list-option>
+                <mat-list-option [selected]="font() === 'Lobster Two'" value="light" >
+                    <div class="flex items-center font-lobster-two text-2xl">
+                        Lobster Two
+                    </div>
+                </mat-list-option>
+                <mat-list-option [selected]="font() === 'Montserrat'" value="light" >
+                    <div class="flex items-center font-montserrat text-2xl">
+                        Montserrat
+                    </div>
+                </mat-list-option>
+                <mat-list-option [selected]="font() === 'Dancing Script'" value="light" >
+                    <div class="flex items-center font-dancing-script text-2xl">
+                        Dancing Script
+                    </div>
+                </mat-list-option>
+                <mat-list-option [selected]="font() === 'Bebas Neue'" value="light" >
+                    <div class="flex items-center font-bebas-neue text-2xl">
+                        Bebas Neue
+                    </div>
+                </mat-list-option>
+            </mat-selection-list>
+            <div class="flex mt-4">
+                <button [disabled]="disabledFontSave() || updateFontLoading()"
+                        [class.spinner]="updateFontLoading()"
+                        class="ml-auto" mat-button (click)="saveFontStyles()" >Save
+                </button>
+            </div>
+        </app-card>
     </div>
 
 </div>

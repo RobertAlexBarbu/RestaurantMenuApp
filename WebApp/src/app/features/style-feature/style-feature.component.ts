@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, computed, DestroyRef, inject, ViewContainerRef} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    DestroyRef,
+    inject,
+    signal, viewChild,
+    ViewContainerRef
+} from '@angular/core';
 import {ToolbarComponent} from "../../shared/components/toolbar/toolbar.component";
 import {QrGeneratorComponent} from "../../recipes/components/qr-generator/qr-generator.component";
 import {RightSidebarComponent} from "../../shared/components/right-sidebar/right-sidebar.component";
@@ -16,6 +24,16 @@ import {MatDialog} from "@angular/material/dialog";
 import {StylePreviewDialogComponent} from "./components/style-preview-dialog/style-preview-dialog.component";
 import {fullscreenDialogConfig} from "../../shared/configs/dialogs.config";
 import {argbFromHex, Hct, hexFromArgb, themeFromSourceColor} from "@material/material-color-utilities";
+import {NgxColorsComponent, NgxColorsModule} from "ngx-colors";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {
+    FormErrorPlaceholderComponent
+} from "../../shared/components/form-error-placeholder/form-error-placeholder.component";
+import {hexColorValidator} from "../../shared/validators/hexColorValidator";
+import {AsyncPipe} from "@angular/common";
+import {MatListOption, MatSelectionList, MatSelectionListChange} from "@angular/material/list";
 
 @Component({
   selector: 'app-style-feature',
@@ -26,7 +44,18 @@ import {argbFromHex, Hct, hexFromArgb, themeFromSourceColor} from "@material/mat
         PhoneComponent,
         CardComponent,
         MatButton,
-        MatIcon
+        MatIcon,
+        NgxColorsModule,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        ReactiveFormsModule,
+        FormsModule,
+        FormErrorPlaceholderComponent,
+        MatError,
+        AsyncPipe,
+        MatListOption,
+        MatSelectionList
     ],
   templateUrl: './style-feature.component.html',
   styleUrl: './style-feature.component.scss',
@@ -46,6 +75,58 @@ export class StyleFeatureComponent {
     menu = this.appStore.user.menu;
     ssrUrl = this.environmentService.getSsrUrl();
     completeUrl = computed(() => this.ssrUrl + '/' + this.menu.url())
+    
+    colorForm = new FormControl("", [Validators.required, hexColorValidator()]);
+    disabledColorSave = signal(true)
+    updateColorLoading = signal(false)
+    colorPicker = viewChild(NgxColorsComponent);
+    colorAux = ''
+
+    colorChanged(event: string) {
+       this.colorForm.patchValue(event);
+    }
+    saveColorStyles() {
+        if (this.colorForm.invalid) {
+            this.colorForm.markAllAsTouched();
+            return;
+        } else {
+            console.log(this.colorForm.value);
+            this.notificationService.notify('Theme color updated successfully.');
+            this.disabledColorSave.set(true);
+        }
+    }
+    hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    ngAfterViewInit() {
+        this.colorForm.valueChanges.subscribe({
+            next: (data) => {
+                if (data) {
+                    if(this.hexColorRegex.test(data)) {
+                        const cp = this.colorPicker();
+                        this.colorAux = data;
+                    }
+                }
+
+                this.disabledColorSave.set(false);
+            }
+        }) 
+    }
+    font = signal<string>('Roboto');
+    
+    changeFont(event:MatSelectionListChange) {
+        let font = event.options[0].value;
+        this.disabledFontSave.set(false);
+        this.font.set(font);
+        
+    }
+    disabledFontSave = signal(true)
+    updateFontLoading = signal(false)
+
+    saveFontStyles() {
+            console.log(this.font());
+            this.notificationService.notify('Font updated successfully.');
+            this.disabledFontSave.set(true);
+        
+    }
     
     constructor() {
         const sourceColor = argbFromHex('#326b00'); // or any color
