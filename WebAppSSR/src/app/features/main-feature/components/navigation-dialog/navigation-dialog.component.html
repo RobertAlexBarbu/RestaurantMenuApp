@@ -8,7 +8,7 @@
 
         @if(!layoutView() && !menuView()) {
             <div >
-                <a [@fadeIn]       (click)="goTo('')"
+                <a [@fadeIn]       (click)="goTo(routeUrl)"
                          [class.bg-secondary-container]="'home' | activeFeature"
                          mat-list-item>
 
@@ -17,40 +17,37 @@
 
                 </a>
 
-              <a    [@fadeIn]     (click)="goToMenu()"
+              <a    [@fadeIn]     (click)="goTo(routeUrl + '/menu/food')"
                     [class.bg-secondary-container]="'menu' | activeFeature"
                     mat-list-item>
 
                 <span [class.font-medium]="'menu' | activeFeature" >            Menu     </span>
                 <mat-icon matListItemIcon>menu_book</mat-icon>
-                <div matListItemMeta>
-                  <mat-icon >arrow_forward</mat-icon>
-                </div>
               </a>
-                <a [@fadeIn]         (click)="goTo('/style')"
-                           [class.bg-secondary-container]="'style' | activeFeature"
+                <a [@fadeIn]         (click)="goTo(routeUrl + '/chat')"
+                           [class.bg-secondary-container]="'chat' | activeFeature"
                            mat-list-item>
 
-                    <span [class.font-medium]="'style' | activeFeature" >            Style       </span>
-                    <mat-icon matListItemIcon>palette</mat-icon>
+                    <span [class.font-medium]="'chat' | activeFeature" >            AI Chat      </span>
+                    <mat-icon matListItemIcon>robot_2</mat-icon>
 
                 </a>
-                <a     [@fadeIn]    (click)="goTo('/analytics')"
-                       [class.bg-secondary-container]="'analytics' | activeFeature"
+                <a     [@fadeIn]    (click)="goTo(routeUrl + '/review')"
+                       [class.bg-secondary-container]="'review' | activeFeature"
                        mat-list-item>
 
-                    <span [class.font-medium]="'analytics' | activeFeature" >            Analytics       </span>
-                    <mat-icon matListItemIcon>analytics</mat-icon>
+                    <span [class.font-medium]="'review' | activeFeature" >            Review      </span>
+                    <mat-icon matListItemIcon>rate_review</mat-icon>
 
                 </a>
-                <a   [@fadeIn]      (click)="goTo('/reviews')"
-                           [class.bg-secondary-container]="'reviews' | activeFeature"
-                           mat-list-item>
+<!--                <a   [@fadeIn]      (click)="goTo('/reviews')"-->
+<!--                           [class.bg-secondary-container]="'reviews' | activeFeature"-->
+<!--                           mat-list-item>-->
 
-                    <span [class.font-medium]="'reviews' | activeFeature" >            Reviews      </span>
-                    <mat-icon matListItemIcon>star</mat-icon>
+<!--                    <span [class.font-medium]="'reviews' | activeFeature" >            Reviews      </span>-->
+<!--                    <mat-icon matListItemIcon>star</mat-icon>-->
 
-                </a>
+<!--                </a>-->
 
 <!--                <a    [@fadeIn]     (click)="goToLayout()"-->
 <!--                           [class.bg-secondary-container]="'layout' | activeFeature"-->
@@ -71,14 +68,14 @@
 
 <!--                </a>-->
 
-                <a    [@fadeIn]     (click)="goTo('/settings/general')"
-                           [class.bg-secondary-container]="'settings' | activeFeature"
-                           mat-list-item>
+<!--                <a    [@fadeIn]     (click)="goTo('/settings/general')"-->
+<!--                           [class.bg-secondary-container]="'settings' | activeFeature"-->
+<!--                           mat-list-item>-->
 
-                    <span [class.font-medium]="'settings' | activeFeature" >            Settings       </span>
-                    <mat-icon matListItemIcon>settings</mat-icon>
+<!--                    <span [class.font-medium]="'settings' | activeFeature" >            Settings       </span>-->
+<!--                    <mat-icon matListItemIcon>settings</mat-icon>-->
 
-                </a>
+<!--                </a>-->
             </div>
 
         } @else if(layoutView()){

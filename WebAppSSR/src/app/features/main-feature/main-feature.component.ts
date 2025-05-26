@@ -12,6 +12,7 @@ import {LoadingPageComponent} from "./components/loading-page/loading-page.compo
 import {NavigationBarComponent} from "./components/navigation-bar/navigation-bar.component";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {MenuStyleDto} from "../../core/http/dto/menu-dto/menu-style/menu-style.dto";
+import {MenuStoreService} from "../../core/stores/menu-store/menu-store.service";
 
 @Component({
   selector: 'app-main-feature',
@@ -35,6 +36,7 @@ export class MainFeatureComponent implements AfterViewInit {
     private readonly menuService = inject(MenuService);
     private readonly menuAnalyticsService = inject(MenuAnalyticsService);
     private readonly destroyRef = inject(DestroyRef);
+    private menuStoreService = inject(MenuStoreService);
     path = this.route.snapshot.routeConfig?.path;
     loading = signal(true);
     styleLoaded = signal(false);
@@ -55,6 +57,8 @@ export class MainFeatureComponent implements AfterViewInit {
                         this.restaurantName.set(data.name)
                         this.menuId = data.id;
                         this.menuStyle = data.menuStyle
+                        this.menuStoreService.setMenu(data);
+                        this.menuStoreService.setUrl(`/${data.url}`)
                     }
                 });
         } else if (this.path == 'qr/:id') {
@@ -67,6 +71,8 @@ export class MainFeatureComponent implements AfterViewInit {
                         this.restaurantName.set(data.name)
                         this.menuId = data.id;
                         this.menuStyle = data.menuStyle
+                        this.menuStoreService.setMenu(data);
+                        this.menuStoreService.setUrl(`/qr/${data.id}`)
                     }
                 });
         }
@@ -113,6 +119,7 @@ body {
             this.menuService.getDataById(this.menuId).pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe({
                     next: value => {
+                        this.menuStoreService.setMenuData(value);
                         this.data.set(value);
                         const elapsed = Date.now() - startTime;
                         const remaining = 3000 - elapsed;

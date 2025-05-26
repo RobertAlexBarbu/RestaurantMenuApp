@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, output } from '@angu
 import { Roles } from '../../../../shared/configs/Roles'
 import { MatIcon } from '@angular/material/icon'
 import { MatButton, MatIconButton } from '@angular/material/button'
-import { Router } from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 import { ActiveFeatureStore } from '../../../../core/stores/active-feature.store'
 import { AsyncPipe, NgIf } from '@angular/common'
 import { IsRolePipe } from '../../../../shared/pipes/is-role/is-role.pipe'
@@ -25,12 +25,17 @@ export class NavigationBarComponent {
     private readonly router = inject(Router)
     protected readonly Roles = Roles
     appearance = input('drawer')
+    private readonly route = inject(ActivatedRoute)
     readonly navigate = output<boolean>()
-
+    routeUrl = '/' + this.route.snapshot.url.join('/')
     features = this.activeFeatureStore.features
-
+    
+    constructor() {
+        console.log('sidebar', this.routeUrl);
+    }
 
     goTo(path: string) {
+        console.log('bbbb', this.route.snapshot.url)
         this.router.navigate([path]).then(() => {
             this.navigate.emit(true)
         })

@@ -11,7 +11,7 @@ import {
     NavigationDialogComponent,
 } from '../../../features/main-feature/components/navigation-dialog/navigation-dialog.component'
 
-import { Router } from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 import { ScrollService } from '../../../core/services/scroll/scroll.service'
 import { MatDialog } from '@angular/material/dialog'
 
@@ -35,21 +35,35 @@ export class ToolbarComponent {
     private readonly destroyRef = inject(DestroyRef)
     private readonly drawerContentService = inject(ScrollService)
     private readonly dialog = inject(MatDialog)
-
+    private readonly route = inject(ActivatedRoute)
+    routeUrl = '/' + this.route.snapshot.url.join('/')
     private readonly viewContainerRef = inject(ViewContainerRef)
-
+    
+    constructor(){
+        this.route.url.subscribe(routeUrl => {
+            
+        })
+        console.log('toolbar', this.routeUrl);
+    }
+    
     featureName = input<string>()
     subfeatureName = input<string>()
-    navigationVisible = input(true)
+    navigationVisible = input(false)
 
     @HostBinding('class') hostClass = 'sidebar-content';
 
-
+    
     openNavigationDialog() {
+        // let routeUrl = '/' + this.route.snapshot.url.join('/')
         document.querySelectorAll('.sidebar-content').forEach(el => el.classList.remove('sidebar-close'));
         document.querySelectorAll('.sidebar-content').forEach(el => el.classList.add('sidebar-open'));
+        console.log('aaaa', this.routeUrl);
         this.dialog.open(NavigationDialogComponent, {
+
             ...sidebarDialogConfig,
+            data: {
+                routeUrl: this.routeUrl,
+            },
             viewContainerRef: this.viewContainerRef,
         })
     }

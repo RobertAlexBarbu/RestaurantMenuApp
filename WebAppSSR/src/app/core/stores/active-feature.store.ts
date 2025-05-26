@@ -17,6 +17,8 @@ export const ActiveFeatureStore = signalStore(
     withState(initialState),
     withMethods((store) => ({
         setActiveFeatures(url: string) {
+            url = extractRestOfUrl(url)
+
             patchState(store, (state) => {
                 let features: string[] = []
                 if (featuresMap[url] !== undefined) {
@@ -35,8 +37,21 @@ export const ActiveFeatureStore = signalStore(
     })),
 )
 
+function extractRestOfUrl(url: string): string {
+    // Regex explanation:
+    // ^\/                - Starts with '/'
+    // (?:               - Non-capturing group (prefixes)
+    //   qr\/\d+          - Either '/qr/123' (digits only)
+    //   |                - OR
+    //   [^\/]+           - Any chars except '/' (custom part like 'my-url-j4YSzjvG')
+    // )
+    // (\/.*)?            - Optional capturing group for '/rest' (returns '/test' or '')
+    const match = url.match(/^\/(?:qr\/\d+|[^\/]+)(\/.*)?$/);
+    return match?.[1] || ""; // Returns '/test' or ''
+}
+
 const featuresMap: Record<string, string[]> = {
-    '/': ['home'],
+    '': ['home'],
     '/basic/form': ['basic', 'form'],
     '/basic/components': ['basic', 'components'],
     '/basic/ai': ['basic', 'ai'],
@@ -53,14 +68,16 @@ const featuresMap: Record<string, string[]> = {
     '/settings/account': ['settings', 'account'],
     '/settings/preferences': ['settings', 'preferences'],
     '/settings/billing': ['settings', 'billing'],
-  '/menu/food/items': ['menu', 'food', 'food-items'],
+  '/menu/food': ['menu', 'food', 'food-items'],
   '/menu/food/categories': ['menu', 'food', 'food-categories'],
-  '/menu/drinks/items': ['menu', 'drinks', 'drinks-items'],
+  '/menu/drinks': ['menu', 'drinks', 'drinks-items'],
   '/menu/drinks/categories': ['menu', 'drinks', 'drinks-categories'],
   '/menu/details': ['menu', 'details'],
     '/style': ['style'],
     '/analytics': ['analytics', 'analytics-basic'],
-    '/reviews': ['reviews']
+    '/reviews': ['reviews'],
+    '/review': ['review'],
+    '/chat': ['chat']
     
 
 }

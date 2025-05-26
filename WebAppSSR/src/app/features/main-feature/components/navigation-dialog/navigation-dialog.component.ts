@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core'
 import { MatIcon } from '@angular/material/icon'
 import { MatIconButton } from '@angular/material/button'
-import { MatDialogRef } from '@angular/material/dialog'
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog'
 import { LogoComponent } from '../../../../shared/components/logo/logo.component'
 import { AppData } from '../../../../shared/configs/AppData'
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component'
@@ -18,13 +18,14 @@ import {
     MatListItemTitle,
     MatNavList,
 } from '@angular/material/list'
-import { Router } from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 import { IconButtonComponent } from '../../../../shared/components/icon-button/icon-button.component'
 import { Roles } from '../../../../shared/configs/Roles'
 import { IsRolePipe } from '../../../../shared/pipes/is-role/is-role.pipe'
 
 import { ActiveFeatureStore } from '../../../../core/stores/active-feature.store'
 import {fadeInAnimation} from "../../../../app.animations";
+import {MenuStoreService} from "../../../../core/stores/menu-store/menu-store.service";
 
 
 @Component({
@@ -58,6 +59,10 @@ export class NavigationDialogComponent {
     private readonly dialogRef = inject(MatDialogRef<NavigationDialogComponent>)
     private readonly router = inject(Router)
     protected readonly AppData = AppData
+    private readonly route = inject(ActivatedRoute)
+    private readonly data = inject<{routeUrl: string}>(MAT_DIALOG_DATA)
+    private readonly menuStoreService = inject(MenuStoreService);
+    routeUrl = this.menuStoreService.url()
 
     private readonly activeFeatureStore = inject(ActiveFeatureStore)
 
@@ -65,10 +70,10 @@ export class NavigationDialogComponent {
   menuView = signal(false)
 
     constructor() {
-        effect(() => {
-            this.layoutView.set(this.activeFeatureStore.features().includes('layout'))
-          this.menuView.set(this.activeFeatureStore.features().includes('menu'))
-        })
+        // effect(() => {
+        //     this.layoutView.set(this.activeFeatureStore.features().includes('layout'))
+        //   this.menuView.set(this.activeFeatureStore.features().includes('menu'))
+        // })
         // Disable the default close behavior
         this.dialogRef.disableClose = true;
 
@@ -110,7 +115,9 @@ export class NavigationDialogComponent {
             dialogElement.classList.add('closing');
         }
         setTimeout(() => {
-            this.router.navigate([path])
+
+            this.router.navigate([path], {
+            })
         }, 350);
 
     }

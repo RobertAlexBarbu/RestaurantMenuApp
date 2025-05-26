@@ -1,15 +1,14 @@
 
 <div class="flex flex-col gap-2 items-center pt-2 pl-2 pr-2 w-full h-full relative z-2000 left-0  ">
     <app-icon-button
-        (click)="goTo('')"
+        (click)="goTo(routeUrl)"
         [class.bg-secondary-container]="'home' | activeFeature"
         class="w-full"
         icon="home"
         label="Home"
     ></app-icon-button>
-
   <app-icon-button
-    (click)="goTo('/menu/food/items')"
+    (click)="goTo(routeUrl + '/menu/food')"
     [class.bg-secondary-container]="'menu' | activeFeature"
     class="w-full"
     icon="menu_book"
@@ -33,27 +32,27 @@
 <!--    ></app-icon-button>-->
 
     <app-icon-button
-            (click)="goTo('/style')"
-            [class.bg-secondary-container]="'style' | activeFeature"
+            (click)="goTo(routeUrl + '/chat')"
+            [class.bg-secondary-container]="'chat' | activeFeature"
             class="w-full"
-            icon="palette"
-            label="Style"
+            icon="robot_2"
+            label="AI Chat"
     ></app-icon-button>
     
-    <app-icon-button
-        (click)="goTo('/analytics')"
-        [class.bg-secondary-container]="'analytics' | activeFeature"
-        class="w-full"
-        icon="analytics"
-        label="Analytics"
-    ></app-icon-button>
+<!--    <app-icon-button-->
+<!--        (click)="goTo('/analytics')"-->
+<!--        [class.bg-secondary-container]="'analytics' | activeFeature"-->
+<!--        class="w-full"-->
+<!--        icon="analytics"-->
+<!--        label="Analytics"-->
+<!--    ></app-icon-button>-->
 
     <app-icon-button
-            (click)="goTo('/reviews')"
-            [class.bg-secondary-container]="'reviews' | activeFeature"
+            (click)="goTo(routeUrl + '/review')"
+            [class.bg-secondary-container]="'review' | activeFeature"
             class="w-full"
-            icon="star"
-            label="Reviews"
+            icon="rate_review"
+            label="Review"
     ></app-icon-button>
 
 <!--    <app-icon-button-->
@@ -75,15 +74,15 @@
 
 
 
-    <div class="mt-auto justify-self-end mb-4 flex flex-col gap-4 w-full">
-        <app-icon-button
-            (click)="goTo('/settings/general')"
-            [class.bg-secondary-container]="'settings' | activeFeature"
-            class="w-full"
-            icon="settings"
-            label="Settings"
-        ></app-icon-button>
-    </div>
+<!--    <div class="mt-auto justify-self-end mb-4 flex flex-col gap-4 w-full">-->
+<!--        <app-icon-button-->
+<!--            (click)="goTo('/settings/general')"-->
+<!--            [class.bg-secondary-container]="'settings' | activeFeature"-->
+<!--            class="w-full"-->
+<!--            icon="settings"-->
+<!--            label="Settings"-->
+<!--        ></app-icon-button>-->
+<!--    </div>-->
 
 
 </div>

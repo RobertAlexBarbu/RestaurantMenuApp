@@ -10,6 +10,18 @@ export const mainRoutes: Routes = [
             {
                 path: '',
                 component: HomePageComponent,
+            },
+            {
+                path: 'menu',
+                loadChildren: () => import('../menu-feature/menu-feature.routes').then(m => m.menuRoutes)
+            },
+            {
+                path: 'chat',
+                loadComponent: () => import('../chat-feature/chat-feature.component').then(m => m.ChatFeatureComponent),
+             },
+            {
+                path: 'review',
+                loadComponent: () => import('../review-feature/review-feature.component').then(m => m.ReviewFeatureComponent)
             }
         ]
     },
@@ -20,6 +32,10 @@ export const mainRoutes: Routes = [
             {
                 path: '',
                 component: HomePageComponent,
+            },
+            {
+                path: 'menu',
+                loadChildren: () => import('../menu-feature/menu-feature.routes').then(m => m.menuRoutes)
             }
         ]
     },

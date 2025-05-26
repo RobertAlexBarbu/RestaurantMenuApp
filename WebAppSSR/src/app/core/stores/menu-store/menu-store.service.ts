@@ -14,6 +14,7 @@ export interface MenuFeatureStoreState {
     favorites: MenuItemDto[];
     menu: MenuDto
     init: boolean;
+    url: string
 }
 
 export const initialState: MenuFeatureStoreState = {
@@ -52,6 +53,7 @@ export const initialState: MenuFeatureStoreState = {
         name:'',     url: '' ,    imageUrl: null  ,   userId: -1 }
     ,
     init: false,
+    url: '',
     favorites: []
 
 };
@@ -72,7 +74,9 @@ const sortByCategoryElementPosition = (categories: MenuCategoryDto[]) => {
     };
 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class MenuStoreService {
     private readonly state = signal<MenuFeatureStoreState>(initialState);
 
@@ -85,6 +89,7 @@ export class MenuStoreService {
     readonly menu = computed(() => this.state().menu);
     readonly favorites = computed(() => this.state().favorites);
     readonly isInitialized = computed(() => this.state().init);
+    readonly url = computed(() => this.state().url);
 
     // Computed signals
     readonly foodCategoryMap = computed(() =>
@@ -93,13 +98,55 @@ export class MenuStoreService {
     readonly drinksCategoryMap = computed(() =>
         new Map(this.drinksCategories().map(c => [c.id, c]))
     );
-
+    
     readonly foodItemsWithCategory = computed(() =>
         this.foodItems().map(item => ({
             ...item,
             category: this.foodCategoryMap().get(item.menuCategoryId)!
         })).sort(sortByCategoryElementPosition(this.foodCategories()))
     );
+
+    readonly foodCategoriesWithItems = computed(() => {
+        // Get categories sorted by position
+        const sortedCategories = this.foodCategories();
+
+        // Get items with their category info (already sorted by category position then item position)
+        const itemsWithCategory = this.foodItemsWithCategory();
+
+        // Group items by category
+        const itemsByCategory = new Map<number, typeof itemsWithCategory>();
+        itemsWithCategory.forEach(item => {
+            if (!itemsByCategory.has(item.menuCategoryId)) {
+                itemsByCategory.set(item.menuCategoryId, []);
+            }
+            itemsByCategory.get(item.menuCategoryId)?.push(item);
+        });
+
+        // Create the final structure with categories and their items
+        return sortedCategories.map(category => ({
+            ...category,
+            items: itemsByCategory.get(category.id) || []
+        }));
+    });
+
+    // Similarly for drinks if needed
+    readonly drinksCategoriesWithItems = computed(() => {
+        const sortedCategories = this.drinksCategories();
+        const itemsWithCategory = this.drinksItemsWithCategory();
+
+        const itemsByCategory = new Map<number, typeof itemsWithCategory>();
+        itemsWithCategory.forEach(item => {
+            if (!itemsByCategory.has(item.menuCategoryId)) {
+                itemsByCategory.set(item.menuCategoryId, []);
+            }
+            itemsByCategory.get(item.menuCategoryId)?.push(item);
+        });
+
+        return sortedCategories.map(category => ({
+            ...category,
+            items: itemsByCategory.get(category.id) || []
+        }));
+    });
 
     readonly drinksItemsWithCategory = computed(() =>
         this.drinksItems().map(item => ({
@@ -116,6 +163,10 @@ export class MenuStoreService {
                     drinksCategories: [...menuDataDto.drinksMenuCategories],
                     menuDetails: menuDataDto.menuDetails,
         }))
+    }
+    
+    setUrl(url: string) {
+        this.state.update(current => ({...current,url}));
     }
     
     setMenu(menu: MenuDto) {

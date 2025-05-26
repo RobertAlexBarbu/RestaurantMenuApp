@@ -1,0 +1,36 @@
+<app-toolbar [navigationVisible]="true" class="w-full-minus-drawer-sm " featureName="Menu">
+
+    <ng-container *ngTemplateOutlet="tabs" toolbar-navigation>
+    </ng-container>
+
+    <ng-container *ngTemplateOutlet="tabs" toolbar-mobile-navigation>
+    </ng-container>
+    
+</app-toolbar>
+
+<!-- Sidebar content needed for making sure it slides in/out -->
+<div class="pt-toolbar sidebar-content">
+    <mat-tab-nav-panel #tabPanel>
+
+            <div class="pt-tabs-mobile">
+                <router-outlet></router-outlet>
+            </div>
+
+
+    </mat-tab-nav-panel>
+</div>
+
+
+<ng-template #tabs>
+    <nav  [tabPanel]="tabPanel" fitInkBarToContent mat-align-tabs="start" mat-stretch-tabs="true"
+         mat-tab-nav-bar>
+        <a (click)="goTo( './food')"
+           [active]="'food' | activeFeature"
+           mat-tab-link
+        >Food</a>
+        <a (click)="goTo('./drinks')"
+           [active]="'drinks' | activeFeature"
+           mat-tab-link
+        >Drinks</a>
+    </nav>
+</ng-template>
