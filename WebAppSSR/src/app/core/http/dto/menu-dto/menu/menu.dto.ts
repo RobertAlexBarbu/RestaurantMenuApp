@@ -6,3 +6,5 @@ export interface MenuDto {
   imageUrl: string | null
   userId: number
 }
+
+

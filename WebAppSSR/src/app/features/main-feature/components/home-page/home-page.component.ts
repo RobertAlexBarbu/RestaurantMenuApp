@@ -1,17 +1,31 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.component";
 import {MatButton} from "@angular/material/button";
+import {MenuStoreService} from "../../../../core/stores/menu-store/menu-store.service";
+import {NgIf} from "@angular/common";
+import {MatIcon} from "@angular/material/icon";
+import {
+    pageLoadAnimation,
+    slideDownErrorAnimation,
+    slideLeftToRightAnimation,
+    slideRightToLeftAnimation
+} from "../../../../app.animations";
 
 @Component({
   selector: 'app-home-page',
     imports: [
         ToolbarComponent,
-        MatButton
+        MatButton,
+        NgIf,
+        MatIcon
     ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
-    standalone: true
+    standalone: true,
+    animations: [pageLoadAnimation, slideDownErrorAnimation, slideLeftToRightAnimation, slideRightToLeftAnimation]
 })
 export class HomePageComponent {
-
+    private readonly menuStoreService = inject(MenuStoreService);
+    menuDetails = this.menuStoreService.menuDetails()
+    menu = this.menuStoreService.menu()
 }

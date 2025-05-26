@@ -31,3 +31,15 @@ html.bg , body.bg { height: 100%;
 
 }
 body { margin: 0; font-family: Monaco, "Helvetica Neue", sans-serif; }
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

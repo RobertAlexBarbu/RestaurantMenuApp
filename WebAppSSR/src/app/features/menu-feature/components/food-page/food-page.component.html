@@ -1,6 +1,6 @@
 
-<div class="space-y-8 p-page max-w-4xl mx-auto">
-    @for (category of foodData; track category.id) {
+<div class=" p-page max-w-page responsive-page">
+    @for (category of foodData.slice(0, Math.ceil(foodData.length / 2) ); track category.id) {
         @if (category.isVisible) {
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <!-- Category Header -->

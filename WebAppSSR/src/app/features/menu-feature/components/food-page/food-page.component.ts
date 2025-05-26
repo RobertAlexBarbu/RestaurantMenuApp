@@ -20,4 +20,5 @@ import {MatIcon} from "@angular/material/icon";
 export class FoodPageComponent {
     private readonly menuStore = inject(MenuStoreService);
     foodData: MenuCategoryDetailDto[] = this.menuStore.foodCategoriesWithItems()
+    protected readonly Math = Math;
 }

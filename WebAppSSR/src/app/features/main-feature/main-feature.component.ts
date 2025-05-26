@@ -13,6 +13,7 @@ import {NavigationBarComponent} from "./components/navigation-bar/navigation-bar
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {MenuStyleDto} from "../../core/http/dto/menu-dto/menu-style/menu-style.dto";
 import {MenuStoreService} from "../../core/stores/menu-store/menu-store.service";
+import {RightSidebarComponent} from "../../shared/components/right-sidebar/right-sidebar.component";
 
 @Component({
   selector: 'app-main-feature',
@@ -23,7 +24,8 @@ import {MenuStoreService} from "../../core/stores/menu-store/menu-store.service"
         RouterOutlet,
         NavigationBarComponent,
         CdkScrollable,
-        CdkScrollable
+        CdkScrollable,
+        RightSidebarComponent
     ],
   templateUrl: './main-feature.component.html',
   styleUrl: './main-feature.component.scss',
