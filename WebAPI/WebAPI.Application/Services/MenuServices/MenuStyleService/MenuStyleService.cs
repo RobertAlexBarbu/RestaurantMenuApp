@@ -30,6 +30,7 @@ public class MenuStyleService(AppDbContext context, IMapper mapper): IMenuStyleS
 
     public async Task CreateAsync(int userId, CreateMenuStyleDto createMenuStyleDto)
     {
+        Console.WriteLine("Tryina create styles from Dto");
         await context.CreateFromDtoWithUserIdAsync<MenuStyle, CreateMenuStyleDto>(userId, createMenuStyleDto,
             mapper);
     }

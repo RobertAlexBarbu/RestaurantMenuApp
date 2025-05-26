@@ -19,7 +19,7 @@ export class MenuStyleService {
 
     public updateById(
         id: number,
-        updateMenuStyleDto: UpdateMenuStyleDto
+        updateMenuStyleDto: Partial<UpdateMenuStyleDto>
     ): Observable<void> {
         return this.http.patch<void>(
             `${this.baseUrl}/UpdateById/${id}`,

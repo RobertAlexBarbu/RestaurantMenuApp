@@ -51,6 +51,7 @@ public class MappingProfile : Profile
         CreateMap<MenuAccess, MenuAccessDto>();
         CreateMap<CreateMenuAccessDto, MenuAccess>();
         CreateMap<MenuItemAccess, MenuItemAccessDto>();
+        CreateMap<CreateMenuStyleDto, MenuStyle>();
         CreateMap<CreateMenuItemAccessDto, MenuItemAccess>();
         CreateMap<CreateMenuDetailsDto, MenuDetails>();
         CreateMap<MenuDetails, MenuDetailsDto>();

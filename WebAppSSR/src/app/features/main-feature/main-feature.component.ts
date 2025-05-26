@@ -11,6 +11,7 @@ import {JsonPipe} from "@angular/common";
 import {LoadingPageComponent} from "./components/loading-page/loading-page.component";
 import {NavigationBarComponent} from "./components/navigation-bar/navigation-bar.component";
 import {CdkScrollable} from "@angular/cdk/overlay";
+import {MenuStyleDto} from "../../core/http/dto/menu-dto/menu-style/menu-style.dto";
 
 @Component({
   selector: 'app-main-feature',
@@ -40,9 +41,9 @@ export class MainFeatureComponent implements AfterViewInit {
     restaurantName = signal('');
     menuId = -1;
     data = signal<MenuDataDto | null>(null);
+    menuStyle!: MenuStyleDto
     
     constructor() {
-        console.log('heee');
         console.log(this.path);
         if (this.path == ':url') {
             this.menuService.getByUrl(this.route.snapshot.params['url'])
@@ -51,9 +52,9 @@ export class MainFeatureComponent implements AfterViewInit {
                 )
                 .subscribe({
                     next: data => {
-                        console.log(data);
                         this.restaurantName.set(data.name)
                         this.menuId = data.id;
+                        this.menuStyle = data.menuStyle
                     }
                 });
         } else if (this.path == 'qr/:id') {
@@ -65,6 +66,7 @@ export class MainFeatureComponent implements AfterViewInit {
                     next: data => {
                         this.restaurantName.set(data.name)
                         this.menuId = data.id;
+                        this.menuStyle = data.menuStyle
                     }
                 });
         }
@@ -77,14 +79,14 @@ export class MainFeatureComponent implements AfterViewInit {
             const style = document.createElement('style');
             style.textContent = `
         :root {
-            --mat-sys-background: red;
-                        --mat-sys-surface: red;
-                        --mat-sys-label-large-font: "Barriecito";
-                        --mat-toolbar-title-text-font: "Barriecito";
+            ${this.menuStyle.fontCss}
+            ${this.menuStyle.themeCss}
         }
-        html, body {
-        font-family: "Barriecito";
-        }
+        
+body {
+  font-family: ${this.menuStyle.font}, "Helvetica Neue", sans-serif;
+}
+
 
     `;
             document.head.appendChild(style);
