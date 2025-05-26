@@ -10,6 +10,7 @@ import {
     slideLeftToRightAnimation,
     slideRightToLeftAnimation
 } from "../../../../app.animations";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -17,7 +18,8 @@ import {
         ToolbarComponent,
         MatButton,
         NgIf,
-        MatIcon
+        MatIcon,
+        RouterLink
     ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
@@ -28,4 +30,5 @@ export class HomePageComponent {
     private readonly menuStoreService = inject(MenuStoreService);
     menuDetails = this.menuStoreService.menuDetails()
     menu = this.menuStoreService.menu()
+    url = this.menuStoreService.url()
 }

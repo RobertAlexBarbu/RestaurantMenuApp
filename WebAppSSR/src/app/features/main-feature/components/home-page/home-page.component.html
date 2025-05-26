@@ -18,7 +18,7 @@
         <!-- Navigation Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <!-- Food Menu Card -->
-            <div class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
+            <div [routerLink]="[url, 'menu', 'food']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
                     <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
                         <mat-icon >restaurant</mat-icon>
@@ -29,7 +29,7 @@
             </div>
 
             <!-- Drinks Menu Card -->
-            <div class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
+            <div [routerLink]="[url, 'menu', 'drinks']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
                     <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
                         <mat-icon class="">local_bar</mat-icon>
@@ -40,7 +40,7 @@
             </div>
 
             <!-- AI Chat Card -->
-            <div class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
+            <div [routerLink]="[url, 'chat']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
                     <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
                         <mat-icon class="">smart_toy</mat-icon>
@@ -51,7 +51,7 @@
             </div>
 
             <!-- Leave Review Card -->
-            <div class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
+            <div [routerLink]="[url, 'review']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
                     <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
                         <mat-icon class="">rate_review</mat-icon>
