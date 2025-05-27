@@ -1,1 +1,23 @@
-<p>chat-feature works!</p>
+<app-toolbar featureName="AI Chat" class="w-full-minus-drawer-sm"></app-toolbar>
+
+<div class="max-w-4xl m-auto pb-36 pt-toolbar ">
+    <div class="sidebar-content page-load-animation ">
+        <app-chat-messages class="sidebar-content" (typingDone)="scrollDown()" [loadingMessage]="loadingMessage()" [messages]="sortedMessages()"
+                           [newMessage]="newMessage()">
+            <div class="flex flex-col gap-4 mt-48 items-center" empty-messages>
+                <div class="text-4xl text-center">How can I help you?</div>
+                <div class="flex flex-col gap-2">
+                    <button (click)="sendFormattingQuestion()" mat-stroked-button>Get Food Recommendations</button>
+                    <button (click)="sendFormattingQuestion()" mat-stroked-button>Get Drinks Recommendations</button>
+                </div>
+            </div>
+        </app-chat-messages>
+    </div>
+
+    
+    <div  class="w-full page-load-animation bg-surface sidebar-content fixed bottom-0 right-0 w-full-minus-drawer-sm">
+        <app-chat-input  (newMessage)="askQuestion($event)" (stopPrompt)="stopPrompt()"
+                        [disabledStopButton]="!loadingMessage()"></app-chat-input>
+    </div>
+
+</div>

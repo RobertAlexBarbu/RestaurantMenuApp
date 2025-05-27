@@ -58,6 +58,8 @@ export class ToolbarComponent {
             ...responsiveDialogConfig,
             autoFocus: false,
             restoreFocus: false,
+            height: '530px',
+            width: '500px',
             viewContainerRef: this.viewContainerRef,
         })
     }

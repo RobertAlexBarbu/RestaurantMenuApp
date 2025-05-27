@@ -15,7 +15,7 @@
                     <ng-content select="[toolbar-navigation]"></ng-content>
                 </div>
             }
-            <div  class="ml-auto mr-4 fade-in">
+            <div  class="ml-auto mr-4 page-load-animation">
                 <ng-content></ng-content>
 
                 <button (click)="openFavoritesDialog()" [matBadge]="menuStore.favoritesIds().length" mat-stroked-button><mat-icon>bookmark</mat-icon>Favorites</button>
@@ -26,8 +26,8 @@
     </mat-toolbar>
     @if (navigationVisible()) {
         <div 
-             class="visible-mobile bg-surface fixed top-toolbar pl-4 pr-4 pb-2 page-load-animation w-full z-2000 ">
-            <div >
+             class="visible-mobile bg-surface fixed top-toolbar pl-4 pr-4 pb-2  w-full z-2000 ">
+            <div class="page-load-animation" >
                 <ng-content  select="[toolbar-mobile-navigation]"></ng-content>
             </div>
 

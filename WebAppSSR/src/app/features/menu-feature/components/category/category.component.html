@@ -1,4 +1,4 @@
-@if (category().isVisible) {
+@if (category().isVisible && category().items.length > 0) {
     <div class="bg-white corner-l  overflow-hidden">
         <!-- Category Header -->
         <div class="bg-secondary-container p-4 ">
@@ -7,9 +7,10 @@
                 <p class="text-sm text-on-secondary-container mt-1">{{ category().description }}</p>
             }
         </div>
-
+        
         <!-- Items List -->
         <div class="divide-y ">
+
             @for (item of category().items; track item.id) {
                 @if (item.isVisible) {
                     <div class="p-2 hover:bg-gray-50 transition-colors">
@@ -54,4 +55,6 @@
             }
         </div>
     </div>
+} @else {
+    <div class="text-xl">Nothing here yet</div>
 }
