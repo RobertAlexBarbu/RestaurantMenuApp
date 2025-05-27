@@ -112,6 +112,10 @@ export class StyleFeatureComponent {
             })
         }
     }
+    
+    reloadPreview() {
+        this.phone()?.reload()
+    }
     hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
     ngAfterViewInit() {
 

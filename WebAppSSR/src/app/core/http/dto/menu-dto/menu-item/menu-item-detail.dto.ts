@@ -20,4 +20,5 @@ export interface MenuItemDetailDto {
     category: MenuCategoryDto;
     menuId: number;
     userId: number;
+
 }
