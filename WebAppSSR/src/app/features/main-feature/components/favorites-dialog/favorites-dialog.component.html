@@ -1,1 +1,56 @@
-<p>favorites-dialog works!</p>
+<h2 mat-dialog-title>Favorites</h2>
+<mat-dialog-content responsive-dialog-content>
+    <app-info-text class="">Add items to favorites so you can easily access them here</app-info-text>
+    @if(items().length !== 0) {
+        <div class="flex flex-col gap-4 mt-4">
+            @for (item of items(); track item.id) {
+                @if (item.isVisible) {
+                    <div class="p-2 hover:bg-gray-50 transition-colors bg-surface-container-lowest corner-l">
+                        <div class="flex flex-row gap-2">
+                            <div class="flex items-center flex-col self-start justify-start">
+
+                                <button (click)="removeFromFavorites(item.id)" [matTooltip]="'Remove from Favorites'" mat-icon-button><mat-icon>bookmark_remove</mat-icon></button>
+
+
+                                @if(item.imageUrl) {
+                                    <app-item-image-button [itemName]="item.name" [imageUrl]="item.imageUrl"></app-item-image-button>
+                                }
+
+                            </div>
+                            <div class="w-full">
+                                <div class="flex justify-between items-start">
+
+                                    <div class="flex-1">
+                                        <div class="flex flex-row gap-2">
+                                            <div>
+                                                <h3 class="font-medium ">{{ item.name }}</h3>
+                                                @if (item.category.name) {
+                                                    <p class="text-sm text-primary font-medium mt-1">{{ item.category.name }}</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4  text-right">
+                                        <span class="font-medium text-primary">{{ item.price | currency }}</span>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div (click)="openDetailsDialog(item,  item.category)" class="link ml-auto text-sm ">View Details</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+    } @else {
+        <div class="text-xl mt-4">You have no favorites yet.</div>
+    }
+</mat-dialog-content>
+<mat-dialog-actions>
+<!--    <button (click)="onNoClick()" mat-button>No Thanks</button>-->
+    <button (click)="onNoClick()" mat-button>Close</button>
+</mat-dialog-actions>
+

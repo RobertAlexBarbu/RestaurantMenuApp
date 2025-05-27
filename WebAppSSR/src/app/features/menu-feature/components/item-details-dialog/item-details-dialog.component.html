@@ -106,6 +106,10 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button (click)="onNoClick()" mat-button><mat-icon>heart_plus</mat-icon>Add to Favorites</button>
+    @if(item.id | isFavorite) {
+        <button (click)="removeFromFavorites()"  mat-button><mat-icon>bookmark_remove</mat-icon>Remove from Favorites</button>
+    } @else {
+        <button (click)="addToFavorites()"  mat-button><mat-icon>bookmark_add</mat-icon>Add to Favorites</button>
+    }
     <button (click)="onNoClick()" mat-button>Ok</button>
 </mat-dialog-actions>

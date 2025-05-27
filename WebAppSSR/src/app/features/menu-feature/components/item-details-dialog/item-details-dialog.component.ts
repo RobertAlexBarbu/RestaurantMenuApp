@@ -6,7 +6,7 @@ import {
     MatDialogRef,
     MatDialogTitle
 } from "@angular/material/dialog";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
 import {MenuItemDto} from "../../../../core/http/dto/menu-dto/menu-item/menu-item.dto";
 import {MatIcon} from "@angular/material/icon";
@@ -14,6 +14,10 @@ import {ImageComponent} from "../../../../shared/components/image/image.componen
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {StorageService} from "../../../../core/services/storage/storage.service";
 import {CurrencyPipe, DatePipe} from "@angular/common";
+import {MenuStoreService} from "../../../../core/stores/menu-store/menu-store.service";
+import {NotificationService} from "../../../../core/services/notification/notification.service";
+import {IsFavoritePipe} from "../../../../shared/pipes/is-favorite/is-favorite.pipe";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-item-details-dialog',
@@ -25,7 +29,10 @@ import {CurrencyPipe, DatePipe} from "@angular/common";
         MatIcon,
         ImageComponent,
         DatePipe,
-        CurrencyPipe
+        CurrencyPipe,
+        IsFavoritePipe,
+        MatIconButton,
+        MatTooltip
     ],
   templateUrl: './item-details-dialog.component.html',
   styleUrl: './item-details-dialog.component.scss',
@@ -38,8 +45,20 @@ export class ItemDetailsDialogComponent {
     category: MenuCategoryDto = this.data.category;
     firebaseFileUrl = signal<string | null>(null)
     private readonly storage = inject(StorageService)
+    private readonly menuStoreService = inject(MenuStoreService);
+    private readonly notificationService = inject(NotificationService);
+    
     private readonly destroyRef = inject(DestroyRef)
 
+    addToFavorites( ){
+        this.menuStoreService.addIdToFavorites(this.data.item.id);
+        this.notificationService.notify("Item added to favorites.")
+    }
+    removeFromFavorites( ){
+        this.menuStoreService.removeIdFromFavorites(this.data.item.id);
+        this.notificationService.notify("Item removed from favorites.")
+    }
+    
     constructor(
         private renderer: Renderer2,
         private elRef: ElementRef,

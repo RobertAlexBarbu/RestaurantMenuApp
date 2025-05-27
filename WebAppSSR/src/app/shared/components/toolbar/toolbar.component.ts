@@ -56,6 +56,8 @@ export class ToolbarComponent {
     openFavoritesDialog(): void {
         this.dialog.open(FavoritesDialogComponent, {
             ...responsiveDialogConfig,
+            autoFocus: false,
+            restoreFocus: false,
             viewContainerRef: this.viewContainerRef,
         })
     }
@@ -78,6 +80,7 @@ export class ToolbarComponent {
             data: {
                 routeUrl: this.routeUrl,
             },
+
             viewContainerRef: this.viewContainerRef,
         })
     }

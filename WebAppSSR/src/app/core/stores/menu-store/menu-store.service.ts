@@ -1,9 +1,10 @@
-import {computed, Injectable, signal} from '@angular/core';
+import {computed, Injectable, Signal, signal} from '@angular/core';
 import {MenuItemDto} from "../../http/dto/menu-dto/menu-item/menu-item.dto";
 import {MenuCategoryDto} from "../../http/dto/menu-dto/menu-category/menu-category.dto";
 import {MenuDetailsDto} from "../../http/dto/menu-dto/menu-details/menu-details.dto";
 import {MenuDataDto} from "../../http/dto/menu-dto/menu/menu-data.dto";
 import {MenuDto} from "../../http/dto/menu-dto/menu/menu.dto";
+import {MenuItemDetailDto} from "../../http/dto/menu-dto/menu-item/menu-item-detail.dto";
 
 export interface MenuFeatureStoreState {
     foodItems: MenuItemDto[];
@@ -130,13 +131,13 @@ export class MenuStoreService {
         }));
     });
 
-    readonly favoriteItemsWithCategory = computed(() => {
+    readonly favoriteItemsWithCategory: Signal<MenuItemDetailDto[]> = computed(() => {
         const foodItemsMap = new Map(this.foodItemsWithCategory().map(item => [item.id, item]));
         const drinksItemsMap = new Map(this.drinksItemsWithCategory().map(item => [item.id, item]));
 
         return this.favoritesIds().map(id =>
             foodItemsMap.get(id) || drinksItemsMap.get(id)
-        ).filter(Boolean); // remove undefined if any ID not found
+        ).filter(i => i!== undefined); // remove undefined if any ID not found
     });
 
     // Similarly for drinks if needed
