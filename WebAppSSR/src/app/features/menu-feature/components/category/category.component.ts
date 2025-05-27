@@ -10,6 +10,9 @@ import {MenuFeatureComponent} from "../../menu-feature.component";
 import {ItemDetailsDialogComponent} from "../item-details-dialog/item-details-dialog.component";
 import {MenuItemDto} from "../../../../core/http/dto/menu-dto/menu-item/menu-item.dto";
 import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
+import {MenuStoreService} from "../../../../core/stores/menu-store/menu-store.service";
+import {IsFavoritePipe} from "../../../../shared/pipes/is-favorite/is-favorite.pipe";
+import {NotificationService} from "../../../../core/services/notification/notification.service";
 
 @Component({
   selector: 'app-category',
@@ -18,7 +21,8 @@ import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/
         MatIcon,
         MatIconButton,
         MatTooltip,
-        ItemImageButtonComponent
+        ItemImageButtonComponent,
+        IsFavoritePipe
     ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
@@ -28,6 +32,8 @@ export class CategoryComponent {
     category = input.required<MenuCategoryDetailDto>();
     private readonly viewContainerRef = inject(ViewContainerRef);
     private readonly dialog = inject(MatDialog);
+    menuStoreService = inject(MenuStoreService);
+    private readonly notificationService = inject(NotificationService);
     openDetailsDialog(item: MenuItemDto, category: MenuCategoryDto) {
         this.dialog.open(ItemDetailsDialogComponent, {
             data: {
@@ -36,5 +42,14 @@ export class CategoryComponent {
             },
             viewContainerRef: this.viewContainerRef
         })
+    }
+    
+    addToFavorites(id: number ){
+        this.menuStoreService.addIdToFavorites(id);
+        this.notificationService.notify("Item added to favorites.")
+    }
+    removeFromFavorites(id: number ){
+        this.menuStoreService.removeIdFromFavorites(id);
+        this.notificationService.notify("Item removed from favorites.")
     }
 }

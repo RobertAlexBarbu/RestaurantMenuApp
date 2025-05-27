@@ -17,7 +17,8 @@
             }
             <div  class="ml-auto mr-4 fade-in">
                 <ng-content></ng-content>
-                <button mat-stroked-button><mat-icon>favorite</mat-icon>Favorites</button>
+
+                <button (click)="openFavoritesDialog()" [matBadge]="menuStore.favoritesIds().length" mat-stroked-button><mat-icon>bookmark</mat-icon>Favorites</button>
 
             </div>
 

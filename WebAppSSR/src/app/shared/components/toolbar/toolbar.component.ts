@@ -1,6 +1,6 @@
 import {
     ChangeDetectionStrategy,
-    Component,
+    Component, computed,
     DestroyRef,
     HostBinding,
     inject,
@@ -19,11 +19,16 @@ import { MatToolbar } from '@angular/material/toolbar'
 import { MatIcon } from '@angular/material/icon'
 import { MatButton, MatIconButton } from '@angular/material/button'
 import { fadeInAnimation, pageLoadAnimation, toolbarLoadAnimation } from '../../../app.animations'
-import { sidebarDialogConfig } from '../../configs/dialogs.config'
+import {responsiveDialogConfig, sidebarDialogConfig} from '../../configs/dialogs.config'
+import {MenuStoreService} from "../../../core/stores/menu-store/menu-store.service";
+import {MatBadge} from "@angular/material/badge";
+import {
+    FavoritesDialogComponent
+} from "../../../features/main-feature/components/favorites-dialog/favorites-dialog.component";
 
 @Component({
     selector: 'app-toolbar',
-    imports: [MatToolbar, MatIcon, MatIconButton, MatButton],
+    imports: [MatToolbar, MatIcon, MatIconButton, MatButton, MatBadge, MatBadge],
     templateUrl: './toolbar.component.html',
     styleUrl: './toolbar.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,12 +43,21 @@ export class ToolbarComponent {
     private readonly route = inject(ActivatedRoute)
     routeUrl = '/' + this.route.snapshot.url.join('/')
     private readonly viewContainerRef = inject(ViewContainerRef)
+     readonly menuStore = inject(MenuStoreService);
+    favoritesCount = computed(() =>this.menuStore.favoritesIds())
     
     constructor(){
         this.route.url.subscribe(routeUrl => {
             
         })
         console.log('toolbar', this.routeUrl);
+    }
+    
+    openFavoritesDialog(): void {
+        this.dialog.open(FavoritesDialogComponent, {
+            ...responsiveDialogConfig,
+            viewContainerRef: this.viewContainerRef,
+        })
     }
     
     featureName = input<string>()

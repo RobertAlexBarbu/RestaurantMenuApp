@@ -11,7 +11,7 @@ export interface MenuFeatureStoreState {
     foodCategories: MenuCategoryDto[];
     drinksCategories: MenuCategoryDto[];
     menuDetails: MenuDetailsDto
-    favorites: MenuItemDto[];
+    favoritesIds: number[];
     menu: MenuDto
     init: boolean;
     url: string
@@ -54,7 +54,7 @@ export const initialState: MenuFeatureStoreState = {
     ,
     init: false,
     url: '',
-    favorites: []
+    favoritesIds: []
 
 };
 
@@ -82,12 +82,13 @@ export class MenuStoreService {
 
     // State signals
     readonly foodItems = computed(() => this.state().foodItems);
+    readonly favoritesIds = computed(() => this.state().favoritesIds);
     readonly drinksItems = computed(() => this.state().drinksItems);
     readonly foodCategories = computed(() => this.state().foodCategories.sort((a, b) => a.position - b.position));
     readonly drinksCategories = computed(() => this.state().drinksCategories.sort((a, b) => a.position - b.position));
     readonly menuDetails = computed(() => this.state().menuDetails);
     readonly menu = computed(() => this.state().menu);
-    readonly favorites = computed(() => this.state().favorites);
+
     readonly isInitialized = computed(() => this.state().init);
     readonly url = computed(() => this.state().url);
 
@@ -105,7 +106,7 @@ export class MenuStoreService {
             category: this.foodCategoryMap().get(item.menuCategoryId)!
         })).sort(sortByCategoryElementPosition(this.foodCategories()))
     );
-
+    readonly favoritesSet = computed(() => new Set(this.state().favoritesIds));
     readonly foodCategoriesWithItems = computed(() => {
         // Get categories sorted by position
         const sortedCategories = this.foodCategories().filter(c => c.isVisible);
@@ -129,10 +130,20 @@ export class MenuStoreService {
         }));
     });
 
+    readonly favoriteItemsWithCategory = computed(() => {
+        const foodItemsMap = new Map(this.foodItemsWithCategory().map(item => [item.id, item]));
+        const drinksItemsMap = new Map(this.drinksItemsWithCategory().map(item => [item.id, item]));
+
+        return this.favoritesIds().map(id =>
+            foodItemsMap.get(id) || drinksItemsMap.get(id)
+        ).filter(Boolean); // remove undefined if any ID not found
+    });
+
     // Similarly for drinks if needed
     readonly drinksCategoriesWithItems = computed(() => {
         const sortedCategories = this.drinksCategories().filter(c => c.isVisible);
         const itemsWithCategory = this.drinksItemsWithCategory().filter(c => c.isVisible);
+        
 
         const itemsByCategory = new Map<number, typeof itemsWithCategory>();
         itemsWithCategory.forEach(item => {
@@ -175,10 +186,17 @@ export class MenuStoreService {
         }))
     }
 
-    addItemToFavorites(item: MenuItemDto): void {
+    addIdToFavorites(id: number): void {
         this.state.update(current => ({
             ...current,
-            favorites: [...current.favorites, item]
+            favoritesIds: [...current.favoritesIds, id]
+        }));
+    }
+
+    removeIdFromFavorites(id: number): void {
+        this.state.update(current => ({
+            ...current,
+            favoritesIds: current.favoritesIds.filter(favId => favId !== id)
         }));
     }
 

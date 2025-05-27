@@ -15,7 +15,12 @@
                     <div class="p-2 hover:bg-gray-50 transition-colors">
                         <div class="flex flex-row gap-2">
                             <div class="flex items-center flex-col self-start justify-start">
-                                <button [matTooltip]="'Add to Favorites'" mat-icon-button><mat-icon>heart_plus</mat-icon></button>
+                                @if(item.id | isFavorite) {
+                                    <button (click)="removeFromFavorites(item.id)" [matTooltip]="'Remove from Favorites'" mat-icon-button><mat-icon>bookmark_remove</mat-icon></button>
+                                } @else {
+                                    <button (click)="addToFavorites(item.id)" [matTooltip]="'Add to Favorites'" mat-icon-button><mat-icon>bookmark_add</mat-icon></button>
+                                } 
+
                                 @if(item.imageUrl) {
                                     <app-item-image-button [itemName]="item.name" [imageUrl]="item.imageUrl"></app-item-image-button>
                                 }
