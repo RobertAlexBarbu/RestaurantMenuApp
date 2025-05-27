@@ -1,71 +1,11 @@
 
-<div class=" p-page max-w-page responsive-page">
-    @for (category of foodData.slice(0, Math.ceil(foodData.length / 2) ); track category.id) {
-        @if (category.isVisible) {
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <!-- Category Header -->
-                <div class="bg-secondary-container p-4 border-b border-amber-200">
-                    <h2 class="text-xl font-bold text-amber-800">{{ category.name }}</h2>
-                    @if (category.description) {
-                        <p class="text-sm text-amber-600 mt-1">{{ category.description }}</p>
-                    }
-                </div>
+<div class=" p-page max-w-page responsive-page page-load-animation">
 
-                <!-- Items List -->
-                <div class="divide-y divide-gray-100">
-                    @for (item of category.items; track item.id) {
-                        @if (item.isVisible) {
-                            <div class="p-2 hover:bg-gray-50 transition-colors">
-                                <div class="flex justify-between items-start">
-                                    <div class="flex items-center self-center justify-center">
-                                        <button mat-icon-button><mat-icon>star</mat-icon></button>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="flex flex-row gap-2">
-
-                                            <div>
-                                                <h3 class="font-medium text-gray-900">{{ item.name }}</h3>
-                                                @if (item.description) {
-                                                    <p class="text-sm text-gray-500 mt-1">{{ item.description }}</p>
-                                                }
-                                            </div>
-
-                                        </div>
-
-
-<!--                                        @if (item.ingredients) {-->
-<!--                                            <p class="text-xs text-gray-400 mt-1">Ingredients: {{ item.ingredients }}</p>-->
-<!--                                        }-->
-                                    </div>
-                                    <div class="ml-4  text-right">
-                                        <span class="font-medium text-amber-600">{{ item.price | currency }}</span>
-<!--                                        @if (item.weight) {-->
-<!--                                            <span class="block text-xs text-gray-400">{{ item.weight }}</span>-->
-<!--                                        }-->
-                                    </div>
-
-                                </div>
-                                <div class="flex">
-                                    <div class="link ml-auto text-sm">View Details</div>
-                                </div>
-
-
-
-                                @if (item.nutritionalValues || item.allergens) {
-<!--                                    <div class="mt-2 pt-2 border-t border-gray-100 text-xs text-gray-500">-->
-<!--                                        @if (item.nutritionalValues) {-->
-<!--                                            <p>Nutrition: {{ item.nutritionalValues }}</p>-->
-<!--                                        }-->
-<!--                                        @if (item.allergens) {-->
-<!--                                            <p class="mt-1">Allergens: {{ item.allergens }}</p>-->
-<!--                                        }-->
-<!--                                    </div>-->
-                                }
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
+        @for (category of foodData; track category.id) {
+            <app-category [category]="category"></app-category>
         }
-    }
+
+
+
+
 </div>

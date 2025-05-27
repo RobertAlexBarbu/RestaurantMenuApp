@@ -1,6 +1,6 @@
 <app-toolbar featureName="Home" class="w-full-minus-drawer-sm"></app-toolbar>
 
-<div class="pt-toolbar sidebar-content bg-surface min-h-screen fade-in" >
+<div class="pt-toolbar sidebar-content bg-surface min-h-screen page-load-animation" >
     <div class="p-page" >
         <!-- Hero Section -->
         <div class="bg-primary-container rounded-2xl p-8 md:p-16 mb-8 text-center">
@@ -8,7 +8,7 @@
                 <h1 class="text-3xl md:text-5xl font-bold text-on-primary-container mb-8">
                     Welcome to {{menu.name}}
                 </h1>
-                <button mat-flat-button>
+                <button mat-flat-button [routerLink]="[url, 'menu', 'food']">
                     <mat-icon >restaurant_menu</mat-icon>
                     View Our Menu
                 </button>
@@ -20,7 +20,7 @@
             <!-- Food Menu Card -->
             <div [routerLink]="[url, 'menu', 'food']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
-                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
+                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                         <mat-icon >restaurant</mat-icon>
                     </div>
                     <h3 class="text-xl font-semibold text-on-surface mb-2">Food Menu</h3>
@@ -31,7 +31,7 @@
             <!-- Drinks Menu Card -->
             <div [routerLink]="[url, 'menu', 'drinks']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
-                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
+                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                         <mat-icon class="">local_bar</mat-icon>
                     </div>
                     <h3 class="text-xl font-semibold text-on-surface mb-2">Drinks Menu</h3>
@@ -42,7 +42,7 @@
             <!-- AI Chat Card -->
             <div [routerLink]="[url, 'chat']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
-                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
+                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                         <mat-icon class="">smart_toy</mat-icon>
                     </div>
                     <h3 class="text-xl font-semibold text-on-surface mb-2">AI Chat</h3>
@@ -53,7 +53,7 @@
             <!-- Leave Review Card -->
             <div [routerLink]="[url, 'review']" class="bg-surface-container-lowest rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <div class="text-center">
-                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 transition-transform duration-300">
+                    <div class="bg-primary-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                         <mat-icon class="">rate_review</mat-icon>
                     </div>
                     <h3 class="text-xl font-semibold text-on-surface mb-2">Leave a Review</h3>
@@ -153,7 +153,7 @@
                             </div>
 
                             <div class="flex items-center text-on-surface-variant text-sm mt-4">
-                                <mat-icon class="mr-2 text-sm">info</mat-icon>
+
                                 <span>Free WiFi available for all guests</span>
                             </div>
                         </div>

@@ -22,6 +22,7 @@ export class PhoneComponent {
 
     loading = signal<boolean>(true)
     showIFrame = signal<boolean>(true)
+    reloadVisible = input(true);
 
 
     reload() {

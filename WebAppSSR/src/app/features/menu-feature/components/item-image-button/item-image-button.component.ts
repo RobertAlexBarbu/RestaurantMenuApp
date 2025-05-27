@@ -25,7 +25,7 @@ import {StorageService} from "../../../../core/services/storage/storage.service"
 export class ItemImageButtonComponent {
     private globalClickListener: (() => void) | null = null
     isOpen = false
-    itemName = input<string>('');
+    itemName = input<string>('')
     imageUrl = input<string|null>(null)
     readonly overlayPane = viewChild.required<ElementRef>('overlayPane')
     firebaseFileUrl = signal<string | null>(null)

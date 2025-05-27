@@ -18,10 +18,13 @@
         }
 
     </div>
-    <div (click)="reload()" class="m-auto pt-2 pb-2">
-        <button class=" w-full m-auto" mat-flat-button>
-            <mat-icon>refresh</mat-icon>
-            Reload
-        </button>
-    </div>
+    @if(reloadVisible()) {
+        <div (click)="reload()" class="m-auto pt-2 pb-2">
+            <button class=" w-full m-auto" mat-flat-button>
+                <mat-icon>refresh</mat-icon>
+                Reload
+            </button>
+        </div>
+    }
+
 </div>

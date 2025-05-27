@@ -6,17 +6,18 @@
                     mat-icon-button>
                 <mat-icon>menu</mat-icon>
             </button>
-            <div class="fade-in">
+            <div class="page-load-animation">
                 <span class="ml-8 text-4xl visible-desktop">{{ featureName() }}</span>
                 <span class="text-2xl  visible-mobile">{{ featureName() }}</span>
             </div>
             @if (navigationVisible()) {
-                <div  class="ml-4 mr-4 visible-desktop fade-in">
+                <div  class="ml-4 mr-4 visible-desktop page-load-animation">
                     <ng-content select="[toolbar-navigation]"></ng-content>
                 </div>
             }
             <div  class="ml-auto mr-4 fade-in">
                 <ng-content></ng-content>
+                <button mat-stroked-button><mat-icon>favorite</mat-icon>Favorites</button>
 
             </div>
 
@@ -24,7 +25,7 @@
     </mat-toolbar>
     @if (navigationVisible()) {
         <div 
-             class="visible-mobile bg-surface fixed top-toolbar pl-4 pr-4 pb-2 fade-in w-full z-2000 ">
+             class="visible-mobile bg-surface fixed top-toolbar pl-4 pr-4 pb-2 page-load-animation w-full z-2000 ">
             <div >
                 <ng-content  select="[toolbar-mobile-navigation]"></ng-content>
             </div>

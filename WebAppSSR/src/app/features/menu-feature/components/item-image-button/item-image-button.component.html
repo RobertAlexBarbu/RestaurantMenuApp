@@ -5,11 +5,12 @@
 <ng-template
         [cdkConnectedOverlayOpen]="isOpen"
         [cdkConnectedOverlayOrigin]="trigger"
+        
         cdkConnectedOverlay
 >
     <div #overlayPane
          class="bg-surface-container overlay-elevation corner-l flex items-center justify-center page-load-animation top-overlay">
-        <app-image [caption]="itemName()" [fileUrl]="firebaseFileUrl()" [style.max-width]="'250px'"
+        <app-image  [caption]="itemName()" [fileUrl]="firebaseFileUrl()" [style.max-width]="'250px'"
                    
                    class="flex-grow"></app-image>
     </div>

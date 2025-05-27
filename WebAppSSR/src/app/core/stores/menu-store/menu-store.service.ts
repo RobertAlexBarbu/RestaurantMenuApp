@@ -108,10 +108,10 @@ export class MenuStoreService {
 
     readonly foodCategoriesWithItems = computed(() => {
         // Get categories sorted by position
-        const sortedCategories = this.foodCategories();
+        const sortedCategories = this.foodCategories().filter(c => c.isVisible);
 
         // Get items with their category info (already sorted by category position then item position)
-        const itemsWithCategory = this.foodItemsWithCategory();
+        const itemsWithCategory = this.foodItemsWithCategory().filter(c => c.isVisible);
 
         // Group items by category
         const itemsByCategory = new Map<number, typeof itemsWithCategory>();
@@ -131,8 +131,8 @@ export class MenuStoreService {
 
     // Similarly for drinks if needed
     readonly drinksCategoriesWithItems = computed(() => {
-        const sortedCategories = this.drinksCategories();
-        const itemsWithCategory = this.drinksItemsWithCategory();
+        const sortedCategories = this.drinksCategories().filter(c => c.isVisible);
+        const itemsWithCategory = this.drinksItemsWithCategory().filter(c => c.isVisible);
 
         const itemsByCategory = new Map<number, typeof itemsWithCategory>();
         itemsWithCategory.forEach(item => {

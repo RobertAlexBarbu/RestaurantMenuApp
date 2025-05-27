@@ -1,0 +1,52 @@
+@if (category().isVisible) {
+    <div class="bg-white corner-l  overflow-hidden">
+        <!-- Category Header -->
+        <div class="bg-secondary-container p-4 ">
+            <h2 class="text-xl font-bold text-on-secondary-container">{{ category().name }}</h2>
+            @if (category().description) {
+                <p class="text-sm text-on-secondary-container mt-1">{{ category().description }}</p>
+            }
+        </div>
+
+        <!-- Items List -->
+        <div class="divide-y ">
+            @for (item of category().items; track item.id) {
+                @if (item.isVisible) {
+                    <div class="p-2 hover:bg-gray-50 transition-colors">
+                        <div class="flex flex-row gap-2">
+                            <div class="flex items-center flex-col self-start justify-start">
+                                <button [matTooltip]="'Add to Favorites'" mat-icon-button><mat-icon>heart_plus</mat-icon></button>
+                                @if(item.imageUrl) {
+                                    <app-item-image-button [itemName]="item.name" [imageUrl]="item.imageUrl"></app-item-image-button>
+                                }
+
+                            </div>
+                            <div class="w-full">
+                                <div class="flex justify-between items-start">
+
+                                    <div class="flex-1">
+                                        <div class="flex flex-row gap-2">
+                                            <div>
+                                                <h3 class="font-medium ">{{ item.name }}</h3>
+                                                @if (item.description) {
+                                                    <p class="text-sm text-on-surface-variant mt-1">{{ item.description }}</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4  text-right">
+                                        <span class="font-medium text-primary">{{ item.price | currency }}</span>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="link ml-auto text-sm">View Details</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}

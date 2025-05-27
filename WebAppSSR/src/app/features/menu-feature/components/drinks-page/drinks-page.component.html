@@ -1,54 +1,10 @@
+<div class=" p-page max-w-page responsive-page page-load-animation">
 
-<div class="space-y-8 p-page max-w-4xl mx-auto">
     @for (category of drinksData; track category.id) {
-        @if (category.isVisible) {
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <!-- Category Header -->
-                <div class="bg-amber-100 p-4 border-b border-amber-200">
-                    <h2 class="text-xl font-bold text-amber-800">{{ category.name }}</h2>
-                    @if (category.description) {
-                        <p class="text-sm text-amber-600 mt-1">{{ category.description }}</p>
-                    }
-                </div>
-
-                <!-- Items List -->
-                <div class="divide-y divide-gray-100">
-                    @for (item of category.items; track item.id) {
-                        @if (item.isVisible) {
-                            <div class="p-4 hover:bg-gray-50 transition-colors">
-                                <div class="flex justify-between items-start">
-                                    <div class="flex-1">
-                                        <h3 class="font-medium text-gray-900">{{ item.name }}</h3>
-                                        @if (item.description) {
-                                            <p class="text-sm text-gray-500 mt-1">{{ item.description }}</p>
-                                        }
-                                        @if (item.ingredients) {
-                                            <p class="text-xs text-gray-400 mt-1">Ingredients: {{ item.ingredients }}</p>
-                                        }
-                                    </div>
-                                    <div class="ml-4 text-right">
-                                        <span class="font-medium text-amber-600">{{ item.price | currency }}</span>
-                                        @if (item.weight) {
-                                            <span class="block text-xs text-gray-400">{{ item.weight }}</span>
-                                        }
-                                    </div>
-                                </div>
-
-                                @if (item.nutritionalValues || item.allergens) {
-                                    <div class="mt-2 pt-2 border-t border-gray-100 text-xs text-gray-500">
-                                        @if (item.nutritionalValues) {
-                                            <p>Nutrition: {{ item.nutritionalValues }}</p>
-                                        }
-                                        @if (item.allergens) {
-                                            <p class="mt-1">Allergens: {{ item.allergens }}</p>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-        }
+        <app-category [category]="category"></app-category>
     }
+
+
+
+
 </div>

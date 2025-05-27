@@ -7,3 +7,21 @@
 @tailwind components;
 @tailwind utilities;
 
+.page-load-animation {
+  animation: pageLoadAnimation 350ms ease-in-out forwards;
+}
+
+@keyframes pageLoadAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px) translateZ(0);
+  }
+  20% {
+    opacity: 0;
+    transform: translateY(-15px) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}

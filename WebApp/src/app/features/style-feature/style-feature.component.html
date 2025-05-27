@@ -1,7 +1,9 @@
-<app-toolbar class="w-full-minus-drawer-sm" featureName="Style"></app-toolbar>
+<app-toolbar class="w-full-minus-drawer-sm" featureName="Style">
+    <button mat-stroked-button class="visible-desktop">Reload Preview</button>
+</app-toolbar>
 <app-right-sidebar class="visible-desktop bg-green-300">
     <div class=" w-full h-full p-8">
-        <app-phone #phone [url]="completeUrl()">
+        <app-phone [reloadVisible]="false" #phone [url]="completeUrl()">
         </app-phone>
     </div>
 </app-right-sidebar>

@@ -8,6 +8,13 @@
   //background-color: var(--mat-sys-on-surface)
 }
 
+@media (max-width: 1100px) {
+  .phone {
+    width: 300px;
+  }
+
+}
+
 .preview {
   border-radius: var(--mat-sys-corner-large);
 }
