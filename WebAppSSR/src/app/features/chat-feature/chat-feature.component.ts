@@ -16,6 +16,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MenuStoreService} from "../../core/stores/menu-store/menu-store.service";
 import {ChatItemDetailsDialogComponent} from "./components/chat-item-details-dialog/chat-item-details-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {MenuAnalyticsService} from "../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 
 @Component({
   selector: 'app-chat-feature',
@@ -41,6 +42,7 @@ export class ChatFeatureComponent {
     private readonly viewContainerRef = inject(ViewContainerRef);
     private readonly dialog = inject(MatDialog)
 
+
     isMobile = this.utilityService.isMobile()
     sortedMessages = this.chatStore.sortedMessages
     stopAskQuestionRequest$ = new Subject<boolean>()
@@ -57,6 +59,7 @@ export class ChatFeatureComponent {
         document.addEventListener('viewItemDetails', (event: CustomEvent) => {
             console.log('HELLLLOOOO');
             console.log(event.target)
+
             this.openDetailsDialog(event.detail);
         });
 

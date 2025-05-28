@@ -141,6 +141,20 @@ public static class AppDbContextExtensions
         await context.SaveChangesAsync();
         return entity;
     }
+    public static async Task<TEntity> CreateFromDtoAsync<TEntity, TDto>(
+        this AppDbContext context,
+        TDto dto,
+        IMapper mapper
+    )        
+        where TEntity : class, new()
+        where TDto : class
+    {
+        var entity = new TEntity();
+        mapper.Map(dto, entity);
+        context.Set<TEntity>().Add(entity);
+        await context.SaveChangesAsync();
+        return entity;
+    }
     
     public static async Task DeleteByIdWithUserIdAsync<TEntity>(
         this AppDbContext context,

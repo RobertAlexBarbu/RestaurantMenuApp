@@ -18,6 +18,7 @@ import {MenuStoreService} from "../../../../core/stores/menu-store/menu-store.se
 import {NotificationService} from "../../../../core/services/notification/notification.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MenuItemDetailDto} from "../../../../core/http/dto/menu-dto/menu-item/menu-item-detail.dto";
+import {MenuAnalyticsService} from "../../../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 
 @Component({
   selector: 'app-chat-item-details-dialog',
@@ -38,7 +39,7 @@ import {MenuItemDetailDto} from "../../../../core/http/dto/menu-dto/menu-item/me
 export class ChatItemDetailsDialogComponent {
     readonly dialogRef = inject(MatDialogRef<ChatItemDetailsDialogComponent>)
     readonly data = inject<{itemId: number}>(MAT_DIALOG_DATA);
-
+    private readonly menuAnalyticsService = inject(MenuAnalyticsService);
     firebaseFileUrl = signal<string | null>(null)
     private readonly storage = inject(StorageService)
     private readonly menuStoreService = inject(MenuStoreService);
@@ -52,6 +53,14 @@ export class ChatItemDetailsDialogComponent {
 
     addToFavorites( ){
         this.menuStoreService.addIdToFavorites(this.item.id);
+        this.menuAnalyticsService.createMenuItemAccess({
+            menuCategoryId: this.category.id,
+            menuItemId: this.item.id ,
+            menuId: this.item.menuId,
+            menuItemAccessType: 'favorite'
+
+        }).pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe()
         this.notificationService.notify("Item added to favorites.")
     }
     removeFromFavorites( ){
@@ -64,6 +73,14 @@ export class ChatItemDetailsDialogComponent {
         private elRef: ElementRef,
         private cdr: ChangeDetectorRef,
     ) {
+        this.menuAnalyticsService.createMenuItemAccess({
+            menuCategoryId: this.category.id,
+            menuItemId: this.item.id ,
+            menuId: this.item.menuId,
+            menuItemAccessType: 'details'
+
+        }).pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe()
         const imgUrl = this.item.imageUrl
         console.log(imgUrl);
         if (imgUrl) {

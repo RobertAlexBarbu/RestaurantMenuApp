@@ -46,6 +46,8 @@ public class MappingProfile : Profile
         
         // Menu
         CreateMap<Menu, MenuDto>();
+        CreateMap<CreateMenuReviewDto, MenuReview>();
+        CreateMap<MenuReview, MenuReviewDto>();
         CreateMap<CreateMenuDto, Menu>();
         CreateMap<UpdateMenuDto, Menu>();
         CreateMap<MenuAccess, MenuAccessDto>();

@@ -94,6 +94,17 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
         };
     }
 
+    public async Task CreateReview(CreateMenuReviewDto createMenuReviewDto)
+    {
+        await context.CreateFromDtoAsync<MenuReview, CreateMenuReviewDto>(createMenuReviewDto, mapper);
+    }
+
+    public async Task<List<MenuReviewDto>> GetReviewsByMenuId(int menuId)
+    {
+        var reviews =await context.MenuReviews.Where(r => r.MenuId ==  menuId).ToListAsync();
+        return reviews.Select(mapper.Map<MenuReviewDto>).ToList();
+    }
+
     public async Task<string> GenerateUniqueUrlAsync()
     {
         string url;

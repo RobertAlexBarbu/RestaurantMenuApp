@@ -18,6 +18,7 @@ import {MenuStoreService} from "../../../../core/stores/menu-store/menu-store.se
 import {NotificationService} from "../../../../core/services/notification/notification.service";
 import {IsFavoritePipe} from "../../../../shared/pipes/is-favorite/is-favorite.pipe";
 import {MatTooltip} from "@angular/material/tooltip";
+import {MenuAnalyticsService} from "../../../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 
 @Component({
   selector: 'app-item-details-dialog',
@@ -47,10 +48,18 @@ export class ItemDetailsDialogComponent {
     private readonly storage = inject(StorageService)
     private readonly menuStoreService = inject(MenuStoreService);
     private readonly notificationService = inject(NotificationService);
-    
+    private readonly menuAnalyticsService = inject(MenuAnalyticsService);
     private readonly destroyRef = inject(DestroyRef)
 
     addToFavorites( ){
+        this.menuAnalyticsService.createMenuItemAccess({
+            menuCategoryId: this.category.id,
+            menuItemId: this.item.id ,
+            menuId: this.item.menuId,
+            menuItemAccessType: 'favorite'
+
+        }).pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe()
         this.menuStoreService.addIdToFavorites(this.data.item.id);
         this.notificationService.notify("Item added to favorites.")
     }
@@ -64,6 +73,14 @@ export class ItemDetailsDialogComponent {
         private elRef: ElementRef,
         private cdr: ChangeDetectorRef,
     ) {
+        this.menuAnalyticsService.createMenuItemAccess({
+            menuCategoryId: this.category.id,
+            menuItemId: this.item.id ,
+            menuId: this.item.menuId,
+            menuItemAccessType: 'details'
+
+        }).pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe()
         const imgUrl = this.item.imageUrl
         console.log(imgUrl);
         if (imgUrl) {

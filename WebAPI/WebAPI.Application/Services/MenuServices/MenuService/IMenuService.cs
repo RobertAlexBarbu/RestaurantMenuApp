@@ -14,6 +14,10 @@ public interface IMenuService
 
     Task<MenuDataDto> GetDataByIdAsync(int id);
 
+    Task CreateReview(CreateMenuReviewDto createMenuReviewDto);
+
+    Task<List<MenuReviewDto>> GetReviewsByMenuId(int menuId);
+
     Task<string> GenerateUniqueUrlAsync();
 
 }

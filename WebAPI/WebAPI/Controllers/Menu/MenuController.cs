@@ -63,4 +63,20 @@ public class MenuController(IMapper mapper, IMenuService menuService, IClaimServ
         var isAvailable = await menuService.CheckUrlAvailabilityAsync(url);
         return Ok(isAvailable);
     }
+    
+    [HttpPost]
+    public async Task<ActionResult> CreateReviewAsync(CreateMenuReviewDto createMenuReviewDto)
+    {
+
+        await menuService.CreateReview( createMenuReviewDto);
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("{menuId}")]
+    public async Task<ActionResult<List<MenuReviewDto>>> GetReviewsByMenuIdAsync(int menuId)
+    {
+        var reviews = await menuService.GetReviewsByMenuId(menuId);
+        return Ok(reviews);
+    }
 }

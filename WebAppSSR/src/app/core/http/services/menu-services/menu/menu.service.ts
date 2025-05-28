@@ -6,6 +6,8 @@ import {CreateMenuDto} from "../../../dto/menu-dto/menu/create-menu.dto";
 import {MenuDto} from "../../../dto/menu-dto/menu/menu.dto";
 import {MenuDataDto} from "../../../dto/menu-dto/menu/menu-data.dto";
 import {MenuDetailDto} from "../../../dto/menu-dto/menu/menu-detail.dto";
+import {CreateMenuReviewDto} from "../../../dto/menu-dto/menu/create-menu-review.dto";
+import {MenuReviewDto} from "../../../dto/menu-dto/menu/menu-review.dto";
 
 
 @Injectable({
@@ -60,6 +62,18 @@ export class MenuService {
         )
     }
 
+    // New methods for reviews
+    public createReview( createMenuReviewDto: CreateMenuReviewDto) {
+        return this.http.post(
+            `${this.baseUrl}/CreateReview`,
+            createMenuReviewDto
+        )
+    }
 
+    public getReviewsByMenuId(menuId: number) {
+        return this.http.get<MenuReviewDto[]>(
+            `${this.baseUrl}/GetReviewsByMenuId/${menuId}`
+        )
+    }
 
 }

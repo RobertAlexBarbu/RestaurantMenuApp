@@ -400,6 +400,35 @@ namespace WebAPI.Repository.Migrations
                     b.ToTable("MenuItemAccesses");
                 });
 
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Rating")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("MenuReviews");
+                });
+
             modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuStyle", b =>
                 {
                     b.Property<int>("Id")
@@ -640,6 +669,17 @@ namespace WebAPI.Repository.Migrations
                     b.Navigation("MenuCategory");
 
                     b.Navigation("MenuItem");
+                });
+
+            modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuReview", b =>
+                {
+                    b.HasOne("WebAPI.Domain.Entities.Menu.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
                 });
 
             modelBuilder.Entity("WebAPI.Domain.Entities.Menu.MenuStyle", b =>
