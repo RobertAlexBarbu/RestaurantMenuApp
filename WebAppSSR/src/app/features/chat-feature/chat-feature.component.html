@@ -4,11 +4,11 @@
     <div class="sidebar-content page-load-animation ">
         <app-chat-messages class="sidebar-content" (typingDone)="scrollDown()" [loadingMessage]="loadingMessage()" [messages]="sortedMessages()"
                            [newMessage]="newMessage()">
-            <div class="flex flex-col gap-4 mt-48 items-center" empty-messages>
+            <div class="flex flex-col gap-4 mt-24 items-center" empty-messages>
                 <div class="text-4xl text-center">How can I help you?</div>
                 <div class="flex flex-col gap-2">
-                    <button (click)="sendFormattingQuestion()" mat-stroked-button>Get Food Recommendations</button>
-                    <button (click)="sendFormattingQuestion()" mat-stroked-button>Get Drinks Recommendations</button>
+                    <button (click)="sendFoodQuestion()" mat-stroked-button>Get Food Recommendations</button>
+                    <button (click)="sendDrinksQuestion()" mat-stroked-button>Get Drinks Recommendations</button>
                 </div>
             </div>
         </app-chat-messages>

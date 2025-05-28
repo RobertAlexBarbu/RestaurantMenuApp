@@ -1,5 +1,11 @@
-import { inject, Pipe, PipeTransform } from '@angular/core'
+import {inject, Pipe, PipeTransform, ViewContainerRef} from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import {Dialog} from "@angular/cdk/dialog";
+import {MatDialog} from "@angular/material/dialog";
+import {
+    ChatItemDetailsDialogComponent
+} from "../../../features/chat-feature/components/chat-item-details-dialog/chat-item-details-dialog.component";
+import {MenuStoreService} from "../../../core/stores/menu-store/menu-store.service";
 
 @Pipe({
     name: 'formatLlmResponse',
@@ -7,19 +13,24 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 })
 export class FormatLlmResponsePipe implements PipeTransform {
     private readonly sanitizer = inject(DomSanitizer)
+    private readonly dialog = inject(MatDialog);
+    private readonly viewContainerRef = inject(ViewContainerRef)
 
     transform(text: string): SafeHtml {
         if (!text) return ''
 
         // Process headings first (since they affect block structure)
-        let formattedText = this.processHeadings(text)
+        // let formattedText = this.processHeadings(text)
+        let formattedText = this.processItems(text)
 
         // Process other block elements
+        formattedText = this.processHeadings(formattedText)
         formattedText = this.processCodeBlocks(formattedText)
         formattedText = this.processBlockquotes(formattedText)
         formattedText = this.processHorizontalRules(formattedText)
         formattedText = this.processLists(formattedText)
         formattedText = this.processTables(formattedText)
+        formattedText = this.processInlineElements(formattedText)
 
         // Process inline elements
         formattedText = this.processInlineElements(formattedText)
@@ -28,7 +39,56 @@ export class FormatLlmResponsePipe implements PipeTransform {
             `<div class="prose dark:prose-invert w-full text-on-surface">${formattedText}</div>`,
         )
     }
+    
+    openDetailsDialog() {
+        let itemId = -1;
+        this.dialog.open(ChatItemDetailsDialogComponent, {
+            data: {
+                itemId: itemId
+            },
+            viewContainerRef: this.viewContainerRef,
+        })
+    }
 
+
+    private processItems(text: string): string {
+        return text.replace(/<Item>([\s\S]*?)<\/Item>/g, (match, content) => {
+            // Extract the item details
+            const idMatch = content.match(/ItemId=(.*)/);
+            const nameMatch = content.match(/ItemName=(.*)/);
+            const descMatch = content.match(/ItemDescription=(.*)/);
+            const catMatch = content.match(/ItemCategory=(.*)/);
+            const priceMatch = content.match(/ItemPrice=(.*)/);
+
+            const id = idMatch ? idMatch[1].trim() : '';
+            console.log(id);
+            const name = nameMatch ? nameMatch[1].trim() : '';
+            const desc = descMatch ? descMatch[1].trim() : '';
+            const cat = catMatch ? catMatch[1].trim() : '';
+            const price = priceMatch ? priceMatch[1].trim() : '';
+
+            return `
+            <div class="bg-surface-container-lowest dark:bg-surface-dark rounded-lg p-4 my-4 " 
+                 data-item-id="${id}">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-lg font-medium text-on-surface">${name}</h3>
+                    <span class="text-primary font-medium">${price}</span>
+                </div>
+                            <p class="text-primary">${cat}</span>
+                <p class="mt-2 text-sm text-on-surface">${desc}</p>
+                <div class="flex">
+                             <button 
+                    onclick="document.dispatchEvent(new CustomEvent('viewItemDetails', { detail: ${id}}))"
+                    class="mt-3 ml-auto  hover:underline focus:outline-none">
+                    View Details
+                </button>   
+</div>
+
+            </div>
+        `;
+        });
+    }
+    
     private processHeadings(text: string): string {
         return text
             .replace(/^#\s+(.*$)/gm, '<h1 class="text-3xl font-medium mb-4 mt-8">$1</h1>')

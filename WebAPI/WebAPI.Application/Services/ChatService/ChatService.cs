@@ -8,7 +8,7 @@ public class ChatService(ILlmService llmService) : IChatService
 {
     public async Task<MessageDto> AskQuestionAsync(AskQuestionDto askQuestionDto)
     {
-        var prompt = BuildPrompt(askQuestionDto);
+        var prompt = BuildPromptWithContext(askQuestionDto, askQuestionDto.Context);
         var response = await llmService.SendPromptAsync(prompt);
         return new MessageDto()
         {
@@ -29,7 +29,7 @@ public class ChatService(ILlmService llmService) : IChatService
         return BuildPromptInternal(askQuestionDto);
     }
 
-    private string BuildPromptWithContext(AskQuestionDto askQuestionDto, string context)
+    private string BuildPromptWithContext(AskQuestionDto askQuestionDto, string? context)
     {
         return BuildPromptInternal(askQuestionDto, context);
     }
@@ -39,7 +39,7 @@ public class ChatService(ILlmService llmService) : IChatService
         var promptBuilder = new StringBuilder();
 
         promptBuilder.AppendLine(context != null
-            ? "PROMPT: You are a helpful AI assistant. Answer the user's question based on the provided context and conversation history."
+            ? "\"PROMPT: You are a helpful AI assistant that works for a restaurant. Your role is to make food and drink recommendations to customers based on the visible menu items. \n\nIMPORTANT FORMATTING RULES:\n1. Only recommend items and categories marked as isVisible = true\n2. When recommending an item, display it in EXACTLY this format:\n<Item>\nItemId={ItemId}\nItemName={itemName}\nItemDescription={itemDescription}\nItemCategory={itemCategory}\nItemPrice={itemPrice}\n</Item>\n\n3. Each item component must be on its own line between the <Item> tags\n4. Do not include any additional text or commentary within the <Item> tags\n5. Outside of the <Item> tags, you can speak naturally as a server would to a customer\n\nFor example, if recommending a burger, your response should look like:\n'May I recommend our delicious burger? Here are the details:\n<Item>\nItemName=Classic Cheeseburger\nItemDescription=Juicy beef patty with cheddar cheese on a brioche bun\nItemCategory=Main Courses\nItemPrice=$12.99\n</Item>'\n\nIf no visible items match the request, respond politely as a server would, for example: 'I'm sorry, we don't have that available right now. May I suggest something else?When someone asks for more details about an item, display the <Item> tag and then also talk a bit about the other details that are note included in the tag'\""
             : "PROMPT: You are a helpful AI assistant. Answer the user's question based on the conversation history provided.");
         promptBuilder.AppendLine();
 

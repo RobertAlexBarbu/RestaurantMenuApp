@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, signal, viewChild} from '@angular/core';
+import {Component, DestroyRef, inject, signal, viewChild, ViewContainerRef} from '@angular/core';
 import {ToolbarComponent} from "../../shared/components/toolbar/toolbar.component";
 import {ChatMessagesComponent} from "../../shared/components/chat-messages/chat-messages.component";
 import {MatButton} from "@angular/material/button";
@@ -13,6 +13,9 @@ import {MessageDto} from "../../core/http/dto/llm/message.dto";
 import {AskQuestionDto} from "../../core/http/dto/llm/ask-question.dto";
 import {LlmService} from "../../core/http/services/llm/llm.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MenuStoreService} from "../../core/stores/menu-store/menu-store.service";
+import {ChatItemDetailsDialogComponent} from "./components/chat-item-details-dialog/chat-item-details-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-chat-feature',
@@ -34,6 +37,9 @@ export class ChatFeatureComponent {
     private readonly errorService = inject(ErrorService)
     private readonly destroyRef = inject(DestroyRef)
     private readonly utilityService = inject(UtilityService)
+    private readonly menuStore = inject(MenuStoreService);
+    private readonly viewContainerRef = inject(ViewContainerRef);
+    private readonly dialog = inject(MatDialog)
 
     isMobile = this.utilityService.isMobile()
     sortedMessages = this.chatStore.sortedMessages
@@ -46,6 +52,13 @@ export class ChatFeatureComponent {
         setTimeout(() => {
             this.scrollService.scrollDialogBottom(true)
         }, 300)
+
+        // @ts-ignore
+        document.addEventListener('viewItemDetails', (event: CustomEvent) => {
+            console.log('HELLLLOOOO');
+            console.log(event.target)
+            this.openDetailsDialog(event.detail);
+        });
 
     }
 
@@ -60,12 +73,12 @@ export class ChatFeatureComponent {
         this.sendQuestion(questionDto)
     }
 
-    sendFormattingQuestion() {
+    sendFoodQuestion() {
         this.newMessage.set(true)
         this.loadingMessage.set(true)
         const questionDto: AskQuestionDto = {
             chatHistory: this.chatStore.last5Messages(),
-            question: 'Please showcase all the ways you can format your responses. Provide examples',
+            question: 'Please give me some food recommendations',
         }
         const message: MessageDto = { createdAt: new Date().toISOString(), text: questionDto.question, isAI: false }
         this.chatStore.addMessage(message)
@@ -77,7 +90,35 @@ export class ChatFeatureComponent {
 
     }
 
+    sendDrinksQuestion() {
+        this.newMessage.set(true)
+        this.loadingMessage.set(true)
+        const questionDto: AskQuestionDto = {
+            chatHistory: this.chatStore.last5Messages(),
+            question: 'Please give me some drinks recommendations',
+        }
+        const message: MessageDto = { createdAt: new Date().toISOString(), text: questionDto.question, isAI: false }
+        this.chatStore.addMessage(message)
+        setTimeout(() => {
+            this.scrollDown()
+        }, 0)
+        this.sendQuestion(questionDto)
+
+
+    }
+    
+
+    openDetailsDialog(itemId: number) {
+        this.dialog.open(ChatItemDetailsDialogComponent, {
+            data: {
+                itemId: itemId
+            },
+            viewContainerRef: this.viewContainerRef,
+        });
+    }
+
     sendQuestion(questionDto: AskQuestionDto) {
+        questionDto.context = 'Food Menu:' + JSON.stringify(this.menuStore.foodCategoriesWithItems()) + 'Drinks Menu:' + JSON.stringify(this.menuStore.drinksCategoriesWithItems()) + 'Menu Details:' + JSON.stringify(this.menuStore.menuDetails()) 
         this.llmService.askQuestion(questionDto)
             .pipe(
                 takeUntilDestroyed(this.destroyRef),
@@ -98,6 +139,16 @@ export class ChatFeatureComponent {
     }
 
     scrollDown() {
+        document.addEventListener('click', (event) => {
+            // @ts-ignore
+            const button = event.target?.closest('.view-details-btn');
+            if (button) {
+                const itemId = button.getAttribute('data-item-id');
+                if (itemId) {
+                    this.openDetailsDialog(itemId);
+                }
+            }
+        });
         this.scrollService.scrollBottom(true)
     }
 
