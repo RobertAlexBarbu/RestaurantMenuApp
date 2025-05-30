@@ -32,6 +32,14 @@ public class MenuAnalyticsController(IMenuAnalyticsService menuAnalyticsService)
         var menuAccesses = await menuAnalyticsService.GetMenuAccessesByMenuIdAsync(menuId);
         return menuAccesses;
     }
+    
+    [Route("{menuId}")]
+    [HttpGet]
+    public async Task<ActionResult<List<MenuItemAccessDto>>> GetMenuItemAccessesByMenuIdAsync(int menuId)
+    {
+        var menuAccesses = await menuAnalyticsService.GetMenuItemAccessesByMenuIdAsync(menuId);
+        return menuAccesses;
+    }
 
     [HttpGet]
     public async Task<ActionResult<MenuAccessInsightDto>> GetMenuAccessInsights(int qrAccesses, int urlAccesses, string timePeriod)

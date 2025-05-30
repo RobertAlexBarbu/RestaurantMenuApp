@@ -1,4 +1,4 @@
-import {Component, inject, input, ViewContainerRef} from '@angular/core';
+import {Component, DestroyRef, inject, input, ViewContainerRef} from '@angular/core';
 import {MenuCategoryDetailDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category-detail.dto";
 import {CurrencyPipe} from "@angular/common";
 import {MatIconButton} from "@angular/material/button";
@@ -13,6 +13,8 @@ import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/
 import {MenuStoreService} from "../../../../core/stores/menu-store/menu-store.service";
 import {IsFavoritePipe} from "../../../../shared/pipes/is-favorite/is-favorite.pipe";
 import {NotificationService} from "../../../../core/services/notification/notification.service";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MenuAnalyticsService} from "../../../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 
 @Component({
   selector: 'app-category',
@@ -31,7 +33,10 @@ import {NotificationService} from "../../../../core/services/notification/notifi
 export class CategoryComponent {
     category = input.required<MenuCategoryDetailDto>();
     private readonly viewContainerRef = inject(ViewContainerRef);
+    private readonly menuAnalyticsService = inject(MenuAnalyticsService);
     private readonly dialog = inject(MatDialog);
+    private readonly menuStore = inject(MenuStoreService);
+    private readonly destroyRef = inject(DestroyRef);
     menuStoreService = inject(MenuStoreService);
     private readonly notificationService = inject(NotificationService);
     openDetailsDialog(item: MenuItemDto, category: MenuCategoryDto) {
@@ -47,6 +52,15 @@ export class CategoryComponent {
     addToFavorites(id: number ){
         this.menuStoreService.addIdToFavorites(id);
         this.notificationService.notify("Item added to favorites.")
+        this.menuAnalyticsService.createMenuItemAccess({
+            menuCategoryId: this.category().id,
+            menuItemId: id ,
+            menuId: this.menuStore.menu().id,
+            menuItemAccessType: 'favorite'
+
+        }).pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe()
+
     }
     removeFromFavorites(id: number ){
         this.menuStoreService.removeIdFromFavorites(id);

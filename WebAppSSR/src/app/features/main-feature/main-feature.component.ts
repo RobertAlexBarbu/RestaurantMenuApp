@@ -14,6 +14,7 @@ import {CdkScrollable} from "@angular/cdk/overlay";
 import {MenuStyleDto} from "../../core/http/dto/menu-dto/menu-style/menu-style.dto";
 import {MenuStoreService} from "../../core/stores/menu-store/menu-store.service";
 import {RightSidebarComponent} from "../../shared/components/right-sidebar/right-sidebar.component";
+import {ThemeService} from "../../core/services/theme/theme.service";
 
 @Component({
   selector: 'app-main-feature',
@@ -34,7 +35,7 @@ import {RightSidebarComponent} from "../../shared/components/right-sidebar/right
 })
 export class MainFeatureComponent implements AfterViewInit {
     private readonly route =inject(ActivatedRoute);
-
+    private readonly themeService = inject(ThemeService);
     private readonly menuService = inject(MenuService);
     private readonly menuAnalyticsService = inject(MenuAnalyticsService);
     private readonly destroyRef = inject(DestroyRef);
@@ -73,6 +74,7 @@ export class MainFeatureComponent implements AfterViewInit {
                         this.restaurantName.set(data.name)
                         this.menuId = data.id;
                         this.menuStyle = data.menuStyle
+
                         this.menuStoreService.setMenu(data);
                         this.menuStoreService.setUrl(`/qr/${data.id}`)
                     }
@@ -117,6 +119,7 @@ body {
                     menuAccessType: "qr"
                 }).subscribe()
             }
+            // this.themeService.setLightTheme()
             const startTime = Date.now();
             this.menuService.getDataById(this.menuId).pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe({

@@ -10,6 +10,8 @@ public interface IMenuAnalyticsService
     Task CreateMenuItemAccessAsync(CreateMenuItemAccessDto createMenuAccessDto);
 
     Task<List<MenuAccessDto>> GetMenuAccessesByMenuIdAsync(int menuId);
+    
+    Task<List<MenuItemAccessDto>> GetMenuItemAccessesByMenuIdAsync(int menuId);
 
     Task<MenuAccessInsightDto> GetMenuAccessInsights(int qrAccesses, int urlAccesses, string timePeriod);
 }

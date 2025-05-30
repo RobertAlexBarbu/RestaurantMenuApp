@@ -7,7 +7,8 @@ import {mainRoutes} from "./features/main-feature/main.routes";
 export const routes: Routes = [
     {
         path: '',
-        children: mainRoutes
+        children: mainRoutes,
+        data: { renderMode: 'server' }
     }
     
 ];

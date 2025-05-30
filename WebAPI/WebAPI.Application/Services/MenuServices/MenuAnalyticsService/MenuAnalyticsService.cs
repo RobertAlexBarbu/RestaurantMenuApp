@@ -31,6 +31,12 @@ public class MenuAnalyticsService(AppDbContext context, IMapper mapper, ILlmServ
         return menuAccesses.Select(mapper.Map<MenuAccessDto>).ToList();
     }
 
+    public async Task<List<MenuItemAccessDto>> GetMenuItemAccessesByMenuIdAsync(int menuId)
+    {
+        var menuAccesses = await context.MenuItemAccesses.Where(ma => ma.MenuId == menuId).ToListAsync();
+        return menuAccesses.Select(mapper.Map<MenuItemAccessDto>).ToList();
+    }
+
     public async Task<MenuAccessInsightDto> GetMenuAccessInsights(int qrAccesses, int urlAccesses, string timePeriod)
     {
         var context =
