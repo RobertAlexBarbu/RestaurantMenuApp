@@ -50,18 +50,14 @@ export class ChatFeatureComponent {
     newMessage = signal(false)
     chatInput = viewChild.required<ChatInputComponent>(ChatInputComponent)
 
+    lastId = -1;
     ngAfterViewInit() {
         setTimeout(() => {
             this.scrollService.scrollDialogBottom(true)
         }, 300)
 
-        // @ts-ignore
-        document.addEventListener('viewItemDetails', (event: CustomEvent) => {
-            console.log('HELLLLOOOO');
-            console.log(event.target)
 
-            this.openDetailsDialog(event.detail);
-        });
+
 
     }
 
@@ -117,6 +113,8 @@ export class ChatFeatureComponent {
                 itemId: itemId
             },
             viewContainerRef: this.viewContainerRef,
+        }).beforeClosed().subscribe(result => {
+            this.lastId = -1;
         });
     }
 

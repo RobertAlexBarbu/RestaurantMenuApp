@@ -161,20 +161,21 @@ export class StyleFeatureComponent {
                    this.font.set(val.font);
                    this.colorForm.setValue(val.themeColor);
                    this.colorAux = val.themeColor;
+                   this.disabledColorSave.set(true);
                    this.loading.set(false);
                    this.colorForm.valueChanges.pipe(
                        takeUntilDestroyed(this.destroyRef),
-                   ).subscribe({
+                   ).pipe(skip(2)).subscribe({
                        next: (data) => {
-
+                           console.log('aaaaa');
                            if (data) {
                                if(this.hexColorRegex.test(data)) {
                                    const cp = this.colorPicker();
                                    this.colorAux = data;
                                }
+                               this.disabledColorSave.set(false);
                            }
-
-                           this.disabledColorSave.set(false);
+                 
                        }
                    })
                }

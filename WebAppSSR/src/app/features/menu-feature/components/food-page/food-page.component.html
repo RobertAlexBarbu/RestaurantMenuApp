@@ -1,9 +1,13 @@
 
 <div class=" p-page max-w-page responsive-page page-load-animation">
+@if(foodData.length > 0) {
+    @for (category of foodData; track category.id) {
+        <app-category [category]="category"></app-category>
+    }
+} @else {
+    <div class="text-xl">Nothing here yet</div>
+} 
 
-        @for (category of foodData; track category.id) {
-            <app-category [category]="category"></app-category>
-        }
 
 
 

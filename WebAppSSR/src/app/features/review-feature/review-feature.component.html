@@ -1,8 +1,8 @@
-<app-toolbar [navigationVisible]="false" class="w-full-minus-drawer-sm " featureName="Leave a review">
+<app-toolbar [navigationVisible]="false" class="w-full-minus-drawer-sm " featureName="Review">
 
 </app-toolbar>
 
-<div [class.pl-4]="!isMobile" [class.pr-4]="!isMobile" class="max-w-6xl m-auto pt-toolbar pb-4 sidebar-content">
+<div [class.pl-4]="!isMobile" [class.pr-4]="!isMobile" class="max-w-6xl m-auto pt-toolbar pb-4 sidebar-content page-load-animation">
     <mat-stepper #stepper [orientation]="isMobile ? 'vertical' : 'horizontal'" linear>
         <mat-step [editable]="true">
             <ng-template matStepLabel>Rate Your Experience</ng-template>
