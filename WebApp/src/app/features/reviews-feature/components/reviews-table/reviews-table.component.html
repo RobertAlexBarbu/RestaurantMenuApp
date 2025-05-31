@@ -1,0 +1,97 @@
+<div [style.width]="tableWidth" [@pageLoad]>
+    <div class="pt-4 pl-page pr-4 flex-col inline-block sticky left-drawer-sm">
+        <div class="flex responsive-flex">
+            <!-- Search Filter -->
+            <mat-form-field class="mr-4">
+                <mat-label>Search Messages</mat-label>
+                <input (keyup)="applySearchFilter($event)"
+                       [formControl]="searchFilterFormControl"
+                       [matAutocomplete]="auto"
+                       aria-label="Search messages"
+                       matInput
+                       type="text">
+                @if (searchFilterFormControl.value) {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchFilter($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                } @else {
+                    <button matSuffix class="invisible" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                }
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="applySearchFilterSelect($event)"
+                                  autoActiveFirstOption>
+                    @for (option of visibleSearchFilterOptions(); track option) {
+                        <mat-option [value]="option">
+                            {{ option.length > 50 ? (option | slice:0:50) + '...' : option }}
+                        </mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <!-- Rating Filter Select -->
+            <mat-form-field class="mr-4">
+                <mat-label>Filter by Rating</mat-label>
+
+                @if (selectClearVisible()) {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectFilter($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                } @else {
+                    <button matSuffix class="invisible" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                }
+                <mat-select (selectionChange)="applySelectFilter($event)" [formControl]="selectFilterFormControl" multiple>
+                    <mat-select-trigger>
+                        {{ selectFilterFormControl.value?.[0] || '' }}
+                        @if ((selectFilterFormControl.value?.length || 0) > 1) {
+                            <span>
+                                (+{{ (selectFilterFormControl.value?.length || 0) - 1 }} {{ selectFilterFormControl.value?.length === 2 ? 'other' : 'others' }})
+                            </span>
+                        }
+                    </mat-select-trigger>
+                    @for (rating of selectFilterOptions; track rating) {
+                        <mat-option [value]="rating">{{ rating }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- Paginator -->
+        <div class="inline-block sticky left-drawer-sm self-center mt-4">
+            <mat-paginator [pageSizeOptions]="[25, 10, 5]" aria-label="Select page of reviews"></mat-paginator>
+        </div>
+    </div>
+
+    <div class="sticky-table-header-toolbar sticky-table-column-drawer-sm">
+        <table [dataSource]="dataSource" [trackBy]="trackByFn" id="reviews-table" mat-table matSort>
+            <!-- Date Column -->
+            <ng-container matColumnDef="formattedDate">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by date">Date</th>
+                <td *matCellDef="let element" mat-cell>{{ element.formattedDate }}</td>
+            </ng-container>
+
+            <!-- Rating Column -->
+            <ng-container matColumnDef="rating">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>Rating</th>
+                <td *matCellDef="let element" mat-cell>
+                    {{ element.displayRating }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="message" >
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>Message</th>
+                <td *matCellDef="let element" mat-cell>
+                    {{ element.message }}
+                </td>
+            </ng-container>
+
+            <!-- Header Row -->
+            <tr *matHeaderRowDef="displayedColumns;" mat-header-row></tr>
+
+            <!-- Data Rows -->
+            <tr *matRowDef="let element; columns: displayedColumns;" mat-row></tr>
+        </table>
+    </div>
+</div>

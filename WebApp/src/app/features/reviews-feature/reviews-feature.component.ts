@@ -8,13 +8,15 @@ import {MenuItemAccessDto} from "../../core/http/dto/menu-dto/menu-analytics/men
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MenuService} from "../../core/http/services/menu-services/menu/menu.service";
 import {MenuReviewDto} from "../../core/http/dto/menu-dto/menu/menu-review.dto";
+import {ReviewsTableComponent} from "./components/reviews-table/reviews-table.component";
 
 @Component({
   selector: 'app-reviews-feature',
     imports: [
         ToolbarComponent,
         FeatureLoadingPageComponent,
-        JsonPipe
+        JsonPipe,
+        ReviewsTableComponent
     ],
   templateUrl: './reviews-feature.component.html',
   styleUrl: './reviews-feature.component.scss',

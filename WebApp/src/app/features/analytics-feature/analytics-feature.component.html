@@ -5,35 +5,8 @@
     } @else {
         <!--        <div>{{itemAccesses() | json}}</div>-->
 
-        <div class="p-page gap-6 flex flex-col">
-            <!-- Item Interactions By Hour Of Day Chart -->
-            <app-card appearance="raised" class="max-w-rectangle-chart-card" cardTitle="Item Interactions By Hour Of Day">
-                <app-advanced-chart-container>
-                    <mat-form-field subscriptSizing="dynamic">
-                        <mat-label>Time Period</mat-label>
-                        <mat-select (valueChange)="hourlyTimePeriodChange($event)" [value]="hourlyTimePeriod()">
-                            <mat-option value="All Time">All Time</mat-option>
-                            <mat-option value="Today">Today</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+        <div class="p-page gap-6 flex flex-col page-load-animation">
 
-                    <mat-form-field subscriptSizing="dynamic">
-                        <mat-label>Interaction Type</mat-label>
-                        <mat-select (valueChange)="hourlyInteractionTypeChange($event)" [value]="hourlyInteractionType()">
-                            <mat-option value="All Types">All Types</mat-option>
-                            <mat-option value="View Details">View Details</mat-option>
-                            <mat-option value="Add to Favorites">Add to Favorites</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <!--                <button (click)="openInsightsDialog()" mat-stroked-button>-->
-                    <!--                    <mat-icon>lightbulb_2</mat-icon>AI Insights-->
-                    <!--                </button>-->
-
-                    <app-hour-chart [hourlyData]="hourlyData()" chart></app-hour-chart>
-
-                </app-advanced-chart-container>
-            </app-card>
 
             <!-- Item Interaction Chart -->
             <app-card appearance="raised" class="max-w-rectangle-chart-card" cardTitle="Item Interaction">
@@ -63,6 +36,35 @@
 
                 </app-advanced-chart-container>
             </app-card>
+
+        <!-- Item Interactions By Hour Of Day Chart -->
+        <app-card appearance="raised" class="max-w-rectangle-chart-card" cardTitle="Item Interactions By Hour Of Day">
+            <app-advanced-chart-container>
+                <mat-form-field subscriptSizing="dynamic">
+                    <mat-label>Time Period</mat-label>
+                    <mat-select (valueChange)="hourlyTimePeriodChange($event)" [value]="hourlyTimePeriod()">
+                        <mat-option value="All Time">All Time</mat-option>
+                        <mat-option value="Today">Today</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field subscriptSizing="dynamic">
+                    <mat-label>Interaction Type</mat-label>
+                    <mat-select (valueChange)="hourlyInteractionTypeChange($event)" [value]="hourlyInteractionType()">
+                        <mat-option value="All Types">All Types</mat-option>
+                        <mat-option value="View Details">View Details</mat-option>
+                        <mat-option value="Add to Favorites">Add to Favorites</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!--                <button (click)="openInsightsDialog()" mat-stroked-button>-->
+                <!--                    <mat-icon>lightbulb_2</mat-icon>AI Insights-->
+                <!--                </button>-->
+
+                <app-hour-chart [hourlyData]="hourlyData()" chart></app-hour-chart>
+
+            </app-advanced-chart-container>
+        </app-card>
 
             <!-- Category Interaction Chart -->
             <app-card appearance="raised" class="max-w-rectangle-chart-card" cardTitle="Category Interaction">

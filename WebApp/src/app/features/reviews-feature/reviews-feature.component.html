@@ -3,6 +3,6 @@
     @if(loading()) {
         <app-feature-loading-page></app-feature-loading-page>
     } @else {
-        <div>{{reviews() | json}}</div>
+        <app-reviews-table [reviews]="reviews()"></app-reviews-table>
     }
 </div>
