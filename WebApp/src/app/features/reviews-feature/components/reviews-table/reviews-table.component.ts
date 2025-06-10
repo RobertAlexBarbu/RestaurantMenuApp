@@ -32,7 +32,7 @@ import {
 } from "@angular/material/autocomplete";
 import {
     MatFormField,
-    MatLabel,
+    MatLabel, MatPrefix,
     MatSelect,
     MatSelectChange,
     MatSelectTrigger,
@@ -52,6 +52,8 @@ import {ItemImageButtonComponent} from "../../../menu-feature/components/item-im
 import {
     InlinePriceInputComponent
 } from "../../../menu-feature/components/inline-price-input/inline-price-input.component";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {provideNativeDateAdapter} from "@angular/material/core";
 interface TableReview extends MenuReviewDto {
     formattedDate: string;
     numericRating: number;
@@ -115,11 +117,15 @@ interface TableReview extends MenuReviewDto {
         ItemVisibilityButtonComponent,
         ItemImageButtonComponent,
         InlinePriceInputComponent,
+        MatDatepickerToggle,
+        MatDatepickerInput,
+        MatDatepicker,
+        MatPrefix,
     ],
   templateUrl: './reviews-table.component.html',
   styleUrl: './reviews-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [DatePipe],
+    providers: [DatePipe, provideNativeDateAdapter()],
     animations: [pageLoadAnimation],
     standalone: true
 })
@@ -157,6 +163,11 @@ export class ReviewsTableComponent {
     searchFilterFormControl = new FormControl();
     selectClearVisible = signal(false);
 
+    // Date Filter Fields
+    dateFilterFormControl = new FormControl();
+    dateFilterValue: Date | null = null;
+    dateClearVisible = signal(false);
+
     constructor() {
         effect(() => {
             // Transform reviews data
@@ -179,40 +190,8 @@ export class ReviewsTableComponent {
 
             this.searchFilterOptions.set(this.tableReviews.filter(r => r.message !== '').map(r =>  r.message));
 
-            // Apply Select Filter (rating filter)
-            if (this.selectFilterValue.length > 0) {
-                this.selectClearVisible.set(true);
-                this.dataSource = new MatTableDataSource(
-                    this.tableReviews.filter(review =>
-                        this.selectFilterValue.includes(review.displayRating)
-                    )
-                );
-                // Reapply custom sorting after filtering
-                this.dataSource.sortingDataAccessor = (data: TableReview, sortHeaderId: string) => {
-                    if (sortHeaderId === 'rating') {
-                        return data.numericRating;
-                    }
-                    return (data as any)[sortHeaderId];
-                };
-            }
-
-            // Apply Search Filter
-            this.dataSource.filter = this.searchFilterValue.trim().toLowerCase();
-            const searchValue = this.searchFilterFormControl.value;
-            if (this.searchFilterValue) {
-                this.visibleSearchFilterOptions.set(
-                    this.searchFilterOptions().filter(option =>
-                        option.toLowerCase().includes(searchValue?.toLowerCase() || '')
-                    )
-                );
-            } else {
-                this.visibleSearchFilterOptions.set(this.searchFilterOptions());
-            }
-
-            // Set Up Sorter/Paginator
-            this.paginator().length = this.dataSource.filteredData.length;
-            this.dataSource.sort = this.sorter();
-            this.dataSource.paginator = this.paginator();
+            // Apply all filters
+            this.applyAllFilters();
         });
 
         this.searchFilterFormControl.valueChanges
@@ -257,6 +236,58 @@ export class ReviewsTableComponent {
         return `${numeric}/5 ${rating}`;
     }
 
+    // Apply all filters method
+    applyAllFilters() {
+        let filteredData = [...this.tableReviews];
+
+        // Apply rating filter
+        if (this.selectFilterValue.length > 0) {
+            filteredData = filteredData.filter(review =>
+                this.selectFilterValue.includes(review.displayRating)
+            );
+        }
+
+        // Apply date filter
+        if (this.dateFilterValue) {
+            const selectedDate = new Date(this.dateFilterValue);
+            const startOfDay = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            const endOfDay = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), 23, 59, 59);
+
+            filteredData = filteredData.filter(review => {
+                const reviewDate = new Date(review.createdAt);
+                return reviewDate >= startOfDay && reviewDate <= endOfDay;
+            });
+        }
+
+        this.dataSource = new MatTableDataSource(filteredData);
+
+        // Set up custom sorting after filtering
+        this.dataSource.sortingDataAccessor = (data: TableReview, sortHeaderId: string) => {
+            if (sortHeaderId === 'rating') {
+                return data.numericRating;
+            }
+            return (data as any)[sortHeaderId];
+        };
+
+        // Apply search filter
+        this.dataSource.filter = this.searchFilterValue.trim().toLowerCase();
+        const searchValue = this.searchFilterFormControl.value;
+        if (this.searchFilterValue) {
+            this.visibleSearchFilterOptions.set(
+                this.searchFilterOptions().filter(option =>
+                    option.toLowerCase().includes(searchValue?.toLowerCase() || '')
+                )
+            );
+        } else {
+            this.visibleSearchFilterOptions.set(this.searchFilterOptions());
+        }
+
+        // Set Up Sorter/Paginator
+        this.paginator().length = this.dataSource.filteredData.length;
+        this.dataSource.sort = this.sorter();
+        this.dataSource.paginator = this.paginator();
+    }
+
     // Search Filter Methods
     applySearchFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
@@ -297,31 +328,10 @@ export class ReviewsTableComponent {
         this.selectFilterValue = event.value;
         if (event.value.length === 0) {
             this.selectClearVisible.set(false);
-            this.dataSource = new MatTableDataSource(this.tableReviews);
-            this.dataSource.sort = this.sorter();
-            this.dataSource.paginator = this.paginator();
-            this.dataSource.filter = this.searchFilterValue.trim().toLowerCase();
-            this.paginator().length = this.dataSource.filteredData.length;
         } else {
             this.selectClearVisible.set(true);
-            this.dataSource = new MatTableDataSource(
-                this.tableReviews.filter(review =>
-                    this.selectFilterValue.includes(review.displayRating)
-                )
-            );
-            this.dataSource.sort = this.sorter();
-            this.dataSource.paginator = this.paginator();
-            this.dataSource.filter = this.searchFilterValue.trim().toLowerCase();
-            this.paginator().length = this.dataSource.filteredData.length;
         }
-
-        // Reapply custom sorting after filtering
-        this.dataSource.sortingDataAccessor = (data: TableReview, sortHeaderId: string) => {
-            if (sortHeaderId === 'rating') {
-                return data.numericRating;
-            }
-            return (data as any)[sortHeaderId];
-        };
+        this.applyAllFilters();
     }
 
     clearSelectFilter(event: Event) {
@@ -329,11 +339,26 @@ export class ReviewsTableComponent {
         event.stopPropagation();
         this.selectFilterValue = [];
         this.selectFilterFormControl.setValue('');
-        this.dataSource = new MatTableDataSource(this.tableReviews);
-        this.dataSource.sort = this.sorter();
-        this.dataSource.paginator = this.paginator();
-        this.dataSource.filter = this.searchFilterValue.trim().toLowerCase();
-        this.paginator().length = this.dataSource.filteredData.length;
+        this.applyAllFilters();
+    }
+
+    // Date Filter Methods
+    applyDateFilter(event: any) {
+        this.dateFilterValue = event.value;
+        if (this.dateFilterValue) {
+            this.dateClearVisible.set(true);
+        } else {
+            this.dateClearVisible.set(false);
+        }
+        this.applyAllFilters();
+    }
+
+    clearDateFilter(event: Event) {
+        this.dateClearVisible.set(false);
+        event.stopPropagation();
+        this.dateFilterValue = null;
+        this.dateFilterFormControl.setValue(null);
+        this.applyAllFilters();
     }
 
     // Rating badge color helper (updated to work with display rating)

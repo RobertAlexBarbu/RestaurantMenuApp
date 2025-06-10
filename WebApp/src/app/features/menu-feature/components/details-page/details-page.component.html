@@ -51,7 +51,7 @@
                                     <mat-timepicker #picker1/>
                                     @if(openingHoursForm.controls.monFriOpen.hasError('required')) {
                                         <mat-error>Required field</mat-error>
-                                    }@else if (openingHoursForm.controls.monFriOpen.hasError('matTimepickerParse')) {
+                                    }@else if (openingHoursForm.controls.monFriOpen.hasError('invalidDate')) {
                                         <mat-error>Invalid time</mat-error>
                                     }
                                 </mat-form-field>
@@ -62,7 +62,7 @@
                                     <mat-timepicker #picker2/>
                                     @if(openingHoursForm.controls.monFriClose.hasError('required')) {
                                         <mat-error>Required field</mat-error>
-                                    }@else if (openingHoursForm.controls.monFriClose.hasError('matTimepickerParse')) {
+                                    }@else if (openingHoursForm.controls.monFriClose.hasError('invalidDate')) {
                                         <mat-error>Invalid time</mat-error>
                                     }
                                 </mat-form-field>
@@ -78,7 +78,7 @@
                                     <mat-timepicker #picker3/>
                                     @if(openingHoursForm.controls.weekendOpen.hasError('required')) {
                                         <mat-error>Required field</mat-error>
-                                    } @else if (openingHoursForm.controls.weekendOpen.hasError('matTimepickerParse')) {
+                                    } @else if (openingHoursForm.controls.weekendOpen.hasError('invalidDate')) {
                                         <mat-error>Invalid time</mat-error>
                                     }
                                 </mat-form-field>
@@ -89,7 +89,7 @@
                                     <mat-timepicker #picker4/>
                                     @if(openingHoursForm.controls.weekendClose.hasError('required')) {
                                         <mat-error>Required field</mat-error>
-                                    }@else if (openingHoursForm.controls.weekendClose.hasError('matTimepickerParse')) {
+                                    }@else if (openingHoursForm.controls.weekendClose.hasError('invalidDate')) {
                                         <mat-error>Invalid time</mat-error>
                                     }
                                 </mat-form-field>

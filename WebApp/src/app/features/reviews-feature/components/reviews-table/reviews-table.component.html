@@ -56,7 +56,31 @@
                     }
                 </mat-select>
             </mat-form-field>
+            <!-- Date Filter -->
+            <mat-form-field class="mr-4">
+                <mat-label>Filter by Date</mat-label>
+                <input matInput
+                       [matDatepicker]="picker"
+                       [formControl]="dateFilterFormControl"
+                       (dateChange)="applyDateFilter($event)"
+                       readonly>
+                @if (dateClearVisible()) {
+                    <button matSuffix aria-label="Clear Date" (click)="clearDateFilter($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                } @else {
+                    <button class="invisible" matSuffix aria-label="Clear Date" (click)="clearDateFilter($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                } 
+                <mat-datepicker-toggle matSuffix [for]="picker">
+
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
         </div>
+
 
         <!-- Paginator -->
         <div class="inline-block sticky left-drawer-sm self-center mt-4">

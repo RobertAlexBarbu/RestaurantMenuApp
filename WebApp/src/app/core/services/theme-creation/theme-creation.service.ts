@@ -17,20 +17,18 @@ export class ThemeCreationService {
         // Extract light and dark scheme colors
         const lightScheme = theme.schemes.light;
         const darkScheme = theme.schemes.dark;
-        // Helper function to create neutral surface colors
         const createNeutralSurface = (isLight: boolean, tone: number) => {
             // Use very low chroma (saturation) for neutral surfaces
             const hct = Hct.from(sourceHue, 4, tone);
             return hexFromArgb(hct.toInt());
         };
-
-        // Helper function to safely get color or fallback
+        
         // @ts-ignore
         const getColor = (scheme: any, property: string, fallback: string) => {
             return scheme[property] ? hexFromArgb(scheme[property]) : fallback;
         };
 
-        // Create more neutral surface colors
+
         const neutralSurfaces = {
             light: {
                 surface: createNeutralSurface(true, 98),
@@ -55,7 +53,7 @@ export class ThemeCreationService {
         };
 
         const themeCSS = `
- --mat-sys-background: light-dark(${hexFromArgb(lightScheme.background)}, ${hexFromArgb(darkScheme.background)});
+         --mat-sys-background: light-dark(${hexFromArgb(lightScheme.background)}, ${hexFromArgb(darkScheme.background)});
         --mat-sys-error: light-dark(${hexFromArgb(lightScheme.error)}, ${hexFromArgb(darkScheme.error)});
         --mat-sys-error-container: light-dark(${hexFromArgb(lightScheme.errorContainer)}, ${hexFromArgb(darkScheme.errorContainer)});
         --mat-sys-inverse-on-surface: light-dark(${hexFromArgb(lightScheme.inverseOnSurface)}, ${hexFromArgb(darkScheme.inverseOnSurface)});

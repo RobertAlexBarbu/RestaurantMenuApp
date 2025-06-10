@@ -2,13 +2,13 @@ import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal} 
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatMenu, MatMenuItem} from "@angular/material/menu";
-import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
+import {AsyncPipe, JsonPipe, NgTemplateOutlet} from "@angular/common";
 import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.component";
 import {CardComponent} from "../../../../shared/components/card/card.component";
 import {MatSlideToggle, MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {pageLoadAnimation} from "../../../../app.animations";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatTimepicker, MatTimepickerInput, MatTimepickerToggle} from "@angular/material/timepicker";
@@ -40,7 +40,8 @@ import {skip} from "rxjs";
         MatError,
         MatTimepickerInput,
         MatTimepickerToggle,
-        MatTimepicker
+        MatTimepicker,
+        JsonPipe
     ],
   templateUrl: './details-page.component.html',
   styleUrl: './details-page.component.scss',
@@ -174,17 +175,32 @@ export class DetailsPageComponent {
 
         })
     }
-    
+    timeValidator(control: AbstractControl) {
+        const value = control.value;
+        if (!value) {
+            return { required: true };
+        }
+        console.log(value);
+        if (value === null) {
+            return null;
+        }
+        if (value instanceof Date && isNaN(value.getTime())) {
+            return { invalidDate: true };
+        }
+        return null;
+    }
     openingHoursForm = new FormGroup({
-        monFriOpen: new FormControl<Date | null>(null, [Validators.required]),
-        monFriClose: new FormControl<Date | null>(null,  [Validators.required]),
-        weekendOpen: new FormControl<Date | null>(null,[Validators.required]),
-        weekendClose: new FormControl<Date | null>(null, [Validators.required]),
+        monFriOpen: new FormControl<Date | null>(null, [this.timeValidator]),
+        monFriClose: new FormControl<Date | null>(null,  [ this.timeValidator]),
+        weekendOpen: new FormControl<Date | null>(null,[this.timeValidator]),
+        weekendClose: new FormControl<Date | null>(null, [this.timeValidator]),
     })
     disabledOpeningHoursSave = signal(true)
     updateOpeningHoursLoading = signal(false)
     saveOpeningHoursDetails() {
+        console.log(this.openingHoursForm.invalid)
         if (this.openingHoursForm.invalid) {
+            console.log(this.openingHoursForm.invalid)
             return;
         }
         this.updateOpeningHoursLoading.set(true);
@@ -257,9 +273,9 @@ export class DetailsPageComponent {
         this.addressForm.patchValue(menuDetails);
         this.contactForm.patchValue(menuDetails);
         this.openingHoursForm.patchValue({
-            monFriClose: this.timeStringToDate(menuDetails.monFriClose),
-            monFriOpen: this.timeStringToDate(menuDetails.monFriOpen),
-            weekendOpen: this.timeStringToDate(menuDetails.weekendOpen),
+            monFriClose: menuDetails.monFriClose !== '' ? this.timeStringToDate(menuDetails.monFriClose ) : null, 
+            monFriOpen: menuDetails.monFriOpen !== '' ? this.timeStringToDate(menuDetails.monFriOpen): null as null,
+            weekendOpen: menuDetails.weekendOpen !== '' ? this.timeStringToDate(menuDetails.weekendOpen): null,
             weekendClose: this.timeStringToDate(menuDetails.weekendClose),
         });
 
