@@ -12,8 +12,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
-    public DbSet<Element> Elements { get; set; }
-    public DbSet<ElementCategory> ElementCategories { get; set; }
+
     
     public DbSet<Menu> Menus { get; set; }
     
@@ -34,7 +33,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        new ElementConfiguration().Configure(modelBuilder.Entity<Element>());
+
         new MenuConfiguration().Configure(modelBuilder.Entity<Menu>());
     }
 }

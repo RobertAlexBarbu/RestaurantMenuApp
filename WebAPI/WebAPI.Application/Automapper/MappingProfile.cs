@@ -1,6 +1,5 @@
 using AutoMapper;
-using WebAPI.Application.DTO.Element;
-using WebAPI.Application.DTO.ElementCategory;
+
 using WebAPI.Application.DTO.Menu;
 using WebAPI.Application.DTO.MenuAccess;
 using WebAPI.Application.DTO.MenuDTO.Menu;
@@ -32,17 +31,6 @@ public class MappingProfile : Profile
         CreateMap<UpdateImageUrlDto, User>();
         CreateMap<UpdateSetupCompleteDto, User>();
 
-        // Element
-        CreateMap<Element, ElementDto>();
-        CreateMap<Element, ElementDetailDto>();
-        CreateMap<CreateElementDto, Element>();
-        CreateMap<UpdateElementDto, Element>();
-        CreateMap<UpdateVisibilityDto, Element>();
-        CreateMap<UpdateWeightDto, Element>();
-        CreateMap<ElementCategory, ElementCategoryDto>();
-        CreateMap<UpdateElementCategoryDto, ElementCategory>();
-        CreateMap<CreateElementCategoryDto, ElementCategory>();
-        CreateMap<PositionDto, Element>();
         
         // Menu
         CreateMap<Menu, MenuDto>();
