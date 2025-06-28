@@ -2,6 +2,10 @@
 
 A full-stack restaurant menu application built with Angular frontends and .NET backend.
 
+## Github
+
+https://github.com/RobertAlexBarbu/RestaurantMenuApp
+
 ## Project Structure
 
 ```
