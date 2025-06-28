@@ -36,7 +36,7 @@ Before running this application, make sure you have the following installed:
 
 ## Configuration & Secrets
 
-⚠️ **Important**: This project requires two secret configuration files that are not included in the repository for security reasons.
+This project requires two secret configuration files that are not included in the repository for security reasons.
 
 ### 1. Create `appsettings.json`
 
@@ -81,8 +81,6 @@ This should be your **Firebase Service Account Key** file. To get this file:
 5. Click **Generate New Private Key**
 6. Click **Generate Key** to download the JSON file
 7. Rename the downloaded file to `firebase.json` and place it in `./WebAPI/WebAPI/`
-
-> **Note**: After you download the key file, you cannot download it again, so keep it secure!
 
 ### 3. Create Firebase Config Files (Frontend)
 
@@ -146,8 +144,6 @@ dotnet restore
 dotnet run
 ```
 
-The API will be available at `https://localhost:7001` (or the port specified in console output)
-
 ### 2. Frontend - Angular SPA
 
 ```bash
@@ -176,4 +172,4 @@ npm install
 npm run serve:ssr:WebAppSSR
 ```
 
-The SSR app will be available at `http://localhost:4000`
+The SSR app will be available at `http://localhost:4300`
