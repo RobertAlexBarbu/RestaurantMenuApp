@@ -26,7 +26,6 @@ Before running this application, make sure you have the following installed:
 - **Node.js** (v18 or higher) - [Download here](https://nodejs.org/)
 - **Angular CLI** - Install with: `npm install -g @angular/cli`
 - **.NET SDK** (v8.0 or higher) - [Download here](https://dotnet.microsoft.com/download)
-- **Git** - [Download here](https://git-scm.com/)
 
 ### Database
 
