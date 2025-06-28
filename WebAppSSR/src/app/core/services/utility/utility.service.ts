@@ -24,8 +24,16 @@ export class UtilityService {
 
     }
 
+
     isMobile(): boolean {
-        return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent)
+        // Check if screen width is smaller than 700px
+        const isSmallScreen = window.innerWidth < 700;
+
+        // Check if user agent indicates mobile device
+        const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+
+        // Return true if either condition is met
+        return isSmallScreen || isMobileDevice;
     }
 
     detectForcedDarkMode() {

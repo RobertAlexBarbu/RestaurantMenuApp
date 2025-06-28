@@ -7,8 +7,7 @@ import {
     MatDialogTitle
 } from "@angular/material/dialog";
 import {UtilityService} from "../../../../core/services/utility/utility.service";
-import {TableFeatureStore} from "../../../../recipes/stores/table-feature.store";
-import {ElementService} from "../../../../core/http/services/element/element.service";
+
 import {ErrorService} from "../../../../core/services/error/error.service";
 import {NotificationService} from "../../../../core/services/notification/notification.service";
 import {DragAndDropSortingItemWithText} from "../../../../core/stores/drag-and-drop-sorting.store";

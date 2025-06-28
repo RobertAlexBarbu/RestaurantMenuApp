@@ -17,13 +17,13 @@ public class LlmController(IChatService chatService, IClaimService claimService)
         return Ok(answer);
     }
     
-    [HttpPost]
-    public async Task<ActionResult<MessageDto>> AskQuestionWithContextAsync(AskQuestionDto askQuestion)
-    {
-        var userClaimsDto = claimService.GetUserClaims(User);
-        var answer = await chatService.AskQuestionWithContextAsync(askQuestion, userClaimsDto.Id);
-        return Ok(answer);
-    }
+    // [HttpPost]
+    // public async Task<ActionResult<MessageDto>> AskQuestionWithContextAsync(AskQuestionDto askQuestion)
+    // {
+    //     var userClaimsDto = claimService.GetUserClaims(User);
+    //     var answer = await chatService.AskQuestionWithContextAsync(askQuestion, userClaimsDto.Id);
+    //     return Ok(answer);
+    // }
     
 
     

@@ -69,19 +69,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("NeonConnection"));
 });
+
+
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddSingleton<FirebaseProvider>();
 builder.Services.AddSingleton<IAuthService, FirebaseAuthService>();
-builder.Services.AddKernel().AddOpenAIChatCompletion(modelId: "deepseek-chat",
-    endpoint: new Uri("https://api.deepseek.com"),
-    apiKey: "sk-2b0f2b5997924f3cafdf82d0c97567a3");
-// builder.Services.AddKernel().AddOpenAIChatCompletion(
-//     modelId: "gpt-4.1-nano", // or "gpt-3.5-turbo"
-//     apiKey: "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"
-// );
-builder.Services.AddSingleton<ILlmService, DeepSeekLlmService>();
+// builder.Services.AddKernel().AddOpenAIChatCompletion(modelId: "deepseek-chat",
+//     endpoint: new Uri("https://api.deepseek.com"),
+//     apiKey: "sk-2b0f2b5997924f3cafdf82d0c97567a3");
+builder.Services.AddKernel().AddOpenAIChatCompletion(
+    modelId: "gpt-4o-mini", // or "gpt-3.5-turbo"
+    apiKey: "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"
+);
+builder.Services.AddSingleton<ILlmService, GptLlmService>();
 builder.Services.AddSingleton<IEmbeddingService, OpenAiEmbeddingService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
 builder.Services.AddScoped<IChatService, ChatService>();

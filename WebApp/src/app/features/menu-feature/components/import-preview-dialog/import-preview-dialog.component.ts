@@ -8,14 +8,7 @@ import {
     MatDialogTitle
 } from "@angular/material/dialog";
 import {MatTab, MatTabChangeEvent, MatTabGroup} from "@angular/material/tabs";
-import {
-    TableImportPreviewCategoriesComponent
-} from "../../../../recipes/features/table-feature/components/table-import-preview-categories/table-import-preview-categories.component";
-import {
-    TableImportPreviewElementsComponent
-} from "../../../../recipes/features/table-feature/components/table-import-preview-elements/table-import-preview-elements.component";
-import {ImportElementDto} from "../../../../core/http/dto/element/import-element.dto";
-import {ImportElementCategoryDto} from "../../../../core/http/dto/element-category/import-element-category.dto";
+
 import {ScrollService} from "../../../../core/services/scroll/scroll.service";
 import {ImportMenuItemDto} from "../../services/menu-spreadsheet/menu-spreadsheet.service";
 import {CreateMenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/create-menu-category.dto";
@@ -32,8 +25,7 @@ import {ImportCategoriesPreviewComponent} from "../import-categories-preview/imp
         MatDialogTitle,
         MatTab,
         MatTabGroup,
-        TableImportPreviewCategoriesComponent,
-        TableImportPreviewElementsComponent,
+
         JsonPipe,
         ImportItemsPreviewComponent,
         ImportCategoriesPreviewComponent

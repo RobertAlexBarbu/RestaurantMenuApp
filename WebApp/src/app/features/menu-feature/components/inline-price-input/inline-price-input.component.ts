@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy, Component, effect, inject, input, signal} from '@angular/core';
-import {TableFeatureStore} from "../../../../recipes/stores/table-feature.store";
-import {ElementService} from "../../../../core/http/services/element/element.service";
-import {ElementDto} from "../../../../core/http/dto/element/element.dto";
+
 import {debounceTime, switchMap} from "rxjs";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MenuStoreService} from "../../services/menu-store/menu-store.service";

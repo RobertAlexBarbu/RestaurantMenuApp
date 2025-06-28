@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, input} from '@angular/core';
-import {TableFeatureStore} from "../../../../recipes/stores/table-feature.store";
-import {ElementService} from "../../../../core/http/services/element/element.service";
+
 import {BehaviorSubject} from "rxjs";
-import {ElementDetailDto} from "../../../../core/http/dto/element/element-detail.dto";
+
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MenuStoreService} from "../../services/menu-store/menu-store.service";
 import {MenuItemService} from "../../../../core/http/services/menu-services/menu-item/menu-item.service";

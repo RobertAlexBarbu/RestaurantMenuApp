@@ -18,12 +18,9 @@ export class FormatLlmResponsePipe implements PipeTransform {
 
     transform(text: string): SafeHtml {
         if (!text) return ''
-
-        // Process headings first (since they affect block structure)
-        // let formattedText = this.processHeadings(text)
+        
         let formattedText = this.processItems(text)
-
-        // Process other block elements
+        
         formattedText = this.processHeadings(formattedText)
         formattedText = this.processCodeBlocks(formattedText)
         formattedText = this.processBlockquotes(formattedText)
@@ -31,8 +28,7 @@ export class FormatLlmResponsePipe implements PipeTransform {
         formattedText = this.processLists(formattedText)
         formattedText = this.processTables(formattedText)
         formattedText = this.processInlineElements(formattedText)
-
-        // Process inline elements
+        
         formattedText = this.processInlineElements(formattedText)
 
         return this.sanitizer.bypassSecurityTrustHtml(
@@ -53,7 +49,6 @@ export class FormatLlmResponsePipe implements PipeTransform {
 
     private processItems(text: string): string {
         return text.replace(/<Item>([\s\S]*?)<\/Item>/g, (match, content) => {
-            // Extract the item details
             const idMatch = content.match(/ItemId=(.*)/);
             const nameMatch = content.match(/ItemName=(.*)/);
             const descMatch = content.match(/ItemDescription=(.*)/);
@@ -82,7 +77,7 @@ export class FormatLlmResponsePipe implements PipeTransform {
                     class="mt-3 ml-auto  hover:underline focus:outline-none">
                     View Details
                 </button>   
-</div>
+            </div>
 
             </div>
         `;

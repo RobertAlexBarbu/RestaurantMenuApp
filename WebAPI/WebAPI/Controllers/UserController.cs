@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.DTO.User;
 using WebAPI.Application.Services.ClaimService;
-using WebAPI.Application.Services.ElementOverviewService;
 using WebAPI.Application.Services.UserService;
 using WebAPI.Domain.Enums;
 using WebAPI.Domain.Exceptions;
@@ -13,8 +12,7 @@ namespace WebAPI.Controllers;
 [Route("/api/[controller]/[action]")]
 public class UserController(
     IUserService userService,
-    IClaimService claimService,
-    IElementOverviewService elementOverviewService
+    IClaimService claimService
 ) : ControllerBase
 {
     [HttpGet]
@@ -30,7 +28,7 @@ public class UserController(
         catch (NotFoundException e)
         {
             userDto = await userService.CreateAsync(firebaseClaimsDto);
-            await elementOverviewService.ResetElementsAndCategoriesByUserIdAsync(userDto.Id);
+
         }
 
         return Ok(userDto);
@@ -42,7 +40,7 @@ public class UserController(
     {
         var firebaseClaimsDto = claimService.GetFirebaseClaims(User);
         var userDto = await userService.CreateAsync(firebaseClaimsDto);
-        await elementOverviewService.ResetElementsAndCategoriesByUserIdAsync(userDto.Id);
+
         return Ok(userDto);
     }
 

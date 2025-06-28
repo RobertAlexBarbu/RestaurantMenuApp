@@ -19,15 +19,12 @@ import {MatSelect} from "@angular/material/select";
 import {
     ModalFormAutoFocusDirective
 } from "../../../../shared/directives/modal-form-auto-focus/modal-form-auto-focus.directive";
-import {ElementService} from "../../../../core/http/services/element/element.service";
-import {TableFeatureStore} from "../../../../recipes/stores/table-feature.store";
+
 import {NotificationService} from "../../../../core/services/notification/notification.service";
 import {ErrorService} from "../../../../core/services/error/error.service";
-import {CreateElementDto} from "../../../../core/http/dto/element/create-element.dto";
+
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {
-    TableAddCategoryDialogComponent
-} from "../../../../recipes/features/table-feature/components/table-add-category-dialog/table-add-category-dialog.component";
+
 import {MenuStoreService} from "../../services/menu-store/menu-store.service";
 import {MenuItemService} from "../../../../core/http/services/menu-services/menu-item/menu-item.service";
 import {CreateMenuItemDto} from "../../../../core/http/dto/menu-dto/menu-item/create-menu-item.dto";

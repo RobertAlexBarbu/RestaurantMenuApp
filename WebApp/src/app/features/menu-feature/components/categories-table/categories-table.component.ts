@@ -22,7 +22,7 @@ import {
     MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable,
     MatTableDataSource
 } from "@angular/material/table";
-import {ElementCategoryDto} from "../../../../core/http/dto/element-category/element-category.dto";
+
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {map, startWith} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";

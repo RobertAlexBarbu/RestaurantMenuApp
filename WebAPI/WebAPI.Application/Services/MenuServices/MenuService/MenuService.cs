@@ -43,12 +43,6 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
 
     public async Task<bool> CheckUrlAvailabilityAsync(string url)
     {
-        if (string.IsNullOrWhiteSpace(url))
-        {
-            return false;
-        }
-
-        var menu = await context.Menus.FirstOrDefaultAsync(m => m.Url == url);
         bool isAvailable = !await context.Menus
             .AnyAsync(m => m.Url.ToLower() == url.ToLower());
         return isAvailable;
@@ -101,7 +95,7 @@ public class MenuService(AppDbContext context, IMapper mapper, IUtilityService u
 
     public async Task<List<MenuReviewDto>> GetReviewsByMenuId(int menuId)
     {
-        var reviews =await context.MenuReviews.Where(r => r.MenuId ==  menuId).ToListAsync();
+        var reviews =await context.MenuReviews.Where(r => r.MenuId ==  menuId).OrderByDescending(r => r.CreatedAt).ToListAsync();
         return reviews.Select(mapper.Map<MenuReviewDto>).ToList();
     }
 

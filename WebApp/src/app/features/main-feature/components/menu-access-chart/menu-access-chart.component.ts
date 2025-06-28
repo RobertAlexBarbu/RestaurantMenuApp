@@ -29,12 +29,8 @@ export class MenuAccessChartComponent {
 
   private createChart(): void {
     const canvas = this.canvasRef().nativeElement;
-
-    // Group data by menuId and count accesses
     const urlCounts = this.countAccessesByMenuId(this.urlAccessData);
     const qrCounts = this.countAccessesByMenuId(this.qrAccessData);
-
-    // Get all unique menuIds to use as labels
     const allMenuIds = [...new Set([
       ...this.urlAccessData.map(item => item.menuId),
       ...this.qrAccessData.map(item => item.menuId)
@@ -135,19 +131,15 @@ export class MenuAccessChartComponent {
 
     const urlCounts = this.countAccessesByMenuId(this.urlAccessData);
     const qrCounts = this.countAccessesByMenuId(this.qrAccessData);
-
-    // Get all unique menuIds to use as labels
     const allMenuIds = [...new Set([
       ...this.urlAccessData.map(item => item.menuId),
       ...this.qrAccessData.map(item => item.menuId)
     ])].sort();
-
-    // Update chart data
+    
     this.chart.data.labels = [''];
     this.chart.data.datasets[0].data = allMenuIds.map(id => urlCounts.get(id) || 0);
     this.chart.data.datasets[1].data = allMenuIds.map(id => qrCounts.get(id) || 0);
 
-    // Refresh the chart
     this.chart.update();
   }
 }

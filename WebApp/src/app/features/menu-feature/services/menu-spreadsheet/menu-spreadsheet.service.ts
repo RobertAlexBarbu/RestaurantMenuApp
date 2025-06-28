@@ -1,14 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {SpreadsheetService} from "../../../../core/services/spreadsheet/spreadsheet.service";
-import {ElementCategoryDto} from "../../../../core/http/dto/element-category/element-category.dto";
-import {ElementDetailDto} from "../../../../core/http/dto/element/element-detail.dto";
+
 import {Observable} from "rxjs";
 import * as ExcelJS from "exceljs";
-import {CreateElementCategoryDto} from "../../../../core/http/dto/element-category/create-element-category.dto";
-import {ImportElementDto} from "../../../../core/http/dto/element/import-element.dto";
+
 import {map} from "rxjs/operators";
 import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
-import {ElementDto} from "../../../../core/http/dto/element/element.dto";
+
 import {MenuItemDetailDto} from "../../../../core/http/dto/menu-dto/menu-item/menu-item-detail.dto";
 import {CreateMenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/create-menu-category.dto";
 
@@ -68,7 +66,7 @@ export class MenuSpreadsheetService {
                 if (foodCategoriesSheet) {
                     let index = 0
                     foodCategoriesSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
-                        if (rowNumber <= 3) return // Skip title, info, and header rows
+                        if (rowNumber <= 3) return 
                         index++;
                         const nameCell = row.getCell(1)
                         const descriptionCell = row.getCell(2)
@@ -88,7 +86,7 @@ export class MenuSpreadsheetService {
                 if (drinksCategoriesSheet) {
                     let index = 0
                     drinksCategoriesSheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
-                        if (rowNumber <= 3) return // Skip title, info, and header rows
+                        if (rowNumber <= 3) return // skip title, info, and header rows
                         index++;
                         const nameCell = row.getCell(1)
                         const descriptionCell = row.getCell(2)
@@ -178,7 +176,6 @@ export class MenuSpreadsheetService {
                         }
                     })
                 }
-                console.log(items);
                 return {
                     categories,
                     items: this.assignCategoryPositions(items),

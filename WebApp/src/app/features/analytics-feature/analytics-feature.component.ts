@@ -10,7 +10,6 @@ import {JsonPipe} from "@angular/common";
 import {
     AdvancedChartContainerComponent
 } from "../../shared/components/advanced-chart-container/advanced-chart-container.component";
-import {BarChartComponent} from "../../recipes/components/charts/bar-chart/bar-chart.component";
 import {CardComponent} from "../../shared/components/card/card.component";
 import {MatButton} from "@angular/material/button";
 import {
@@ -25,15 +24,12 @@ import {MatIcon} from "@angular/material/icon";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {ChartJsService} from "../../core/services/chart-js/chart-js.service";
-import {LineChartComponent} from "../../recipes/components/charts/line-chart/line-chart.component";
-import {BubbleChartComponent} from "../../recipes/components/charts/bubble-chart/bubble-chart.component";
-import {
-    HorizontalBarChartComponent
-} from "../../recipes/components/charts/horizontal-bar-chart/horizontal-bar-chart.component";
+
+
 import {MenuItemDto} from "../../core/http/dto/menu-dto/menu-item/menu-item.dto";
 import {MenuCategoryDto} from "../../core/http/dto/menu-dto/menu-category/menu-category.dto";
 import {MenuService} from "../../core/http/services/menu-services/menu/menu.service";
-import {MenuItemAccessDetailDto} from "../../core/http/dto/menu-dto/menu-analytics/menu-item-access-detail.dto";
+
 import {MatDialog} from "@angular/material/dialog";
 import {HourChartComponent} from "./components/hour-chart/hour-chart.component";
 import {ItemChartComponent} from "./components/item-chart/item-chart.component";
@@ -62,7 +58,7 @@ export interface CategoryChartData {
         FeatureLoadingPageComponent,
         JsonPipe,
         AdvancedChartContainerComponent,
-        BarChartComponent,
+
         CardComponent,
         MatButton,
         MatDateRangeInput,
@@ -77,9 +73,7 @@ export interface CategoryChartData {
         MatSelect,
         MatStartDate,
         MatSuffix,
-        LineChartComponent,
-        BubbleChartComponent,
-        HorizontalBarChartComponent,
+
         HourChartComponent,
         ItemChartComponent,
         CategoryChartComponent

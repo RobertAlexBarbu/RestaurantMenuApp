@@ -9,16 +9,14 @@ export class ThemeCreationService {
   constructor() { }
     
     createThemeCss(color: string) {
-        const sourceColor = argbFromHex(color); // or any color
+        const sourceColor = argbFromHex(color);
         const theme = themeFromSourceColor(sourceColor);
         const sourceHct = Hct.fromInt(sourceColor);
         const sourceHue = sourceHct.hue;
-
-        // Extract light and dark scheme colors
+        
         const lightScheme = theme.schemes.light;
         const darkScheme = theme.schemes.dark;
         const createNeutralSurface = (isLight: boolean, tone: number) => {
-            // Use very low chroma (saturation) for neutral surfaces
             const hct = Hct.from(sourceHue, 4, tone);
             return hexFromArgb(hct.toInt());
         };

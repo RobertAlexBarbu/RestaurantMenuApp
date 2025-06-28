@@ -36,30 +36,19 @@ import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {MatSelect, MatSelectChange, MatSelectTrigger} from "@angular/material/select";
 import {MatDialog} from "@angular/material/dialog";
 import {TableUtilityService} from "../../../../core/services/table-utility/table-utility.service";
-import {ElementCategoryDto} from "../../../../core/http/dto/element-category/element-category.dto";
-import {
-    TableAddDialogComponent
-} from "../../../../recipes/features/table-feature/components/table-add-dialog/table-add-dialog.component";
+
 import {responsiveDialogConfig} from "../../../../shared/configs/dialogs.config";
-import {InfoDialogComponent} from "../../../../shared/components/info-dialog/info-dialog.component";
+
 import {map, startWith} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {
-    IsVisibleButtonComponent
-} from "../../../../recipes/features/table-feature/components/is-visible-button/is-visible-button.component";
-import {ElementDetailDto} from "../../../../core/http/dto/element/element-detail.dto";
-import {
-    TableEditDialogComponent
-} from "../../../../recipes/features/table-feature/components/table-edit-dialog/table-edit-dialog.component";
-import {
-    TableDeleteDialogComponent
-} from "../../../../recipes/features/table-feature/components/table-delete-dialog/table-delete-dialog.component";
+
+
 import {ItemVisibilityButtonComponent} from "../item-visibility-button/item-visibility-button.component";
 import {ItemDeleteDialogComponent} from "../item-delete-dialog/item-delete-dialog.component";
 import {ItemAddDialogComponent} from "../item-add-dialog/item-add-dialog.component";
 import {ItemEditDialogComponent} from "../item-edit-dialog/item-edit-dialog.component";
 import {ItemImageButtonComponent} from "../item-image-button/item-image-button.component";
-import {CdkOverlayOrigin} from "@angular/cdk/overlay";
+
 import {InlinePriceInputComponent} from "../inline-price-input/inline-price-input.component";
 import {MenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/menu-category.dto";
 
@@ -98,7 +87,7 @@ interface TableItem extends MenuItemDetailDto {
         MatSelectTrigger,
         MatSuffix,
         ReactiveFormsModule,
-        IsVisibleButtonComponent,
+
         ItemVisibilityButtonComponent,
         ItemImageButtonComponent,
         InlinePriceInputComponent,

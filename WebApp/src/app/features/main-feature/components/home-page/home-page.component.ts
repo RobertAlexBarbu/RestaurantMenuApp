@@ -12,16 +12,16 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
-import {MatStepper} from "@angular/material/stepper";
+
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {of, switchMap} from "rxjs";
 import {NotificationService} from "../../../../core/services/notification/notification.service";
 import {MatIcon} from "@angular/material/icon";
-import {QrGeneratorComponent} from "../../../../recipes/components/qr-generator/qr-generator.component";
+
 import {
   AdvancedChartContainerComponent
 } from "../../../../shared/components/advanced-chart-container/advanced-chart-container.component";
-import {BarChartComponent} from "../../../../recipes/components/charts/bar-chart/bar-chart.component";
+
 import {
   MatDatepickerToggle,
   MatDateRangeInput,
@@ -32,7 +32,7 @@ import {
 import {MatOption, provideNativeDateAdapter} from "@angular/material/core";
 import {MatSelect, MatSelectChange} from "@angular/material/select";
 import {ChartJsService} from "../../../../core/services/chart-js/chart-js.service";
-import {PieChartComponent} from "../../../../recipes/components/charts/pie-chart/pie-chart.component";
+
 import {MenuAnalyticsService} from "../../../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
 import {LoadingPageComponent} from "../../../../shared/components/loading-page/loading-page.component";
 import {
@@ -42,13 +42,14 @@ import {MenuAccessChartComponent} from "../menu-access-chart/menu-access-chart.c
 import {MenuAccessDto} from "../../../../core/http/dto/menu-dto/menu-analytics/menu-access.dto";
 import {MatDialog} from "@angular/material/dialog";
 import {MenuAccessInsightDialogComponent} from "../menu-access-insight-dialog/menu-access-insight-dialog.component";
+import {QrGeneratorComponent} from "../qr-generator/qr-generator.component";
 
 @Component({
     selector: 'app-home-page',
     standalone: true,
-  imports: [
-    MatIcon,
-    ToolbarComponent, JsonPipe, RightSidebarComponent, CardComponent, FormsModule, MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton, QrGeneratorComponent, AdvancedChartContainerComponent, BarChartComponent, MatDateRangeInput, MatDateRangePicker, MatDatepickerToggle, MatEndDate, MatHint, MatOption, MatSelect, MatStartDate, MatSuffix, PieChartComponent, LoadingPageComponent, FeatureLoadingPageComponent, MenuAccessChartComponent],
+    imports: [
+        MatIcon,
+        ToolbarComponent, JsonPipe, RightSidebarComponent, CardComponent, FormsModule, MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton, AdvancedChartContainerComponent, MatDateRangeInput, MatDateRangePicker, MatDatepickerToggle, MatEndDate, MatHint, MatOption, MatSelect, MatStartDate, MatSuffix, LoadingPageComponent, FeatureLoadingPageComponent, MenuAccessChartComponent, QrGeneratorComponent],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -228,12 +228,8 @@ export class DetailsPageComponent {
     timeStringToDate(timeString: string): Date {
         const [time, period] = timeString.split(' ');
         let [hours, minutes] = time.split(':').map(Number);
-
-        // Convert to 24-hour format
         if (period === 'PM' && hours < 12) hours += 12;
         if (period === 'AM' && hours === 12) hours = 0;
-
-        // Create date with today's date but specified time
         const date = new Date();
         date.setHours(hours, minutes, 0, 0);
         return date;
@@ -241,13 +237,9 @@ export class DetailsPageComponent {
     dateToTimeString(date: Date): string {
         let hours = date.getHours();
         const minutes = date.getMinutes();
-
-        // Convert to 12-hour format
         const period = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12;
-        hours = hours || 12; // Convert 0 to 12
-
-        // Format minutes with leading zero
+        hours = hours || 12; 
         const minutesStr = minutes.toString().padStart(2, '0');
 
         return `${hours}:${minutesStr} ${period}`;

@@ -34,10 +34,7 @@ export class ItemChartComponent {
 
     private createChart(): void {
         const canvas = this.canvasRef().nativeElement;
-
-        // Process item data to get top 10
         const processedData = this.processItemData();
-
         this.chart = new Chart(canvas, {
             type: 'bar',
             data: {

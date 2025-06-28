@@ -1,11 +1,12 @@
 .raised {
-  border-color: var(--mat-sys-surface-container-lowest);
+  //border-color: var(--mat-sys-surface-container-lowest);
   background-color: var(--mat-sys-surface-container-lowest);
+  border-color: var(--mat-sys-outline-variant);
   //box-shadow: var(--mat-sys-level1);
 }
 
 .dark-theme .raised {
-  //border-color: var(--mat-sys-outline-variant);
+  border-color: var(--mat-sys-outline-variant);
 }
 
 .stroked {

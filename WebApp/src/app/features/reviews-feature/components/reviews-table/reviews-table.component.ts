@@ -42,9 +42,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {pageLoadAnimation} from "../../../../app.animations";
-import {
-    IsVisibleButtonComponent
-} from "../../../../recipes/features/table-feature/components/is-visible-button/is-visible-button.component";
+
 import {
     ItemVisibilityButtonComponent
 } from "../../../menu-feature/components/item-visibility-button/item-visibility-button.component";
@@ -113,7 +111,7 @@ interface TableReview extends MenuReviewDto {
         MatSelectTrigger,
         MatSuffix,
         ReactiveFormsModule,
-        IsVisibleButtonComponent,
+
         ItemVisibilityButtonComponent,
         ItemImageButtonComponent,
         InlinePriceInputComponent,

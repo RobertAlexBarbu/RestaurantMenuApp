@@ -3,10 +3,10 @@ using WebAPI.Infrastructure.LLM;
 
 namespace WebAPI.Infrastructure.Services.LLM.DeepSeek;
 
-public class DeepSeekLlmService : ILlmService
+public class GptLlmService : ILlmService
 {
     private readonly Kernel _kernel;
-    public DeepSeekLlmService(Kernel kernel)
+    public GptLlmService(Kernel kernel)
     {
         _kernel = kernel;
     }
@@ -16,9 +16,4 @@ public class DeepSeekLlmService : ILlmService
         var result = await _kernel.InvokePromptAsync(prompt);
         return result.ToString();
     }
-    
-
-
-
-    
 }

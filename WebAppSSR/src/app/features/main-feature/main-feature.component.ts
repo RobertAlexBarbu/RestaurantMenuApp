@@ -64,7 +64,8 @@ export class MainFeatureComponent implements AfterViewInit {
                         this.menuStoreService.setUrl(`/${data.url}`)
                     }
                 });
-        } else if (this.path == 'qr/:id') {
+        } 
+        else if (this.path == 'qr/:id') {
             this.menuService.getById(this.route.snapshot.params['id'])
                 .pipe(
                     takeUntilDestroyed(this.destroyRef)
@@ -81,11 +82,6 @@ export class MainFeatureComponent implements AfterViewInit {
                 });
         }
         afterNextRender(() => {
-            const fontLink = document.createElement('link');
-            fontLink.href = 'https://fonts.googleapis.com/css2?family=Barriecito&display=swap';
-            fontLink.rel = 'stylesheet';
-            document.head.appendChild(fontLink);
-            
             const style = document.createElement('style');
             style.textContent = `
         :root {
@@ -93,21 +89,16 @@ export class MainFeatureComponent implements AfterViewInit {
             ${this.menuStyle.themeCss}
         }
         
-body {
-  font-family: ${this.menuStyle.font}, "Helvetica Neue", sans-serif;
-}
-
-
-    `;
+        body {
+            font-family: ${this.menuStyle.font}, "Helvetica Neue", sans-serif;
+        }`;
             document.head.appendChild(style);
-            
-            // Add 'bg' class to html and body elements
-            const htmlElement = document.documentElement; // This is the <html> element
+            const htmlElement = document.documentElement; 
             const bodyElement = document.body;
-
             htmlElement.classList.add('bg');
             bodyElement.classList.add('bg');
             this.styleLoaded.set(true);
+            
             if (this.path == ':url') {
                 this.menuAnalyticsService.createMenuAccess({
                     menuId: this.menuId,

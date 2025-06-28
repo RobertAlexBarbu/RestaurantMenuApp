@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, signal} from '@angular/core';
-import {ElementCategoryService} from "../../../../core/http/services/element-category/element-category.service";
-import {TableFeatureStore} from "../../../../recipes/stores/table-feature.store";
+
 import {
     MAT_DIALOG_DATA,
     MatDialogActions,
@@ -9,7 +8,7 @@ import {
     MatDialogTitle
 } from "@angular/material/dialog";
 import {NotificationService} from "../../../../core/services/notification/notification.service";
-import {ElementCategoryDto} from "../../../../core/http/dto/element-category/element-category.dto";
+
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MenuStoreService} from "../../services/menu-store/menu-store.service";
 import {MenuCategoryService} from "../../../../core/http/services/menu-services/menu-category/menu-category.service";

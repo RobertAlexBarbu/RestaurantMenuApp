@@ -8,7 +8,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import {ToolbarComponent} from "../../shared/components/toolbar/toolbar.component";
-import {QrGeneratorComponent} from "../../recipes/components/qr-generator/qr-generator.component";
+
 import {RightSidebarComponent} from "../../shared/components/right-sidebar/right-sidebar.component";
 import {PhoneComponent} from "../../shared/components/phone/phone.component";
 import {CardComponent} from "../../shared/components/card/card.component";
@@ -17,13 +17,13 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {AppStore} from "../../core/stores/app.store";
 import {EnvironmentService} from "../../core/services/environment/environment.service";
-import {MenuService} from "../../core/http/services/menu-services/menu/menu.service";
+
 import {NotificationService} from "../../core/services/notification/notification.service";
-import {MenuAnalyticsService} from "../../core/http/services/menu-services/menu-analytics/menu-analytics.service";
+
 import {MatDialog} from "@angular/material/dialog";
 import {StylePreviewDialogComponent} from "./components/style-preview-dialog/style-preview-dialog.component";
 import {fullscreenDialogConfig} from "../../shared/configs/dialogs.config";
-import {argbFromHex, Hct, hexFromArgb, themeFromSourceColor} from "@material/material-color-utilities";
+
 import {NgxColorsComponent, NgxColorsModule} from "ngx-colors";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -37,7 +37,7 @@ import {MatListOption, MatSelectionList, MatSelectionListChange} from "@angular/
 import {FeatureLoadingPageComponent} from "../../shared/components/feature-loading-page/feature-loading-page.component";
 import {MenuStyleService} from "../../core/http/services/menu-services/menu-style/menu-style.service";
 import {ThemeCreationService} from "../../core/services/theme-creation/theme-creation.service";
-import {skip, takeUntil} from "rxjs";
+import {skip} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MenuStyleDto} from "../../core/http/dto/menu-dto/menu-style/menu-style.dto";
 
@@ -45,7 +45,7 @@ import {MenuStyleDto} from "../../core/http/dto/menu-dto/menu-style/menu-style.d
   selector: 'app-style-feature',
     imports: [
         ToolbarComponent,
-        QrGeneratorComponent,
+
         RightSidebarComponent,
         PhoneComponent,
         CardComponent,

@@ -20,7 +20,7 @@ import {
     MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable,
     MatTableDataSource
 } from "@angular/material/table";
-import {ElementCategoryDto} from "../../../../core/http/dto/element-category/element-category.dto";
+
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {map, startWith} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -40,7 +40,7 @@ import {
 } from "@angular/material/select";
 import {ImportMenuItemDto} from "../../services/menu-spreadsheet/menu-spreadsheet.service";
 import {CreateMenuCategoryDto} from "../../../../core/http/dto/menu-dto/menu-category/create-menu-category.dto";
-import {ImportElementDto} from "../../../../core/http/dto/element/import-element.dto";
+
 import {InlinePriceInputComponent} from "../inline-price-input/inline-price-input.component";
 import {ItemImageButtonComponent} from "../item-image-button/item-image-button.component";
 import {ItemVisibilityButtonComponent} from "../item-visibility-button/item-visibility-button.component";
