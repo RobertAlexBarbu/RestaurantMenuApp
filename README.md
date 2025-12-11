@@ -1,178 +1,77 @@
-# Restaurant Menu App
+# 🍽️ Web-Based CMS for Digital Restaurant Menus
 
-A full-stack restaurant menu application built with Angular frontends and .NET backend.
+A modern two-application platform that helps restaurant owners manage digital menus while offering customers a fast, interactive menu experience.
 
-## Github
+![ASP.NET Core](https://img.shields.io/badge/Backend-ASP.NET%20Core%208-512BD4?logo=dotnet&logoColor=white)
+![Angular](https://img.shields.io/badge/Frontend-Angular-DD0031?logo=angular&logoColor=white)
+![PostgreSQL](<https://img.shields.io/badge/Database-NeonDB%20(PostgreSQL)-4169E1?logo=postgresql&logoColor=white>)
+![Firebase](https://img.shields.io/badge/Auth%20%26%20Storage-Firebase-FFCA28?logo=firebase&logoColor=black)
+![OpenAI](https://img.shields.io/badge/AI-GPT--4o--mini-412991?logo=openai)
 
-https://github.com/RobertAlexBarbu/RestaurantMenuApp
+---
 
-## Project Structure
+## 📌 Overview
 
-```
-RestaurantMenuApp/
-├── WebApp/              # Angular SPA (Single Page Application)
-├── WebAppSSR/           # Angular SSR (Server-Side Rendered) Application
-├── WebAPI/              # .NET Backend API
-│   └── WebAPI/          # Main .NET project (entry point)
-└── README.md
-```
+This project consists of **two web applications** — an **Admin Application** for restaurant owners and a **Menu Application** for customers — powered by a central **ASP.NET Core** REST API and cloud services.
 
-## Prerequisites
+---
 
-Before running this application, make sure you have the following installed:
+## 🚀 Features
 
-### Required Software
+### **Admin Application (CSR - Angular)**
 
-- **Node.js** (v18 or higher) - [Download here](https://nodejs.org/)
-- **Angular CLI** - Install with: `npm install -g @angular/cli`
-- **.NET SDK** (v8.0 or higher) - [Download here](https://dotnet.microsoft.com/download)
+- 🔐 Login/Signup with **Google** or **email & password** (Firebase Auth)
+- 🧭 **2-step onboarding**: restaurant info → preferences
+- 🏡 Home dashboard:
+  - Edit restaurant name & URL
+  - Visit analytics (QR vs URL)
+  - AI-powered insights (GPT-4o-mini)
+  - Download QR codes (PNG/SVG)
+- 📋 **Menu manager**
+  - Upload/export via Excel
+  - Add/edit/remove menu items and categories (images via Firebase Storage)
+  - Reorder items & categories
+  - Separate **Drinks** and **Food** views with tables (sorting, filtering, search)
+  - Add restaurant info (Wi-Fi, contact, etc.)
+- 🎨 **Style editor**: live menu preview, change theme color & font
+- 📊 **Analytics**: Most Popular Items, Interactions by Hour, Most Popular Categories
+- ⭐ **Reviews** viewer (table of customer reviews)
 
-### Database
+---
 
-- **PostgreSQL** or **Neon Database** account for production
-- **Local database** for development (PostgreSQL/SQL Server)
+### **Menu Application (SSR - Angular Universal)**
 
-### External Services
+- ⚡ Server-Side Rendering for instant first-paint content
+- 🏠 Home screen with restaurant details
+- 🍽️ Menu screen — pick Food or Drinks
+- ❤️ Add items to favorites for later reference
+- 🤖 AI Chat — ask about dishes & get recommendations (GPT-4o-mini)
+- ⭐ Customers can submit reviews
 
-- **OpenAI API** account and API key
-- **Firebase** project with service account
+---
 
-## Configuration & Secrets
+## 🏗️ System Architecture
 
-This project requires two secret configuration files that are not included in the repository for security reasons.
+- **Admin App** (CSR) — manages content and analytics; talks to the server API.
+- **Menu App** (SSR) — fetches data server-side for fast customer experience.
+- **Server API** — ASP.NET Core REST API that validates Firebase JWTs, persists data to PostgreSQL (NeonDB), serves menu data, handles reviews and analytics, and connects to OpenAI via Semantic Kernel for AI features.
+- **Storage & Auth** — Firebase Authentication & Cloud Storage for images.
+- **DB** — NeonDB (PostgreSQL).
 
-### 1. Create `appsettings.json`
+---
 
-Create the file at `./WebAPI/WebAPI/appsettings.json` with the following structure:
+## 🛠️ Technology Stack
 
-```json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning",
-      "Microsoft.EntityFrameworkCore": "Warning"
-    }
-  },
-  "AllowedHosts": "*",
-  "ApiKeys": {
-    "OpenAI": "YOUR_OPENAI_API_KEY"
-  },
-  "ConnectionStrings": {
-    "NeonConnection": "YOUR_NEON_DB_CONNECTION_STRING",
-    "LocalConnection": "YOUR_LOCAL_CONNECTION_STRING"
-  }
-}
-```
+- **Backend:** ASP.NET Core 8 (REST API), Semantic Kernel + OpenAI connector for AI features, EF Core with Npgsql to NeonDB
+- **Frontend:** Angular 19 (CSR for Admin; SSR for Menu), Angular Material, Chart.js
+- **Cloud:** Firebase Auth & Storage, NeonDB (PostgreSQL), OpenAI (GPT-4o-mini)
 
-**How to get these values:**
+---
 
-- **OpenAI API Key**: Sign up at [OpenAI Platform](https://platform.openai.com/), go to API Keys section
-- **Neon Connection**: Create a database at [Neon](https://neon.tech/) and copy the connection string
-- **Local Connection**: Use your local PostgreSQL/SQL Server connection string
+## 🌐 Live Demo
 
-### 2. Create `firebase.json` (Backend)
+**Deployed site:** `https://your-deployed-site.example`
 
-Create the file at `./WebAPI/WebAPI/firebase.json`
+---
 
-This should be your **Firebase Service Account Key** file. To get this file:
-
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Select your project
-3. Click the gear icon → **Project Settings**
-4. Navigate to the **Service Accounts** tab
-5. Click **Generate New Private Key**
-6. Click **Generate Key** to download the JSON file
-7. Rename the downloaded file to `firebase.json` and place it in `./WebAPI/WebAPI/`
-
-### 3. Create Firebase Config Files (Frontend)
-
-Both frontend applications need Firebase configuration files:
-
-#### For Angular SPA (`WebApp`)
-
-Create the file at `./WebApp/src/app/core/firebase/firebase.config.js`:
-
-```javascript
-// Firebase configuration for WebApp
-export const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_PROJECT_ID.appspot.com',
-  messagingSenderId: 'YOUR_SENDER_ID',
-  appId: 'YOUR_APP_ID',
-};
-```
-
-#### For Angular SSR (`WebAppSSR`)
-
-Create the file at `./WebAppSSR/src/app/core/firebase/firebase.config.js`:
-
-```javascript
-// Firebase configuration for WebAppSSR
-export const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_PROJECT_ID.appspot.com',
-  messagingSenderId: 'YOUR_SENDER_ID',
-  appId: 'YOUR_APP_ID',
-};
-```
-
-**How to get Firebase Web Config:**
-
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Select your project
-3. Click the gear icon → **Project Settings**
-4. Scroll down to the **Your apps** section
-5. If you don't have a web app, click **Add app** → **Web** and follow the setup
-6. Copy the `firebaseConfig` object values into your config files
-
-> **Important**: These are different from the service account file - these are for frontend web authentication and are safe to include in client-side code.
-
-## How to Run
-
-### 1. Backend (.NET API)
-
-```bash
-# Navigate to the backend project
-cd ./WebAPI/WebAPI
-
-# Restore NuGet packages
-dotnet restore
-
-# Run the API
-dotnet run
-```
-
-### 2. Frontend - Angular SPA
-
-```bash
-# Navigate to the SPA project
-cd ./WebApp
-
-# Install dependencies
-npm install
-
-# Start the development server
-ng serve
-```
-
-The SPA will be available at `http://localhost:4200`
-
-### 3. Frontend - Angular SSR
-
-```bash
-# Navigate to the SSR project
-cd ./WebAppSSR
-
-# Install dependencies
-npm install
-
-# Build and serve the SSR app
-npm run serve:ssr:WebAppSSR
-```
-
-The SSR app will be available at `http://localhost:4300`
+## 🖼️ Screenshots
