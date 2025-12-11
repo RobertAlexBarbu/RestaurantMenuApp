@@ -8,8 +8,6 @@ A modern two-application platform that helps restaurant owners manage digital me
 ![Firebase](https://img.shields.io/badge/Auth%20%26%20Storage-Firebase-FFCA28?logo=firebase&logoColor=black)
 ![OpenAI](https://img.shields.io/badge/AI-GPT--4o--mini-412991?logo=openai)
 
----
-
 ## 📌 Overview
 
 This project consists of **two web applications** — an **Admin Application** for restaurant owners and a **Menu Application** for customers — powered by a central **ASP.NET Core** REST API and cloud services.
