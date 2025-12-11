@@ -14,8 +14,6 @@ A modern two-application platform that helps restaurant owners manage digital me
 
 This project consists of **two web applications** — an **Admin Application** for restaurant owners and a **Menu Application** for customers — powered by a central **ASP.NET Core** REST API and cloud services.
 
----
-
 ## 🚀 Features
 
 ### **Admin Application (CSR - Angular)**
@@ -37,8 +35,6 @@ This project consists of **two web applications** — an **Admin Application** f
 - 📊 **Analytics**: Most Popular Items, Interactions by Hour, Most Popular Categories
 - ⭐ **Reviews** viewer (table of customer reviews)
 
----
-
 ### **Menu Application (SSR - Angular Universal)**
 
 - ⚡ Server-Side Rendering for instant first-paint content
@@ -48,8 +44,6 @@ This project consists of **two web applications** — an **Admin Application** f
 - 🤖 AI Chat — ask about dishes & get recommendations (GPT-4o-mini)
 - ⭐ Customers can submit reviews
 
----
-
 ## 🏗️ System Architecture
 
 - **Admin App** (CSR) — manages content and analytics; talks to the server API.
@@ -58,20 +52,14 @@ This project consists of **two web applications** — an **Admin Application** f
 - **Storage & Auth** — Firebase Authentication & Cloud Storage for images.
 - **DB** — NeonDB (PostgreSQL).
 
----
-
 ## 🛠️ Technology Stack
 
 - **Backend:** ASP.NET Core 8 (REST API), Semantic Kernel + OpenAI connector for AI features, EF Core with Npgsql to NeonDB
 - **Frontend:** Angular 19 (CSR for Admin; SSR for Menu), Angular Material, Chart.js
 - **Cloud:** Firebase Auth & Storage, NeonDB (PostgreSQL), OpenAI (GPT-4o-mini)
 
----
-
 ## 🌐 Live Demo
 
-**Deployed site:** `https://your-deployed-site.example`
-
----
+**Deployed site:** `https://restaurant-menu-30.web.app/`
 
 ## 🖼️ Screenshots
