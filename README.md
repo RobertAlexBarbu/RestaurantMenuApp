@@ -37,7 +37,7 @@ This project consists of **two web applications** — an **Admin Application** f
 - 📊 **Analytics**: Most Popular Items, Interactions by Hour, Most Popular Categories
 - ⭐ **Reviews** viewer (table of customer reviews)
 
-### **Menu Application (SSR - Angular Universal)**
+### **Menu Application (SSR - Angular)**
 
 - ⚡ Server-Side Rendering for instant first-paint content
 - 🏠 Home screen with restaurant details
@@ -45,14 +45,6 @@ This project consists of **two web applications** — an **Admin Application** f
 - ❤️ Add items to favorites for later reference
 - 🤖 AI Chat — ask about dishes & get recommendations (GPT-4o-mini)
 - ⭐ Customers can submit reviews
-
-## 🏗️ System Architecture
-
-- **Admin App** (CSR) — manages content and analytics; talks to the server API.
-- **Menu App** (SSR) — fetches data server-side for fast customer experience.
-- **Server API** — ASP.NET Core REST API that validates Firebase JWTs, persists data to PostgreSQL (NeonDB), serves menu data, handles reviews and analytics, and connects to OpenAI via Semantic Kernel for AI features.
-- **Storage & Auth** — Firebase Authentication & Cloud Storage for images.
-- **DB** — NeonDB (PostgreSQL).
 
 ## 🛠️ Technology Stack
 
