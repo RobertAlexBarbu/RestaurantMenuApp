@@ -53,3 +53,28 @@ This project consists of **two web applications** — an **Admin Application** f
 - **Cloud:** Firebase Auth & Storage, NeonDB (PostgreSQL), OpenAI (GPT-4o-mini)
 
 ## 🖼️ Screenshots
+
+<details>
+<summary><strong>🧑‍💼 Admin Application (CSR)</strong></summary>
+
+![Screenshot 1](./screenshots/pic1.png)
+![Screenshot 2](./screenshots/pic2.png)
+![Screenshot 3](./screenshots/image.png)
+![Screenshot 4](./screenshots/pic4.png)
+![Screenshot 5](./screenshots/pic5.png)
+![Screenshot 6](./screenshots/pic6.png)
+![Screenshot 7](./screenshots/pic7.png)
+![Screenshot 8](./screenshots/pic8.png)
+![Screenshot 9](./screenshots/pic9.png)
+
+</details>
+
+<details>
+<summary><strong>📱 Menu Application (SSR)</strong></summary>
+
+![Screenshot 10](./screenshots/pic10.png)
+![Screenshot 11](./screenshots/pic11.png)
+![Screenshot 12](./screenshots/pic12.png)
+![Screenshot 13](./screenshots/pic13.png)
+
+</details>
